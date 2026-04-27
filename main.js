@@ -94,6 +94,31 @@
   items.forEach(function (el) { observer.observe(el); });
 })();
 
+/* ---- Process section: scroll-drawn copper line ---- */
+(function () {
+  var section  = document.querySelector('.process');
+  var lineFill = document.querySelector('.process__line-fill');
+  if (!section || !lineFill) return;
+
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    lineFill.style.strokeDashoffset = '0';
+    return;
+  }
+
+  function updateLine() {
+    var rect     = section.getBoundingClientRect();
+    var winH     = window.innerHeight;
+    // progress 0 when section top is at viewport bottom; 1 when section bottom is at viewport top
+    var progress = (winH - rect.top) / (winH + rect.height);
+    progress     = Math.max(0, Math.min(1, progress));
+    lineFill.style.strokeDashoffset = String(1200 - 1200 * progress);
+  }
+
+  window.addEventListener('scroll', updateLine, { passive: true });
+  updateLine();
+})();
+
 /* ---- Footer year ---- */
 (function () {
   var y = document.getElementById('year');
