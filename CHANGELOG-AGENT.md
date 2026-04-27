@@ -12,3 +12,4 @@
 2026-04-27 13:00 builder — iOS notch fix (viewport-fit=cover + safe-area padding on .nav + .hero) + scroll-drawn copper SVG line through Process section (per PLAN.md)
 2026-04-27 14:00 spark — Frame B: stat band copper vignette + gold rule + small-caps label; industries 01/02/03 Playfair numerals + hover rule extension; marquee tape divider (Stat→About), ref luxury editorial marquee tape (Bottega Veneta / editorial press pattern), replaced flat stat bg + SVG icons + lift-and-shadow hover
 2026-04-27 18:30 pixel — mobile font floor (13px) + footer email tap target (45px) fixed across contact labels, form labels, eyebrows, numerals, footer__small; no horizontal overflow; all tap targets pass
+2026-04-27 19:30 nigel — focus axis: trust signals, top issue: stock photography + layout-desert Candidates/Employers sections undercut the premium positioning despite cycle 1 editorial trim landing correctly
