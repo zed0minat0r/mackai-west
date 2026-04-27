@@ -1126,13 +1126,18 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     gap: 0;
     padding: 16px 24px 32px;
     border-bottom: 1px solid rgba(201, 169, 97, 0.18);
-    transform: translateY(-110%);
-    transition: transform 0.35s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    transition: opacity 0.25s ease, transform 0.35s ease, visibility 0s 0.35s;
     pointer-events: none;
   }
   .nav__links.is-open {
+    opacity: 1;
+    visibility: visible;
     transform: translateY(0);
     pointer-events: auto;
+    transition: opacity 0.25s ease, transform 0.35s ease, visibility 0s 0s;
   }
   .nav__links a {
     padding: 14px 0;
