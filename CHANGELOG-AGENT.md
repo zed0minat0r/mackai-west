@@ -14,3 +14,4 @@
 2026-04-27 18:30 pixel — mobile font floor (13px) + footer email tap target (45px) fixed across contact labels, form labels, eyebrows, numerals, footer__small; no horizontal overflow; all tap targets pass
 2026-04-27 19:30 nigel — focus axis: trust signals, top issue: stock photography + layout-desert Candidates/Employers sections undercut the premium positioning despite cycle 1 editorial trim landing correctly
 2026-04-27 20:00 coordinator — scheduled: Builder, Spark, Pixel, Nigel; focus: P1 about anchor + P2 candidates/employers backbones + P3 process visual weight; forbidden: hero, nav, stat band, marquee tape, industries, services, contact, footer
+2026-04-27 21:00 builder — about typographic anchor (MacKai/West Playfair italic + $40K stat, navy panel, zero stock photos) + process visual weight (numerals clamp 2.4-3.4rem italic, line 2.5px stroke, ghost 0.32 opacity); verified 5pos x 3 viewports; commit 627db22 (per PLAN.md)
