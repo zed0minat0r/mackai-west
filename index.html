@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="style.min.css?v=cycle2-b" />
+  <link rel="stylesheet" href="style.min.css?v=cycle2-s" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1B2D'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23C9A961' font-family='Georgia,serif' font-size='18' font-weight='600'%3EM%3C/text%3E%3C/svg%3E" />
 </head>
@@ -332,7 +332,9 @@
        ================================================ -->
   <section class="candidates" id="candidates" aria-label="For candidates">
     <div class="candidates__inner">
-      <div class="candidates__copy">
+      <div class="candidates__numeral" aria-hidden="true">01</div>
+
+      <div class="candidates__copy reveal-up">
         <p class="section-eyebrow">For candidates</p>
         <h2 class="section-title">A long career is built on the right next move.</h2>
         <p class="candidates__lede">
@@ -355,7 +357,16 @@
        ================================================ -->
   <section class="employers" id="employers" aria-label="For employers">
     <div class="employers__inner">
-      <div class="employers__copy">
+      <div class="employers__panel" aria-hidden="true">
+        <div class="employers__panel-mark">
+          <span class="employers__panel-for">For</span>
+          <span class="employers__panel-who">Employers</span>
+          <span class="employers__panel-rule"></span>
+          <span class="employers__panel-caption">Executive Search</span>
+        </div>
+      </div>
+
+      <div class="employers__copy reveal-up">
         <p class="section-eyebrow">For employers</p>
         <h2 class="section-title">When the seat is senior, the search is different.</h2>
         <p class="employers__lede">
