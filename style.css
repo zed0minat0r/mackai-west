@@ -1166,6 +1166,40 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .process__steps { grid-template-columns: 1fr; }
 
   .contact__details li { grid-template-columns: 1fr; gap: 4px; }
+
+  /* ── Mobile minimum readable font sizes (13px floor) ── */
+  .section-eyebrow,
+  .stat__eyebrow { font-size: 0.8125rem; }
+
+  .stat__label { font-size: 0.8125rem; }
+
+  .hero__eyebrow { font-size: 0.8125rem; }
+
+  .practice__num,
+  .industry__num,
+  .process-step__num,
+  .industry__roles { font-size: 0.8125rem; }
+
+  /* nav monogram stays at 34×34 circle — bump letter size only */
+  .nav__monogram { font-size: 0.8125rem; }
+
+  /* Contact detail labels */
+  .contact__label { font-size: 0.8125rem; }
+
+  /* Form labels (bare label element inside .form-group) */
+  .form-group label { font-size: 0.8125rem; }
+
+  /* Footer copyright — intentionally small but must clear 13px floor */
+  .footer__small { font-size: 0.8125rem; }
+
+  /* ── Footer email tap target ≥44px ── */
+  .footer__contact a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }
 
 /* ============================================
