@@ -28,7 +28,7 @@
   --max-w:       1240px;
   --section-pad: clamp(80px, 10vw, 140px);
   --radius:      4px;
-  --nav-h:       80px;
+  --nav-h:       96px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -166,13 +166,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
    NAV
    ============================================ */
 .nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  position: sticky;
+  top: 0;
   height: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
   z-index: 100;
   transition: background 0.35s, box-shadow 0.35s, border-color 0.35s;
-  background: transparent;
+  background: var(--navy);
   border-bottom: 1px solid transparent;
 }
 .nav.scrolled {
@@ -195,13 +195,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .nav__brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   color: var(--cream);
   font-family: var(--font-display);
   font-size: 1.18rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  line-height: 1.4;
+  line-height: 1.6;
+  padding: 12px 0;
 }
 .nav__monogram {
   display: inline-flex;
@@ -217,7 +218,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   color: var(--gold);
   letter-spacing: 0.04em;
 }
-.nav__wordmark { line-height: 1.4; padding: 4px 0; }
+.nav__wordmark { line-height: 1.6; display: inline-block; }
 
 .nav__links {
   display: flex;
@@ -276,13 +277,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
    ============================================ */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--nav-h) - env(safe-area-inset-top, 0px));
   display: flex;
   align-items: center;
   background: var(--navy);
   color: var(--cream);
   overflow: hidden;
-  padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+  padding-top: 0;
 }
 .hero__bg {
   position: absolute;
