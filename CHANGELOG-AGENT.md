@@ -7,3 +7,5 @@
 - Type: Playfair Display (display) + Inter (body)
 - No fabricated content — no fake team names, no fake testimonials, no fake addresses
 - `style.min.css` generated via `clean-css-cli`
+
+2026-04-27 12:00 coordinator — scheduled: Builder, Spark, Pixel, Nigel; focus: iOS notch logo fix + 2 distinctiveness moves (scroll-drawn process line, marquee tape); forbidden: none (cycle 1)
