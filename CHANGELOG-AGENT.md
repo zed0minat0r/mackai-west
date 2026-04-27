@@ -10,3 +10,4 @@
 
 2026-04-27 12:00 coordinator — scheduled: Builder, Spark, Pixel, Nigel; focus: iOS notch logo fix + 2 distinctiveness moves (scroll-drawn process line, marquee tape); forbidden: none (cycle 1)
 2026-04-27 13:00 builder — iOS notch fix (viewport-fit=cover + safe-area padding on .nav + .hero) + scroll-drawn copper SVG line through Process section (per PLAN.md)
+2026-04-27 14:00 spark — Frame B: stat band copper vignette + gold rule + small-caps label; industries 01/02/03 Playfair numerals + hover rule extension; marquee tape divider (Stat→About), ref luxury editorial marquee tape (Bottega Veneta / editorial press pattern), replaced flat stat bg + SVG icons + lift-and-shadow hover
