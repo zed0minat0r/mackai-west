@@ -1405,6 +1405,37 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     padding-top: 10px;
     padding-bottom: 10px;
   }
+
+  /* ── Employers panel: restore column stacking on mobile ── */
+  /* At 960px the mark switches to flex-direction:row (horizontal), which reads
+     fine on tablet. At 375–600px that collapses into a cramped single-line.
+     Restore column so "For" sits above "Employers" as an editorial mark. */
+  .employers__panel {
+    padding: clamp(28px, 7vw, 44px) clamp(20px, 6vw, 32px);
+    align-items: flex-start;
+  }
+  .employers__panel-mark {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .employers__panel-for {
+    font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+    line-height: 1.1;
+  }
+  .employers__panel-who {
+    font-size: clamp(2rem, 8.5vw, 2.8rem);
+    margin-top: 2px;
+  }
+  .employers__panel-rule {
+    flex-basis: auto;
+    width: 100%;
+    margin: clamp(10px, 2.5vw, 16px) 0 clamp(8px, 2vw, 12px);
+  }
+  /* caption "EXECUTIVE SEARCH" — decorative but must clear 13px floor */
+  .employers__panel-caption {
+    font-size: 0.8125rem; /* 13px */
+  }
 }
 
 /* ============================================
