@@ -562,33 +562,68 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   margin-bottom: 32px;
 }
 
-.about__media {
+.about__anchor {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding: clamp(40px, 5vw, 64px) clamp(36px, 4vw, 52px);
+  background: var(--navy);
+  border-radius: 6px;
   position: relative;
-  aspect-ratio: 4 / 5;
-}
-.about__photo {
-  position: absolute;
-  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 30px 60px -25px rgba(15, 27, 45, 0.35);
 }
-.about__photo:not(.about__photo--inset) {
-  inset: 0 30% 30% 0;
+.about__anchor-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.95;
+  margin-bottom: 32px;
 }
-.about__photo img { width: 100%; height: 100%; object-fit: cover; }
-.about__photo--inset {
-  bottom: 0; right: 0;
-  width: 56%; height: 50%;
-  border: 6px solid var(--paper);
+.about__anchor-line1,
+.about__anchor-line2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(3.2rem, 6vw, 6rem);
+  color: var(--gold);
+  display: block;
+  letter-spacing: -0.02em;
 }
-.about__rule {
-  position: absolute;
-  bottom: 56%;
-  left: 60%;
-  width: 1px;
-  height: 90px;
-  background: var(--gold);
-  opacity: 0.5;
+.about__anchor-line2 {
+  margin-left: clamp(1.6rem, 3vw, 3rem);
+}
+.about__anchor-rule {
+  width: 100%;
+  height: 1px;
+  background: rgba(201, 169, 97, 0.4);
+  margin-bottom: 28px;
+}
+.about__anchor-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.about__anchor-figure {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 7vw, 7rem);
+  color: var(--cream);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.about__anchor-figure sup {
+  font-size: 0.45em;
+  vertical-align: super;
+  color: var(--gold);
+}
+.about__anchor-caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201, 169, 97, 0.75);
 }
 
 /* ============================================
@@ -803,17 +838,19 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 .process-step {
   position: relative;
-  padding: 32px 0 0;
+  padding: 28px 0 0;
   border-top: 1px solid rgba(201, 169, 97, 0.32);
 }
 .process-step__num {
   display: block;
   font-family: var(--font-display);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.32em;
+  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.02em;
   color: var(--gold);
-  margin-bottom: 22px;
+  margin-bottom: 16px;
+  line-height: 1;
 }
 .process-step__title {
   font-family: var(--font-display);
@@ -844,14 +881,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 .process__line-base {
   stroke: var(--gold);
-  stroke-opacity: 0.18;
-  stroke-width: 1;
+  stroke-opacity: 0.32;
+  stroke-width: 1.5;
   fill: none;
 }
 .process__line-fill {
   stroke: var(--gold);
   stroke-opacity: 1;
-  stroke-width: 1.5;
+  stroke-width: 2.5;
   fill: none;
   stroke-dasharray: 1200;
   stroke-dashoffset: 1200;
@@ -1146,7 +1183,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .nav__links a::after { display: none; }
 
   .about__inner { grid-template-columns: 1fr; }
-  .about__media { aspect-ratio: 4 / 3; max-width: 600px; }
+  .about__anchor { max-width: 600px; }
 
   .services__grid { grid-template-columns: 1fr; }
   .industries__grid { grid-template-columns: 1fr; }
@@ -1184,8 +1221,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   .practice__num,
   .industry__num,
-  .process-step__num,
   .industry__roles { font-size: 0.8125rem; }
+  /* process-step__num intentionally large (editorial numeral) — clamp floor is ~2.4rem */
+  .process-step__num { font-size: clamp(2.4rem, 8vw, 3rem); }
 
   /* nav monogram stays at 34×34 circle — bump letter size only */
   .nav__monogram { font-size: 0.8125rem; }
