@@ -1896,9 +1896,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .form-group--float textarea:focus ~ label,
 .form-group--float textarea:not(:placeholder-shown) ~ label {
   top: 6px;
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--slate);
 }
@@ -1965,9 +1965,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: absolute;
   left: 14px;
   top: 6px;
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold-deep);
   pointer-events: none;
