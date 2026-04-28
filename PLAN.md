@@ -1,48 +1,33 @@
-# Plan — cycle 2.5: Services horizontal scroll-lock + Hero multi-layer parallax
+# PLAN.md — Builder cycle 3
 
-## Feature 1: Services horizontal scroll-lock
+**Date:** 2026-04-27
+**Scope:** TASK 1 (Candidates fix) + TASK 2 (stat count-up) + TASK 3 (magnetic underlines)
 
-**Files:** index.html, style.css, main.js
+## Files changing
 
-### index.html changes
-- Remove `.services__grid` + 2 `.practice` cards
-- Add `.services-runway` > `.services-sticky` > `.services-track` wrapper
-- Insert 2 `.service-fp` articles (sfp-1 Tax, sfp-2 F&A) with full content verbatim from existing practice cards
-- Add `.services-dots` with 2 dot buttons
-- Cache-buster → `?v=cycle2-impressive`
+- `index.html` — cache-buster `?v=cycle3-b`; wrap `40K` in `<span id="stat-count">40K</span>` inside `.stat__number` for JS targeting
+- `style.css` — 4 targeted edits:
+  1. `.reveal-up` keep as-is; fix is JS-side: lower threshold from 0.12 → 0.05 + add rootMargin "0px 0px -5% 0px" so heading fires earlier
+  2. `.candidates__numeral` — add right border copper hairline to visually connect numeral column to copy column
+  3. `.stat__plus` — add `opacity: 0; transition: opacity 0.4s 0.2s ease-out;` + `.stat__number.is-counted .stat__plus { opacity: 1; }`
+  4. `.nav__links a::after` + `.footer__nav a` — update transform to include `translateX(var(--mag-x, 0px))` on hover
+- `main.js` — 2 new IIFEs appended:
+  1. Stat count-up: IntersectionObserver on `.stat__number`, rAF loop 0→40, formats `$XK`, applies `.is-counted` after done; prefers-reduced-motion guard
+  2. Magnetic underlines: mousemove on nav + footer links, `--mag-x` CSS var ±6px clamped; bail on touch devices via `'ontouchstart' in window`
+- `style.min.css` — regenerated after CSS edits
 
-### style.css changes
-- Add: `.services-runway { position: relative; height: 240vh; }`
-- Add: `.services-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }`
-- Add: `.services-track { display: flex; flex-direction: row; height: 100%; width: max-content; will-change: transform; }`
-- Add: `.service-fp { flex: 0 0 100vw; height: 100%; ... }`
-- Panel 1 (cream bg), Panel 2 (navy bg + cream text)
-- Dots: absolute, bottom 32px, centered
-- Mobile: keep row layout, shrink typography — NO column flip
+## Expected diff scope
 
-### main.js changes
-- Add services scroll-lock IIFE (from salon-site pattern, SLIDE_FRAC=0.85, 2 panels)
-- Add hero parallax IIFE (3 layers, rates 0.15/0.35/0.55, reduced-motion guard)
+- style.css: ~20 lines changed/added
+- main.js: ~65 lines added
+- index.html: 3 lines (cache-buster + stat span id + JS threshold tweak is JS-side)
 
-## Feature 2: Hero multi-layer parallax
+## Success criterion
 
-### index.html changes
-- Split existing hero SVG into 3 `<div class="hero__skyline hero__skyline--back/mid/front">` wrappers
-- Each gets `data-parallax-rate` attribute
-
-### style.css changes
-- `.hero__skyline--back/mid/front`: position absolute, bottom 0, full width, pointer-events none
-- Different opacity per layer (back: 0.45, mid: 0.65, front: 0.85)
-
-## Success criteria
-- Desktop 1440: track translates 0 → -100vw as user scrolls through runway
-- iPhone 13 + SE: same scroll-lock behavior (no matchMedia bail)
-- Hero layers move at 3 different rates
-- No horizontal overflow at any scroll position
+- Candidates heading visible at first viewport entry (fires at 5% threshold + earlier rootMargin)
+- Numeral "01" visually anchored to right column via hairline border-right
+- Count-up fires once on stat band entry; `+` fades in via `.is-counted`
+- Nav/footer links show magnetic translateX shift on hover (--mag-x non-zero on mousemove)
+- Touch devices: no JS attached to magnetic underline
+- prefers-reduced-motion: count-up skipped (shows $40K+ immediately)
 - style.min.css regenerated
-
-## Diff scope
-- index.html: ~80 lines changed (services section replaced, hero split)
-- style.css: ~120 lines added
-- main.js: ~80 lines added
-- style.min.css: regenerated
