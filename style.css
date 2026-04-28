@@ -2541,7 +2541,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   .about__inner { grid-template-columns: 1fr; }
   .about__pillars { max-width: 640px; flex-grow: 0; }
-  .about__placeholder { flex-grow: 0; min-height: 180px; }
+  .about__placeholder { display: none; }
 
   .services__grid { grid-template-columns: 1fr; }
   .industries__grid { grid-template-columns: 1fr; }
