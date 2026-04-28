@@ -1727,8 +1727,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .process__steps {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(20px, 2.5vw, 36px);
+  /* B1: 2x2 grid on desktop — steps 01+02 top row, 03+04 bottom row */
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(40px, 4vw, 64px) clamp(32px, 3vw, 48px);
   counter-reset: step;
   padding: 0;
   margin: 0;
@@ -1738,6 +1739,15 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: relative;
   padding: 28px 0 0;
   border-top: 1px solid rgba(201, 169, 97, 0.32);
+  border-left: 3px solid transparent;
+  padding-left: clamp(16px, 2vw, 24px);
+  transition: border-top-color 0.4s ease, border-left-color 0.4s ease;
+}
+
+/* B3: Active step card — gold top + left accent when marker activates */
+.process-step.is-active {
+  border-top-color: var(--gold);
+  border-left-color: var(--gold-soft);
 }
 .process-step__num {
   display: block;
@@ -1838,7 +1848,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: 0.8125rem; /* 13px floor */
+  font-size: 0.8125rem; /* 13px floor — do not go below */
   letter-spacing: 0.02em;
   color: rgba(201, 169, 97, 0.35);
   background: var(--navy);
@@ -1848,9 +1858,40 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   white-space: nowrap;
   z-index: 3;
 }
+
+/* B2: Ring halo behind marker numeral */
+.process__journey-marker::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: transparent;
+  opacity: 0.25;
+  z-index: -1;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 .process__journey-marker.is-active {
   color: var(--gold);
   text-shadow: 0 0 8px rgba(201, 169, 97, 0.5);
+}
+
+/* Active ring: larger, full opacity, gold glow */
+.process__journey-marker.is-active::before {
+  width: 22px;
+  height: 22px;
+  border-width: 1.5px;
+  opacity: 1;
+  box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.18);
 }
 
 /* ============================================

@@ -102,7 +102,8 @@
   var svg      = document.querySelector('.process__journey-svg');
   var baseLine = document.querySelector('.process__journey-base');
   var fillLine = document.querySelector('.process__journey-fill');
-  var markers  = document.querySelectorAll('.process__journey-marker');
+  var markers   = document.querySelectorAll('.process__journey-marker');
+  var stepCards = document.querySelectorAll('.process-step');
   var stepsEl  = document.querySelector('.process__steps');
   var innerEl  = document.querySelector('.process__inner');
 
@@ -142,7 +143,10 @@
 
     if (reducedMotion) {
       fillLine.style.strokeDashoffset = '0';
-      markers.forEach(function (m) { m.classList.add('is-active'); });
+      markers.forEach(function (m, i) {
+        m.classList.add('is-active');
+        if (stepCards[i]) { stepCards[i].classList.add('is-active'); }
+      });
     } else {
       update();
     }
@@ -167,12 +171,13 @@
     /* Fill line: dashoffset interpolates smoothly via CSS transition */
     fillLine.style.strokeDashoffset = String(LINE_LEN - LINE_LEN * progress);
 
-    /* Activate markers based on progress crossing each threshold */
+    /* Activate markers based on progress crossing each threshold.
+       B3: also sync .is-active to matching .process-step card. */
     markers.forEach(function (m, i) {
-      if (progress >= MARKER_THRESHOLDS[i]) {
-        m.classList.add('is-active');
-      } else {
-        m.classList.remove('is-active');
+      var active = progress >= MARKER_THRESHOLDS[i];
+      m.classList.toggle('is-active', active);
+      if (stepCards[i]) {
+        stepCards[i].classList.toggle('is-active', active);
       }
     });
   }
