@@ -1,0 +1,62 @@
+{
+  "P1": {
+    "pass": false,
+    "detail": [
+      "iPhone13 approach A (scrollIntoView): \"19K\"",
+      "iPhone13 approach B (fast scroll): \"40K\"",
+      "iPhone13 approach C (slow scroll): \"40K\"",
+      "iPhoneSE approach A (scrollIntoView): \"19K\"",
+      "iPhoneSE approach B (fast scroll): \"40K\"",
+      "iPhoneSE approach C (slow scroll): \"40K\""
+    ]
+  },
+  "P2": {
+    "pass": true,
+    "detail": [
+      "pos 5%: 1 of 2 panels >80% visible",
+      "pos 25%: 0 of 2 panels >80% visible",
+      "pos 50%: 1 of 2 panels >80% visible",
+      "pos 75%: 1 of 2 panels >80% visible",
+      "pos 95%: 1 of 2 panels >80% visible"
+    ]
+  },
+  "P3": {
+    "pass": false,
+    "detail": [
+      "Desktop mesh width: 460px (expect ~460px)",
+      "Desktop mesh animation: none",
+      "iPhone13 mesh width: 140px (expect 140-200px)",
+      "iPhone13 mesh animation: none",
+      "iPhone13 headline/mesh overlap area: undefinedpx² (expect <1000)",
+      "  => FAIL: mesh overlaps headline excessively",
+      "iPhoneSE mesh width: 140px (expect 140-200px)",
+      "iPhoneSE mesh line animation: edge-shimmer"
+    ]
+  },
+  "P4": {
+    "pass": true,
+    "detail": [
+      "375px: no horizontal overflow",
+      "375px: all tap targets OK",
+      "414px: no horizontal overflow",
+      "414px: all tap targets OK"
+    ]
+  },
+  "P5": {
+    "pass": false,
+    "detail": [
+      "hero: screenshot captured",
+      "stat-band: screenshot captured",
+      "marquee: ERROR - page.$eval: Failed to find element matching selector \".marquee\"",
+      "about: screenshot captured",
+      "services: screenshot captured",
+      "industries: screenshot captured",
+      "process: screenshot captured",
+      "candidates: screenshot captured",
+      "employers: screenshot captured",
+      "contact: screenshot captured",
+      "footer: screenshot captured",
+      "services mid-runway: screenshot captured"
+    ]
+  }
+}
