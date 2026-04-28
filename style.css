@@ -2856,3 +2856,46 @@ body[data-bg="navy"]   { background-color: #0F1B2D; }
 body[data-bg="cream"]  { background-color: #F5F0E6; }
 body[data-bg="cream-2"] { background-color: #EDE8D8; }
 body[data-bg="ink"]    { background-color: #0A1220; }
+
+/* ============================================
+   FEATURE: LINE-MASK HEADING REVEAL
+   SplitType wraps each H2 .section-title line in
+   .reveal-line (overflow:hidden) > .reveal-line__inner
+   (translateY 110% → 0). IntersectionObserver at
+   threshold 0.4 adds .is-revealed to the H2 parent.
+   prefers-reduced-motion: no transform, instant show.
+   ============================================ */
+.section-title .reveal-line {
+  overflow: hidden;
+  display: block;
+}
+.section-title .reveal-line__inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.section-title.is-revealed .reveal-line__inner {
+  transform: translateY(0);
+}
+/* Stagger: SplitType injects --i via JS; fallback nth-child for safety */
+.section-title .reveal-line:nth-child(2) .reveal-line__inner { transition-delay: 0.08s; }
+.section-title .reveal-line:nth-child(3) .reveal-line__inner { transition-delay: 0.16s; }
+.section-title .reveal-line:nth-child(4) .reveal-line__inner { transition-delay: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .section-title .reveal-line__inner {
+    transition: none;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   FEATURE: TEXT SCRAMBLE DECODE
+   .scramble-char spans injected by TextScramble
+   during randomise phase — gold colour before lock.
+   ============================================ */
+.scramble-char {
+  color: var(--gold);
+  opacity: 0.85;
+}

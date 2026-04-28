@@ -795,6 +795,156 @@
 })();
 
 /* ============================================
+   TEXT SCRAMBLE CLASS
+   Scrambles H2 through random A-Z chars before
+   locking to final text. Scramble chars render in
+   var(--gold) via .scramble-char span.
+   ============================================ */
+function TextScramble(el) {
+  this.el     = el;
+  this.glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  this.queue  = [];
+  this.frame  = 0;
+  this.frameReq = null;
+  var self = this;
+  this.update = function () {
+    var output = '';
+    var done   = 0;
+    self.queue.forEach(function (item) {
+      if (self.frame >= item.end) {
+        done++;
+        output += item.to;
+      } else if (self.frame >= item.start) {
+        if (!item.char || Math.random() < 0.28) {
+          item.char = self.glyphs[Math.floor(Math.random() * self.glyphs.length)];
+        }
+        output += '<span class="scramble-char">' + item.char + '</span>';
+      } else {
+        output += item.from;
+      }
+    });
+    self.el.innerHTML = output;
+    if (done === self.queue.length) {
+      if (self.resolve) self.resolve();
+    } else {
+      self.frameReq = requestAnimationFrame(self.update);
+      self.frame++;
+    }
+  };
+}
+
+TextScramble.prototype.setText = function (newText) {
+  var self    = this;
+  var oldText = this.el.innerText || '';
+  var length  = Math.max(oldText.length, newText.length);
+  cancelAnimationFrame(this.frameReq);
+  this.frame = 0;
+  this.queue = Array.from({ length: length }, function (_, i) {
+    return {
+      from:  oldText[i] || '',
+      to:    newText[i] || '',
+      start: Math.floor(i * 0.6),
+      end:   Math.floor(i * 0.6) + 12,
+      char:  ''
+    };
+  });
+  return new Promise(function (resolve) {
+    self.resolve = resolve;
+    self.update();
+  });
+};
+
+/* ============================================
+   LINE-MASK HEADING REVEAL + TEXT SCRAMBLE COMPOSE
+   Applies to all .section-title H2s (7 headings).
+   Hero .hero__title is skipped (already has word-fade).
+   SplitType splits each H2 into .reveal-line wrappers.
+   IntersectionObserver at threshold 0.4 fires:
+     1. .is-revealed class → CSS translateY(110%→0) per line
+     2. TextScramble runs on each .reveal-line__inner span
+   They run simultaneously — scramble chars visible inside rising line.
+   prefers-reduced-motion: instant reveal, no scramble.
+   ============================================ */
+(function () {
+  var headings = document.querySelectorAll('.section-title');
+  if (!headings.length) return;
+
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reducedMotion) {
+    headings.forEach(function (h) { h.classList.add('is-revealed'); });
+    return;
+  }
+
+  /* --- 1. Build line-mask DOM structure --- */
+  function wrapSingleLine(h) {
+    var wrapper = document.createElement('span');
+    wrapper.className = 'reveal-line';
+    wrapper.style.setProperty('--i', '0');
+    var inner = document.createElement('span');
+    inner.className = 'reveal-line__inner';
+    while (h.firstChild) inner.appendChild(h.firstChild);
+    wrapper.appendChild(inner);
+    h.appendChild(wrapper);
+  }
+
+  /* Store original plain text per inner span (for scramble) */
+  var innerSpans = new Map(); /* heading → array of {span, text} */
+
+  if (window.SplitType) {
+    headings.forEach(function (h) {
+      try {
+        var st = new SplitType(h, { types: 'lines', lineClass: 'reveal-line' });
+        var lineEls = st.lines || h.querySelectorAll('.reveal-line');
+        var spans = [];
+        lineEls.forEach(function (line, idx) {
+          /* SplitType already moved text into .reveal-line; wrap in inner */
+          var inner = document.createElement('span');
+          inner.className = 'reveal-line__inner';
+          while (line.firstChild) inner.appendChild(line.firstChild);
+          line.appendChild(inner);
+          line.style.setProperty('--i', idx);
+          spans.push({ el: inner, text: inner.textContent.replace(/\s+/g, ' ').trim() });
+        });
+        innerSpans.set(h, spans);
+      } catch (e) {
+        wrapSingleLine(h);
+        var inner = h.querySelector('.reveal-line__inner');
+        if (inner) innerSpans.set(h, [{ el: inner, text: inner.textContent.replace(/\s+/g, ' ').trim() }]);
+      }
+    });
+  } else {
+    /* SplitType not available: single-line wrap */
+    headings.forEach(function (h) {
+      wrapSingleLine(h);
+      var inner = h.querySelector('.reveal-line__inner');
+      if (inner) innerSpans.set(h, [{ el: inner, text: inner.textContent.replace(/\s+/g, ' ').trim() }]);
+    });
+  }
+
+  /* --- 2. IntersectionObserver: fire reveal + scramble --- */
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var heading = entry.target;
+      observer.unobserve(heading);
+
+      /* Line-mask reveal: CSS drives translateY via is-revealed */
+      heading.classList.add('is-revealed');
+
+      /* Scramble each inner span */
+      var spans = innerSpans.get(heading) || [];
+      spans.forEach(function (item) {
+        var scrambler = new TextScramble(item.el);
+        scrambler.setText(item.text);
+      });
+    });
+  }, { threshold: 0.4 });
+
+  headings.forEach(function (h) { observer.observe(h); });
+})();
+
+/* ============================================
    SECTION BG COLOR SHIFT ON SCROLL
    IntersectionObserver fires when each section
    crosses viewport center (rootMargin -45%).
