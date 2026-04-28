@@ -1,26 +1,26 @@
 # MacKai West — Audit Report
 
-## Cycle 5 Score: 7.3 / 10 (Delta: +0.2 from 7.1)
+## Cycle 6 Score: 7.4 / 10 (Delta: +0.1 from 7.3)
 
-**Summary:** Cycle 5 closed the two worst-offending defects — stat count-up now starts correctly at 0K and completes cleanly, and the services scroll-lock double-headline at 375px is eliminated — while the amplified hero mesh, vertex-pulse, and edge-shimmer give the hero genuine presence at desktop scale. The site sits just below the 7.5 cap. The cap is being held by the right reasons: no real photography, no verifiable office location, no testimonials. Those three items landing simultaneously would cleanly carry the score to 7.7–7.8 under the current cap rule — the design infrastructure is now ready for real content.
-
----
-
-## Axis: Conversion Friction
-
-Audit lens: could a hiring leader or senior candidate arrive, understand the value proposition in 90 seconds, and find a credible path to contact — without confusion, dead ends, or broken interactions?
+**Summary:** Cycle 6 delivered the sticky mobile CTA correctly — IntersectionObserver-driven, 48px tap targets, hides at hero and contact, zero overflow — and added process step fade-up reveal with soft-spring easing. Both features are verified working. The score moves +0.1 (not the full +0.2 possible) because a label font-size regression persists at 10.88px on mobile despite Pixel's claimed fix, and the process step stagger at 420ms total is too compressed to read as a distinct design beat at desktop. The cap holds at 7.5. Nothing in cycle 6 warrants lifting it.
 
 ---
 
-## What Landed This Cycle (Cycle 5 commits)
+## Axis: Mobile Conversion Completeness
 
-**86b72c8 coordinator cycle 5 plan** — Plan correctly prioritised the three verified Nigel defects from cycle 4 as the cycle's only mandate. No scope creep.
+Audit lens: on a 375px device, can a senior hiring leader or candidate understand the value proposition and initiate contact without hitting friction, dead ends, or broken interactions in a 90-second scroll?
 
-**74aa3c4 builder cycle 5** — IntersectionObserver threshold raised 0.6 → 0.95 resolves the mid-count fire defect. Playwright confirms: stat starts at "0K" and completes at "40K" on all three viewports when user scrolls naturally through the section. The services SLIDE_FRAC 0.85 → 0.92 with overflow:hidden on .service-fp__inner eliminates the simultaneous dual-headline condition at 375px. Hero mesh clamp raised to 460px desktop with vertex-pulse on 6 vertices (staggered 0–3.5s delays).
+---
 
-**e31d7ed spark cycle 5** — Vertex-pulse refined to a 3-stop organic dwell pattern rather than a sharp bell curve, giving the mesh animation natural breath rather than mechanical pulsing. Edge-shimmer on 12 lines at 8s/0.65s stagger adds genuine depth. The mesh::before radial gold glow and footer progress gradient falloff are restrained finishing touches.
+## What Landed This Cycle (Cycle 6 commits)
 
-**35374e3 pixel cycle 5** — Verified all three P1/P2/P3 fixes passing. Mobile alignment clean at 375 and 414. No overflow anywhere.
+**63fef92 coordinator cycle 6 plan** — Plan correctly scoped to P1 sticky mobile CTA + P2 process step reveal + P3 contact line. No scope creep.
+
+**0ea9bc3 builder cycle 6** — Sticky CTA bar: IntersectionObserver on `.hero__actions` and `#contact`, 48px tap targets, `safe-area-inset` bottom padding, hidden/visible toggle with 350ms transition guard. Process steps: 4-step IntersectionObserver at threshold 0.15 with `--i` CSS custom property for stagger delays (0/140/280/420ms). Contact label "Office" → "Reach", copy "Headquartered in the United States" → "Searches handled across the United States". Playwright: all checks PASS across 3 viewports.
+
+**cf999e6 spark cycle 6** — Sticky CTA gold ghost border at rgba(201,169,97,0.45) replacing cream, hairline box-shadow above bar, `cubic-bezier(0.4,0,0.2,1)` entrance curve, letter-spacing tightened to 0.06em. Process step easing: `cubic-bezier(0.16,1,0.3,1)` soft-spring. These are legitimate refinements, not additions-on-additions.
+
+**1ccd18d pixel cycle 6** — Floating label font floor: 0.68rem → 0.82rem claimed for both float and select states. Verified in `style.css`: both `.form-group--float` floated state and `.form-group--select label` now read `font-size: 0.82rem`. However, the pixel audit JSON still reports one `LABEL` element at 10.88px on both iPhone 13 and SE — 10.88px = exactly 0.68rem × 16px, meaning a third label instance was not patched.
 
 ---
 
@@ -28,75 +28,79 @@ Audit lens: could a hiring leader or senior candidate arrive, understand the val
 
 | Section | Score | Notes |
 |---|---|---|
-| Hero (desktop) | 8.0 | Mesh at 460px with vertex-pulse is distinctive; rotation + edge-shimmer read as structural rather than decorative |
-| Hero (mobile) | 7.2 | Mesh visible at 140px; tasteful restraint. The hero text-stack works at 375 |
-| Stat band | 7.5 | Count-up now verified clean — starts 0K, lands 40K. Gold vignette holds up |
-| About | 7.5 | Two-column editorial with Roman-numeral pillars reads as considered, not generic |
-| Services | 7.8 | Horizontal scroll-lock working at all three viewports; SLIDE_FRAC fix confirmed no double-headline at 375 |
-| Industries | 7.2 | 3D card-flip conceptually good; on desktop the flip-back content is cleanly accessible; on mobile the toggle works |
-| Process | 7.0 | Scroll-drawn copper line is the right idea; 4-column layout at desktop is clean; section feels slightly static compared to surrounding sections |
-| Candidates | 6.8 | Cream wash + oversized "01" numeral + bullet structure is the right move. Conversion friction: the CTA anchors to #contact which is correct, but no mid-page friction relief — a candidate landing here has no email as fallback |
-| Employers | 7.2 | "For Employers" navy panel with stacked italic mark is the cycle 2 editorial win that still holds. Copy is appropriately senior-addressed |
-| Contact | 7.0 | Floating labels, send choreography, confidentiality note all land. The form's mailto-fallback is honest. "Office: Headquartered in the United States" reads as a placeholder not a trust signal — this is the single largest remaining conversion-friction item |
-| Footer | 7.3 | Letter-stagger wordmark reveal, scroll-progress gold rule, gradient falloff — all working. Stacked mobile layout is clean |
+| Hero (desktop) | 8.0 | Unchanged from cycle 5. Mesh + vertex-pulse + edge-shimmer hold. |
+| Hero (mobile) | 7.2 | Unchanged. |
+| Stat band | 7.5 | Count-up clean. Gold vignette holds. |
+| About | 7.5 | Two-column editorial, Roman-numeral pillars. Unchanged and working. |
+| Services | 7.8 | Horizontal scroll-lock verified PASS. No regression. |
+| Industries | 7.2 | 3D card flip working. Spark's slide-up navy expand panel is the cycle 3 win that still reads well. |
+| Process | 7.2 | +0.2 from cycle 5. Step fade-up reveal fires correctly; soft-spring ease gives each step a distinct arrival. Stagger at 420ms total is compressed — at desktop all 4 steps fire within under half a second, which reduces the perceived sequence. Still: this is a material improvement from flat-static. |
+| Candidates | 6.8 | No change. Cream wash and copper border hold. The numeral/mobile anchor issue from cycle 5 was not in cycle 6 scope. |
+| Employers | 7.2 | Navy panel with italic mark. No change. |
+| Contact | 7.1 | +0.1. "Reach: Searches handled across the United States" is a small trust improvement over "Office: Headquartered in the United States" — it changes a placeholder-sounding label to a factual statement of reach. Does not add a trust accelerator, just removes the most deflating string. |
+| Footer | 7.3 | Letter-stagger, scroll-progress rule unchanged and working. |
 
 ---
 
-## Conversion Friction Assessment
+## Mobile Conversion Assessment (Cycle 6 lens)
 
-**Desktop (1440px):** Low friction path exists. Nav CTA "Submit a search" is always visible. Both hero CTAs are prominent. The employer and candidate sections each have a dedicated primary button. The form is accessible with proper labels. Time-to-contact understanding: under 15 seconds.
+**Sticky CTA — verified working.** On iPhone 13 and SE: bar is hidden at scrollY=0 (hero in view), becomes visible at scrollY=900 (past hero), hides again when contact section enters viewport. Tap targets both 48px × 168–175px. No horizontal overflow introduced. This is a genuine conversion-path improvement — the 12-screen-height scroll distance from hero CTA to form now has a persistent re-entry point.
 
-**Mobile iPhone 13 / SE (375px):** Nav CTA collapses to hamburger — correct, expected. Hero CTAs remain prominent. The form stacks correctly. Friction point: the mobile contact section shows the form below the intro text but the scroll distance from hero CTA to form completion is significant on a 375px device — roughly 12 full-screen lengths. No sticky CTA on mobile to reduce drop-off. This is the principal untapped conversion-friction opportunity.
+**One friction remaining that the sticky CTA exposes:** the "Submit a resume" button in the sticky bar links to `#candidates`, not directly to `#contact`. A candidate tapping "Submit a resume" on mobile is taken to the Candidates section, not the form. They must then scroll further or find the section CTA. This is a minor anchor mismatch but it adds one additional step on mobile.
 
-**Form itself:** All fields properly labelled. Required fields marked. The mailto fallback is the honest solution pre-endpoint. The "Send" button choreography (spinner → checkmark → success) is polished. No friction blocking form entry.
+**Process step reveal — functional, but compressed.** 420ms total stagger across 4 steps. A real user scrolling at normal speed through the section may see 2–3 steps fire simultaneously rather than sequentially, because IntersectionObserver fires all steps that entered viewport in a single tick when scrolling fast. The visual beat is present but subtle, not distinctive.
 
-**Trust gap — the remaining 0.2 points:** "Headquartered in the United States · Searches handled nationally" reads as a placeholder. A hiring leader evaluating a $40K search commitment needs something more grounding. No testimonials, no LinkedIn, no city. These are acknowledged cap items — not agent failures.
+**Label font regression persists.** Despite Pixel's claimed fix, the audit JSON reports one `LABEL` element still at 10.88px (0.68rem) on both mobile viewports. The fix patched the floated-state and select label in `style.css`, but a third instance — likely the plain `form-group label` in a non-float group — was not addressed. 10.88px is below the 13px mobile floor.
+
+**No new trust accelerator landed.** Cycle 5 identified the contact section as the terminal conversion point with no trust signal. Cycle 6 improved the copy string but did not add a response-time badge, a phone-on-request line, or any other grounding element. The contact section still reads as honest-but-bare.
 
 ---
 
 ## What Works (5 bullets)
 
-- **Hero mesh at desktop scale** — The 460px amplified mesh with organic vertex-pulse and edge-shimmer reads as a genuine design identity, not a stock animation. At 1440px it anchors the hero without competing with the copy.
-- **Services horizontal scroll-lock** — The two-panel fullscreen experience works correctly at all three viewports now. The SLIDE_FRAC fix gives the first panel proper dwell time; the dot navigation advances cleanly. This is the site's most ambitious interaction and it is working.
-- **Brand voice consistency** — Copy throughout uses the same measured, confident register. "Narrow is what makes the placement stick" / "not a stack of nearly-rights" / "the searches that don't close themselves" all reinforce the positioning without inventing credentials.
-- **Process section** — Four stages, scroll-drawn copper line, navy background. The section gives hiring leaders a clear mental model of the engagement. "We replace the placement if it doesn't take" is the strongest trust signal on the page that doesn't require real data.
-- **No horizontal overflow, correct tap targets** — Pixel's verification holds. 375px shows zero overflow. Buttons ≥44px. Mobile text at readable size throughout.
+- **Sticky mobile CTA** — The IntersectionObserver implementation is clean. Hero exit triggers display, contact entry suppresses it. The bar entrance uses `cubic-bezier(0.4,0,0.2,1)` and slides up 80px cleanly. The 48px tap targets meet the mobile floor. This is the highest-impact conversion-path addition cycle 6 could have made without real content.
+- **Process section upgrade** — Stepping from a fully static 4-column layout to a staggered fade-up reveal gives the Process section an interaction identity for the first time. The soft-spring ease on each step arrival reads as considered rather than mechanical.
+- **Contact copy is now honest and active** — "Searches handled across the United States" is a factual, present-tense statement of reach, not a corporate HQ placeholder. It removes the single most trust-deflating string in the terminal conversion section.
+- **No overflow regression** — Sticky CTA bar introduced a new fixed-position layer. No horizontal overflow appeared at any scroll position across all three viewports. The `safe-area-inset` padding is correctly applied.
+- **Design system coherence** — Gold ghost border on the sticky CTA matches the site's existing palette register. The hairline box-shadow above the bar reads as a deliberate material edge, not a bolt-on addition.
 
 ---
 
-## What's Still Off (5 bullets — even at the cap, these would push higher if cap lifted)
+## What's Still Off (5 bullets)
 
-- **No real address** — "Headquartered in the United States" is the most trust-deflating string in the contact section. A CFO evaluating a $40K search commitment cross-references the firm online. A city at minimum, a LinkedIn company page URL, or a phone number would close the gap faster than any design improvement possible this cycle.
-- **No sticky mobile CTA** — On iPhone SE, the scroll distance from hero to form is approximately 12 full-screen heights. There is no persistent "Submit a search" button on mobile scroll. A slim fixed bar or floating button on mobile would materially reduce drop-off.
-- **Process section is the scroll experience gap** — Every other section has a distinctive interaction: horizontal scroll-lock, 3D card flip, vertex-pulse mesh, letter stagger, pillar stagger. The Process section has only the scroll-drawn copper line, which is tasteful but passive. A hiring leader pausing here has nothing to engage with.
-- **Candidates section below-the-fold problem on mobile** — The "01" numeral is outside the viewport on mobile when the section is scrolled to. The section reveal relies on scroll-up animation which works, but the numeral loses its editorial anchor function at 375px because it renders above the visible fold before the copy arrives.
-- **Contact form on mobile requires the full journey** — No email-first quick-contact option exists. A senior candidate who wants to make a discreet inquiry on mobile faces a multi-field form. A "Send us a note" mailto link before the form would lower the entry bar without replacing the form.
+- **Label font regression not fully resolved** — One `LABEL` element still reads 10.88px on iPhone 13 and SE. Pixel patched two of three instances in `style.css`. The uncorrected instance is the non-float `form-group label` rule (`.form-group label`), which was not part of the cycle 6 patch.
+- **Sticky CTA "Submit a resume" links to #candidates, not #contact** — A candidate tapping the ghost button on mobile is routed to the Candidates section, requiring a second navigation action to reach the form. The employer button correctly links to #contact. This asymmetry creates a slightly worse conversion path for candidates on mobile.
+- **Process stagger too compressed at desktop** — 0/140/280/420ms means all 4 steps fire in under half a second. On a fast desktop scroll through the section, steps 2–4 often enter the viewport in the same frame as step 1, collapsing the stagger. Extending the stagger to 0/300/600/900ms and raising the threshold slightly would make the sequence perceptible.
+- **No contact trust accelerator** — The contact section's conversion intent is: a $40K decision-maker must feel confident enough to type their details. "Searches handled across the United States" and "Mon–Fri, 8a–6p ET" are correct but sparse. No response-time commitment, no phone-on-request option, no social proof.
+- **Cap conditions unchanged** — No real photography, no verified testimonials, no published office address. The three cap conditions that would lift the ceiling to 7.7–7.8 are all user-side content. Design cannot substitute for them.
 
 ---
 
 ## Cap Assessment
 
-The site sits **just below the 7.5 cap** at 7.3. The 0.2 remaining gap to the cap is a fair reflection of the placeholder office situation and the absence of any third-party trust signal. The cap is not a design ceiling — it is a content ceiling. If real photography, verified testimonials, and a real office address landed simultaneously in one cycle, the design infrastructure is now in a position to carry a score of **7.7–7.8** cleanly. Nothing in the current design would need to be undone to absorb that content.
+The site sits at **7.4**, one-tenth below the 7.5 cap. The +0.1 delta reflects a genuine, verified conversion-path improvement (sticky CTA), a modest interaction upgrade (process reveal), and a copy improvement in the contact section. The cap is not being gamed — the single-tenth gain is appropriate given that the label regression was not fully resolved and the process stagger is too compressed to achieve its full effect.
+
+If the three cap-lifting conditions (real photography, verified testimonials, verified office address) landed simultaneously, the design infrastructure is ready to support a score of **7.7–7.8**. No existing design element would need to be removed to absorb that content.
 
 ---
 
-## Cycle 6 Top-3 Priorities (Ranked)
+## Cycle 7 Top-3 Priorities (Ranked)
 
-### P1 — Sticky mobile CTA
-**What:** A slim fixed bar at the bottom of the mobile viewport (375–768px) that shows "Submit a search" and "Submit a resume" as compact buttons, visible only after the hero CTAs scroll out of view.
-**Acceptance criteria:** Bar appears after scrollY passes hero bottom on mobile. Does not obstruct content. Disappears when the contact form is in view. Tap target ≥44px. Zero horizontal overflow introduced. Verified at 375, 390, 414 all three viewports.
-**Why P1:** This is the highest-leverage conversion-friction fix available without real content. Every other CTA bottleneck requires user-supplied data.
+### P1 — Resolve the remaining label font regression + sticky CTA anchor fix
+**What:** (a) Find and fix the third `LABEL` instance still rendering at 10.88px — likely the `.form-group label` base rule (around line 1803 in `style.css`). Bring it to `0.82rem` minimum. Regenerate `style.min.css`. (b) Change the sticky CTA "Submit a resume" `href` from `#candidates` to `#contact` — a candidate tapping that button on mobile should land at the form, not a mid-page section requiring a second action.
+**Acceptance criteria:** Pixel audit reports zero `LABEL` elements below 13px on both iPhone 13 and SE. Sticky CTA "Submit a resume" button routes to `#contact`. Verified via Playwright.
+**Why P1:** A font floor violation and a broken candidate conversion path are correctness failures, not design improvements. They ship as regressions on a verified checklist.
 
-### P2 — Process section interactive depth
-**What:** Add a scroll-triggered or hover interaction to each process step — e.g., step number counts up / expands with a supporting micro-detail line when the step enters the viewport, or a timed sequential reveal across the four columns. Should replace or extend the existing copper line draw, not pile on top of it.
-**Acceptance criteria:** Each step's arrival in viewport triggers a visible, non-jarring animation. Reduced-motion guard required. Verified at desktop and mobile. Spark must replace the flat-static state of each step card, not add a second layer over it.
-**Why P2:** Process is the only section without a distinctive interaction post-cycle 5. It is also the section that most directly builds employer trust — the one a CFO reads before deciding to fill in the form.
+### P2 — Process stagger extension
+**What:** Extend the process step CSS `--i` stagger multiplier from 140ms to 300ms per step (0/300/600/900ms total). Consider raising the IntersectionObserver threshold from 0.15 to 0.25 so steps don't fire in a burst when the section is scrolled through quickly. The soft-spring ease from Spark is correct and should be preserved.
+**Acceptance criteria:** At desktop 1440px, scrolling at normal human speed through the Process section, steps 1–4 must visibly fire sequentially, not simultaneously. Playwright scroll test at 5 positions through the section, confirming each step's `is-revealed` class fires in order, not in a single frame.
+**Why P2:** The process section is where a CFO builds their mental model of the engagement. An imperceptible stagger wastes the animation entirely — it reads as a minor fade-in rather than a deliberate reveal sequence.
 
-### P3 — Contact section trust lift (no fabrication)
-**What:** Add one honest trust accelerator to the contact intro: either (a) a discreet "phone number available on request" line alongside the email, or (b) a response-time badge ("Typically replies in < 1 business day" formatted as a small pill/badge rather than body text), or (c) a "We've closed searches in [X] states" statement if the user can verify it. Any of the three requires zero invented data.
-**Acceptance criteria:** The contact intro block reads as more grounded to a new visitor at first glance. No fabricated credentials. No invented names or addresses. Copy is either user-verified or honest framing. Verified against CLAUDE.md content honesty rules.
-**Why P3:** The contact section is the terminal conversion point. Everything before it builds intent; the contact section must close the decision. Currently the "Office" line actively undermines the close. Any honest addition to that block improves conversion without requiring real photography.
+### P3 — Contact section trust accelerator (no fabrication)
+**What:** Add one honest trust element to the contact intro block. Best option given zero fabrication constraint: a "Typically replies within 1 business day" pill/badge styled in the brand register (small, gold hairline border, Inter 11–12px, uppercase tracked). This requires no invented data — it is an honest operating commitment. Secondary option: a `mailto:` quick-contact line before the form ("Prefer to write directly? hello@mackaiwest.com") which makes the email address salient before the form, reducing form-entry friction.
+**Acceptance criteria:** Contact intro block reads as more grounded on first arrival. No fabricated credentials, no invented names or numbers. Passes CLAUDE.md content honesty rules. Verified at desktop and 375px.
+**Why P3:** The terminal conversion section is currently the weakest trust moment on the page. Everything before it builds intent; the contact section must close the decision. Any honest addition to that block that grounds the firm as real and responsive improves conversion without requiring user-supplied data.
 
 ---
 
-*Audit completed 2026-04-27. Axis: conversion friction. Viewports: Desktop 1440, iPhone 13 (390px), iPhone SE (375px). Scroll positions sampled: 6 per viewport. Screenshots verified for all sections.*
+*Audit completed 2026-04-27. Axis: mobile conversion completeness. Viewports: Desktop 1440, iPhone 13 (390px), iPhone SE (375px). Scroll positions sampled via Playwright cycle 6 audit JSON. Screenshots verified.*
