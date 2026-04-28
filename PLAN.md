@@ -1,4 +1,47 @@
-# PLAN.md — Builder cycle 4: 3D Hero Wireframe + Service Tilt + Industry Flip
+# PLAN.md — Builder cycle 4b: Candidates distinctive identity + Footer signature features
+
+**Date:** 2026-04-27 (ET)
+**Scope:** Two tasks — Candidates visual identity + Footer wordmark stagger + scroll progress rule
+
+## TASK 1 — Candidates distinctive visual identity
+
+**Files:** `style.css`, `index.html`
+
+Changes:
+- `.candidates` background: replace flat `--paper` with `linear-gradient(135deg, var(--cream-2) 0%, var(--paper) 50%, var(--cream-2) 100%)`
+- Add `position: relative` + copper left-edge accent via `::before` pseudo (3px wide, full section height, gold at 0.6 opacity)
+- `.candidates__points li` font-weight bump to 500
+- Mobile (≤960px): copper edge `::before` still runs vertically on left
+
+## TASK 2 — Footer signature features
+
+**Files:** `index.html`, `style.css`, `main.js`
+
+HTML changes:
+- Wrap each letter of `.footer__wordmark` text in `<span class="footer__letter" style="--i:N">X</span>`
+- Add `<div class="footer__progress" aria-hidden="true"></div>` as first child of `.footer`
+
+CSS changes:
+- `.footer__progress`: absolute, top:0, left:0, full width, 1px height, gold 0.5 opacity, scaleX(0) transform-origin left
+- `.footer__letter` stagger animation: `translateY(20px) opacity:0` → `translateY(0) opacity:1`
+- `.footer__wordmark.is-revealed .footer__letter` triggers animation with `animation-delay: calc(var(--i) * 60ms)`
+- `prefers-reduced-motion`: wordmark shows immediately, progress rule still works
+
+JS changes:
+- Footer wordmark IntersectionObserver IIFE: single-fire, adds `.is-revealed`
+- Footer progress rule IIFE: rAF-throttled scroll, `scaleX((scrollY + winH) / docH)` clamped 0-1
+
+**Then:** regenerate `style.min.css`, bump `?v=cycle4-3d` → `?v=cycle4-b`
+
+## Success criteria
+- Candidates reads visually distinct from navy Process above and cream-2 Employers below
+- Footer letters stagger in from below when footer enters viewport
+- Progress rule grows 0→1 as user scrolls to end
+- Verified 5 positions × 3 viewports (desktop 1440, iPhone 13, iPhone SE)
+
+---
+
+# PLAN.md — Builder cycle 4a (archived): 3D Hero Wireframe + Service Tilt + Industry Flip
 
 **Date:** 2026-04-27
 **Scope:** FEATURE 1 (hero mesh), FEATURE 2 (service tilt), FEATURE 3 (industry flip)
