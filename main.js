@@ -656,7 +656,7 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.25 });
 
   steps.forEach(function (el) { observer.observe(el); });
 })();
