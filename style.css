@@ -1015,32 +1015,45 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 20px;
   flex-grow: 1;
-  min-height: 280px;
+  min-height: clamp(420px, 56vh, 620px);
   margin-top: clamp(32px, 4vw, 48px);
+  position: relative;
+  overflow: hidden;
 }
 
-.about__placeholder-monogram {
-  width: 56px;
-  height: 56px;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+/* Large Playfair italic wordmark — fills space with brand authority */
+.about__placeholder-wordmark {
   font-family: var(--font-display);
   font-style: italic;
-  color: var(--gold);
-  font-size: 1.04rem;
-  letter-spacing: 0.04em;
+  font-weight: 400;
+  font-size: clamp(7rem, 14vw, 12rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201, 169, 97, 0.55);
+  text-stroke: 1px rgba(201, 169, 97, 0.55);
+  letter-spacing: -0.04em;
+  user-select: none;
+  position: relative;
+}
+
+/* Gold hairline rule below wordmark */
+.about__placeholder-wordmark::after {
+  content: '';
+  display: block;
+  width: clamp(48px, 6vw, 72px);
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+  margin: 20px auto 0;
 }
 
 .about__placeholder-caption {
   font-family: var(--font-display);
   font-style: italic;
-  color: rgba(245, 240, 230, 0.6);
-  font-size: 0.92rem;
+  color: rgba(245, 240, 230, 0.5);
+  font-size: 0.88rem;
   letter-spacing: 0.04em;
   text-align: center;
 }
@@ -1051,9 +1064,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(201, 169, 97, 0.45);
+  color: rgba(201, 169, 97, 0.4);
   text-align: center;
-  margin-top: 8px;
 }
 
 /* ============================================
@@ -2797,21 +2809,24 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
      Only reduce typography to fit narrow viewports. */
   .services-runway { height: 700vh; }
   .service-fp {
-    padding: clamp(40px, 8vw, 64px) clamp(20px, 5vw, 40px);
+    padding: clamp(36px, 7vw, 56px) clamp(16px, 4vw, 32px);
     align-items: center;
   }
   .service-fp__inner {
+    max-width: 100%;
     padding-top: 4px;
+    box-sizing: border-box;
   }
   .service-fp__num {
     font-size: clamp(1rem, 4vw, 1.4rem);
     margin-bottom: 10px;
   }
   .service-fp__title {
-    font-size: clamp(1.7rem, 7vw, 2.4rem);
+    font-size: clamp(1.55rem, 6.4vw, 2.15rem);
   }
   .service-fp__sub {
     font-size: 0.8125rem; /* 13px floor — was 0.72rem */
+    letter-spacing: 0.18em; /* reduced from 0.26em — buys horizontal room at 375px */
     margin-bottom: 16px;
     padding-bottom: 12px;
   }
