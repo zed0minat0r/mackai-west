@@ -1,43 +1,46 @@
-# PLAN — cycle 13: process journey bar — horizontal top -> vertical sticky side
+# PLAN — cycle 13: services iPhone SE verify + about right-column vertical fill
 
 **Date:** 2026-04-27
-**Cycle:** 13 (journey-vertical sub-task)
+**Cycle:** 13 (builder)
 
-## Problem
-The horizontal `process__line` SVG sits above the `.process__steps` grid. As user scrolls into the steps, the line disappears from view — it does not track the user's progress through the 4 steps at all.
+## Task 1 — Services panel iPhone SE verify
+Playwright confirmed at 375×667 all 5 panels PASS: no mid-word truncation, no rightClip, no leftClip, no textOverflow.
+Panel 04 "Finance & Accounting" and Panel 05 "Corporate Tax & Treasury" both PASS.
+Status: **P1 VERIFIED CLOSED — no CSS change needed.**
 
-## Fix — Option A: vertical sticky journey bar
+## Task 2 — About right-column vertical fill
 
-### HTML delta (index.html)
-- Remove the `.process__line` div entirely
-- Wrap `.process__steps` + new `.process__journey-bar` inside `.process__inner` (flex-row)
-- `.process__journey-bar` has: SVG with base + fill lines; 4 `.process__journey-marker` spans (01/02/03/04)
-- Bump cache-buster to `?v=cycle13-journey-vertical`
+### Problem
+- `.about__inner` uses `align-items: center` — columns are vertically centered, not stretched
+- `.about__pillars` (aside) has no explicit height — takes natural content height
+- pillar-list = ~388px, placeholder = 184px, total = ~572px with gap
+- Right column ~686px vs left copy ~629px — but placeholder has ~114px empty cream gap below it
 
-### CSS delta (style.css)
-- Remove `.process__line` rules (lines ~1659-1686)
-- Add `.process__inner` flex layout (row, gap 0)
-- Add `.process__journey-bar`: sticky positioning, ~48px wide, full height of steps
-- Add `.process__journey-base`, `.process__journey-fill`, `.process__journey-marker` styles
-- Marker `.is-active` state = bright gold
-- Mobile (<=600px): bar 32px wide, runs alongside single-column stacked steps
-- Regenerate `style.min.css`
+### Fix — CSS only (no HTML change if possible)
 
-### JS delta (main.js)
-- Rewrite process IIFE: vertical line dashoffset based on scroll through .process section
-- Total line length = SVG height (dynamic, set via JS from .process__steps offsetHeight)
-- Activate marker[0] at progress 0, marker[1] at 0.25, marker[2] at 0.5, marker[3] at 0.75
+**style.css changes:**
+1. `.about__inner`: change `align-items: center` → `align-items: stretch`
+2. `.about__pillars`: add `display: flex; flex-direction: column; height: 100%`
+3. `.about__placeholder`: add `flex-grow: 1; min-height: 280px` + bump padding to `clamp(48px, 6vw, 72px) clamp(36px, 4vw, 48px)`
 
-## Files
-- `index.html`
-- `style.css` + `style.min.css`
-- `main.js`
+**index.html change:**
+- Add second typographic line inside `.about__placeholder` below caption:
+  `<span class="about__placeholder-location">United States · 2026</span>`
+- Add CSS for `.about__placeholder-location`
 
-## Success criterion
-- Bar visible at all 5 scroll positions inside Process section (desktop + iPhone 13 + SE)
-- dashoffset decreases progressively 0->100% scroll
-- Markers light up in sequence
-- Zero horizontal overflow
+**Mobile guard:**
+- At `max-width: 768px` (single column): do NOT flex-grow placeholder — reset to `flex-grow: 0; min-height: 180px`
+
+### Files
+- `style.css` (align-items, pillars flex, placeholder grow + padding)
+- `style.min.css` (regenerate)
+- `index.html` (add location line + bump cache-buster `?v=cycle13-builder`)
+
+### Success criterion
+- Right column fills visually from pillar-list top to bottom of the left copy column
+- Placeholder expands to fill the gap — no empty cream space below it
+- Mobile: single-column, placeholder at natural height (no flex-grow needed)
+- Playwright 5pos × 3 viewports: no overflow, about section renders correctly
 
 ## Scope
-~20 HTML lines, ~70 CSS lines, ~40 JS lines
+~8 CSS lines changed, ~1 HTML line added, cache-buster bump
