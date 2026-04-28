@@ -1507,57 +1507,89 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 
 /* ============================================
-   CANDIDATES — Option A: Oversized foreground numeral
+   CANDIDATES — Inverted panel: copy LEFT, cream panel RIGHT
+   Mirrors Employers' navy/gold structure with cream-2/copper inversion.
    ============================================ */
 .candidates {
-  padding: var(--section-pad) 0;
-  background: linear-gradient(135deg, var(--cream-2) 0%, var(--paper) 50%, var(--cream-2) 100%);
+  background: var(--paper);
   overflow: hidden;
-  position: relative;
-}
-
-/* Copper left-edge accent — 3px vertical rule at section left */
-.candidates::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 3px;
-  height: 100%;
-  background: var(--gold);
-  opacity: 0.6;
-  pointer-events: none;
 }
 
 .candidates__inner {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 clamp(24px, 5vw, 60px);
+  padding: 0;
   display: grid;
-  grid-template-columns: clamp(110px, 18vw, 200px) 1fr;
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
+  grid-template-columns: 1fr clamp(180px, 26vw, 300px);
+  align-items: stretch;
+  min-height: 520px;
 }
 
-/* Oversized editorial numeral — foreground, full opacity */
-.candidates__numeral {
+/* Copy block on paper bg */
+.candidates__copy {
+  padding: clamp(80px, 10vw, 140px) clamp(32px, 5vw, 72px);
+}
+
+/* Cream-2 editorial panel — copper type on cream, mirrors employers' navy panel */
+.candidates__panel {
+  background: var(--cream-2);
+  background-image: radial-gradient(ellipse at 60% 40%, rgba(168, 139, 69, 0.08) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(48px, 7vw, 80px) clamp(28px, 4vw, 48px);
+  min-height: 420px;
+}
+
+.candidates__panel-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.candidates__panel-for {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(8rem, 14vw, 11.5rem);
-  line-height: 0.85;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
   color: var(--gold-deep);
-  letter-spacing: -0.04em;
-  user-select: none;
-  padding-top: 6px;
-  padding-right: clamp(16px, 2.5vw, 28px);
-  /* thin copper hairline visually connects numeral to right column */
-  border-right: 1px solid rgba(201, 169, 97, 0.28);
-  margin-right: 0;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  display: block;
+  opacity: 0.75;
 }
 
-.candidates__copy {
-  /* sits to the right of the numeral */
+.candidates__panel-who {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  display: block;
+  margin-top: 4px;
+}
+
+.candidates__panel-rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--gold-deep);
+  margin: clamp(16px, 2.5vw, 24px) 0;
+  opacity: 0.4;
+}
+
+.candidates__panel-caption {
+  font-family: var(--font-body);
+  font-size: 0.8125rem; /* 13px — matches font floor */
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  opacity: 0.65;
+  display: block;
 }
 
 /* ============================================
@@ -1691,15 +1723,41 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 @media (max-width: 960px) {
   .candidates__inner {
     grid-template-columns: 1fr;
-    gap: 0;
+    /* Panel stacks above copy on mobile */
+    grid-template-rows: auto auto;
   }
 
-  .candidates__numeral {
-    font-size: clamp(6rem, 20vw, 9rem);
-    line-height: 0.9;
-    margin-bottom: 20px;
-    border-right: none;
-    padding-right: 0;
+  .candidates__panel {
+    order: -1;
+    min-height: auto;
+    padding: clamp(36px, 8vw, 60px) clamp(24px, 5vw, 48px);
+    justify-content: flex-start;
+  }
+
+  .candidates__panel-mark {
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 12px;
+  }
+
+  .candidates__panel-for {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+
+  .candidates__panel-who {
+    font-size: clamp(1.8rem, 7vw, 3rem);
+    margin-top: 0;
+  }
+
+  .candidates__panel-rule {
+    width: 100%;
+    flex-basis: 100%;
+    margin: 12px 0 10px;
+  }
+
+  .candidates__copy {
+    padding: clamp(48px, 10vw, 80px) clamp(24px, 5vw, 48px);
   }
 
   .employers__inner {
@@ -2383,6 +2441,35 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   /* caption "EXECUTIVE SEARCH" — decorative but must clear 13px floor */
   .employers__panel-caption {
     font-size: 0.8125rem; /* 13px */
+  }
+
+  /* caption "SENIOR CAREERS" — must clear 13px floor */
+  .candidates__panel-caption {
+    font-size: 0.8125rem; /* 13px */
+  }
+
+  /* Candidates panel: restore column stacking on narrow mobile */
+  .candidates__panel {
+    padding: clamp(28px, 7vw, 44px) clamp(20px, 6vw, 32px);
+    align-items: flex-start;
+  }
+  .candidates__panel-mark {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .candidates__panel-for {
+    font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+    line-height: 1.1;
+  }
+  .candidates__panel-who {
+    font-size: clamp(2rem, 8.5vw, 2.8rem);
+    margin-top: 2px;
+  }
+  .candidates__panel-rule {
+    flex-basis: auto;
+    width: 100%;
+    margin: clamp(10px, 2.5vw, 16px) 0 clamp(8px, 2vw, 12px);
   }
 }
 
