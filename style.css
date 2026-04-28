@@ -1041,8 +1041,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: absolute;
   bottom: clamp(20px, 2.5vw, 28px);
   right: clamp(20px, 2.5vw, 28px);
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1778,6 +1778,25 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     min-height: 44px;
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+
+  /* ── Footer nav link tap targets ≥44px ── */
+  .footer__nav {
+    gap: 0;
+  }
+  .footer__nav a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+
+  /* ── Link-arrow CTA tap targets ≥44px on mobile ── */
+  .link-arrow {
+    min-height: 44px;
+    padding-top: 9px;
+    padding-bottom: 9px;
   }
 
   /* ── Services scroll-lock: mobile panel content sizing ── */
