@@ -1,37 +1,31 @@
-# PLAN — Cycle 9 Builder
+# PLAN — Cycle 10
 
-**Date:** 2026-04-27 ET
-**Commit target:** `builder cycle 9: candidates editorial refresh — for/candidates panel mirroring employers (inverted palette)`
+## Files touched
+- `style.css` — candidates panel navy inversion + about__seal styles
+- `style.min.css` — regenerate after CSS edits
+- `index.html` — add about__seal span, bump cache-buster to `?v=cycle10-b`
 
-## Task 1 — P2 About right-column verify
-Run Playwright at 1440, iPhone 13 (390), iPhone SE (375) on `.about__inner`.
-If no visible gap: document and skip. If gap: build navy photo-slot panel.
+## Changes
 
-## Task 2 — P3 Candidates editorial identity refresh
+### TASK 1: Candidates panel full-navy inversion
+- `.candidates__panel`: bg `var(--cream-2)` → `var(--navy)`; radial-gradient ellipse → circle at 30% 30%, gold 0.10
+- `.candidates__panel-for`: color `var(--gold-deep)` opacity 0.75 → color `var(--gold)`, remove opacity
+- `.candidates__panel-who`: color `var(--navy)` → color `var(--gold-soft)`
+- `.candidates__panel-rule`: bg stays `var(--gold-deep)`, opacity `0.4` → `0.6`
+- `.candidates__panel-caption`: color `var(--gold-deep)` opacity 0.65 → color `rgba(245,240,230,0.65)` (cream at 65%)
+- No changes to employers panel — reference only
 
-### index.html changes
-- Remove `.candidates__numeral` div (`aria-hidden="true">01</div>`)
-- Restructure `.candidates__inner` to 2-column grid: LEFT = copy block, RIGHT = new `.candidates__panel`
-- New `.candidates__panel` div with `.candidates__panel-mark` (stacked "For / Candidates" Playfair italic) + rule + caption ("Senior Careers")
-- Bump cache-buster `?v=cycle8-b` → `?v=cycle9-b` on style.min.css link
-
-### style.css changes
-- Remove `.candidates__numeral` rules (all ~15 lines)
-- Remove `.candidates::before` copper-edge rule (no longer needed with panel)
-- Replace `.candidates` bg: cream gradient → flat paper white (cleaner with panel)
-- Replace `.candidates__inner` grid: numeral-col + 1fr → `1fr clamp(180px,26vw,300px)` (copy LEFT, panel RIGHT — mirrors employers but content-left)
-- Add `.candidates__panel` rules: cream-2 bg + radial copper wash, centered mark
-- Add `.candidates__panel-mark`, `__panel-for`, `__panel-who`, `__panel-rule`, `__panel-caption` mirroring employers pattern but with copper-deep type on cream-2
-- Mobile ≤960px: grid → 1fr, panel collapses to top (above copy)
-- Remove numeral mobile rules
-
-### style.min.css — regenerate via clean-css-cli
+### TASK 2: About brand seal
+- `.about__inner` needs `position: relative` if not set
+- Add `.about__seal` CSS: position absolute, bottom 24px, right 24px, Playfair italic 0.86rem, slate-2, letter-spacing 0.18em
+- Mobile `≤768px`: `display: none`
+- Add `<span class="about__seal" aria-hidden="true">MW · 2026</span>` inside `.about__inner` at end
 
 ## Success criterion
-- 3 bullets + CTA preserved verbatim
-- New panel: cream-2 bg, "For / Candidates" Playfair italic in gold-deep/navy
-- No cream gradient, no ::before copper edge, no oversized "01"
-- Mobile collapses panel above copy, no overflow
-- Playwright 5pos × 3 viewports PASS
+- Playwright 5 positions × 3 viewports: navy bg confirmed on candidates panel, type readable
+- About seal visible bottom-right at 1440, hidden on 375/390 mobile
+- No horizontal overflow anywhere
+- style.min.css regenerated
 
-**Scope:** ~60 lines CSS replaced/added, ~15 HTML lines restructured
+## Scope
+~25 CSS lines changed + 1 HTML line. Low diff.
