@@ -1060,7 +1060,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
    SERVICES — practices
    ============================================ */
 .services {
-  padding: var(--section-pad) 0;
+  /* No padding-bottom: the runway's last panel dwell IS the natural
+     section end. Adding section-pad below would create blank cream
+     space between panel 5's last frame and the next section. */
+  padding: var(--section-pad) 0 0 0;
   background: var(--cream-2);
   position: relative;
 }
@@ -1156,11 +1159,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
    ============================================ */
 
 /* The runway provides the scroll distance. With stepped dwell-then-slide
-   behavior (60% dwell + 40% slide per segment), need ~120vh per panel
-   for the dwell to read as a real "lock" before the next slide. */
+   (60% dwell + 40% slide per segment), each panel needs ~80-100vh of
+   scroll to read as a real lock without the last panel dwelling so long
+   it feels like blank space. 5 panels × 80vh segment = 400vh + 100vh
+   sticky = 500vh total runway. */
 .services-runway {
   position: relative;
-  height: 600vh;
+  height: 500vh;
 }
 
 /* Sticky viewport: pinned at top for the full runway scroll.
@@ -2766,7 +2771,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   /* ── Services scroll-lock: mobile panel content sizing ── */
   /* Keep flex-direction: row and 100vw panels — the lock works on mobile.
      Only reduce typography to fit narrow viewports. */
-  .services-runway { height: 800vh; }
+  .services-runway { height: 700vh; }
   .service-fp {
     padding: clamp(40px, 8vw, 64px) clamp(20px, 5vw, 40px);
     align-items: center;
