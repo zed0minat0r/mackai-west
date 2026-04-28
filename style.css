@@ -794,6 +794,15 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   color: rgba(245, 240, 230, 0.7);
   margin-bottom: 30px;
 }
+.stat__label-aux {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 230, 0.55);
+  margin-top: 8px;
+  margin-bottom: 22px;
+}
 .stat__sub {
   font-size: 1.04rem;
   line-height: 1.75;
@@ -2735,7 +2744,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .form-footer { flex-direction: column; align-items: stretch; }
   .form-note { max-width: none; }
 
-  .process__steps { grid-template-columns: 1fr; }
+  .process__steps { grid-template-columns: 1fr; row-gap: clamp(28px, 6vw, 48px); gap: clamp(28px, 6vw, 48px); }
   /* Body: tighten gap on mobile so bar doesn't eat horizontal space */
   .process__body { gap: clamp(12px, 2.5vw, 20px); }
   /* Journey bar: narrow on mobile */
@@ -2758,6 +2767,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .stat__eyebrow { font-size: 0.8125rem; }
 
   .stat__label { font-size: 0.8125rem; }
+  .stat__label-aux { font-size: 0.8125rem; }
 
   .hero__eyebrow { font-size: 0.8125rem; }
 
