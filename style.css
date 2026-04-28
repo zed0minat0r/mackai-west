@@ -1867,7 +1867,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   margin: 0 auto;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr clamp(180px, 26vw, 300px);
+  grid-template-columns: 1fr clamp(300px, 32vw, 420px);
   align-items: stretch;
   min-height: 520px;
 }
@@ -1909,33 +1909,34 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
   color: var(--gold);
   line-height: 1;
   letter-spacing: -0.01em;
   display: block;
+  opacity: 0.92;
 }
 
 .candidates__panel-who {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-size: clamp(3.2rem, 5vw, 4.4rem);
   color: var(--gold-soft);
-  line-height: 1;
-  letter-spacing: -0.02em;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
   display: block;
-  margin-top: 6px;
-  text-shadow: 0 0 24px rgba(201, 169, 97, 0.18);
+  margin-top: clamp(2px, 0.6vw, 6px);
+  text-shadow: 0 0 28px rgba(201, 169, 97, 0.22);
 }
 
 .candidates__panel-rule {
   display: block;
-  width: 100%;
+  width: clamp(56px, 7vw, 88px);
   height: 1px;
   background: var(--gold);
-  margin: clamp(16px, 2.5vw, 24px) 0;
-  opacity: 0.6;
+  margin: clamp(20px, 2.6vw, 28px) 0;
+  opacity: 0.7;
 }
 
 .candidates__panel-caption {
@@ -1963,7 +1964,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   /* No horizontal padding — panel uses its own padding */
   padding: 0;
   display: grid;
-  grid-template-columns: clamp(180px, 26vw, 300px) 1fr;
+  grid-template-columns: clamp(300px, 32vw, 420px) 1fr;
   align-items: stretch;
   /* panel stretches to full row height */
   min-height: 520px;
@@ -1992,33 +1993,34 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
   color: var(--gold-soft);
   line-height: 1;
   letter-spacing: -0.01em;
   display: block;
+  opacity: 0.92;
 }
 
 .employers__panel-who {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-size: clamp(3.2rem, 5vw, 4.4rem);
   color: var(--gold);
-  line-height: 1;
-  letter-spacing: -0.02em;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
   display: block;
-  margin-top: 6px;
-  text-shadow: 0 0 24px rgba(201, 169, 97, 0.25);
+  margin-top: clamp(2px, 0.6vw, 6px);
+  text-shadow: 0 0 28px rgba(201, 169, 97, 0.25);
 }
 
 .employers__panel-rule {
   display: block;
-  width: 100%;
+  width: clamp(56px, 7vw, 88px);
   height: 1px;
   background: var(--gold);
-  margin: clamp(16px, 2.5vw, 24px) 0;
-  opacity: 0.6;
+  margin: clamp(20px, 2.6vw, 28px) 0;
+  opacity: 0.7;
 }
 
 .employers__panel-caption {
@@ -2095,31 +2097,33 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   .candidates__panel {
     order: -1;
-    min-height: auto;
-    padding: clamp(36px, 8vw, 60px) clamp(24px, 5vw, 48px);
-    justify-content: flex-start;
+    min-height: clamp(280px, 38vw, 360px);
+    padding: clamp(48px, 9vw, 72px) clamp(24px, 5vw, 48px);
+    justify-content: center;
   }
 
   .candidates__panel-mark {
-    flex-direction: row;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0 12px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-wrap: nowrap;
+    gap: 0;
+    width: 100%;
   }
 
   .candidates__panel-for {
-    font-size: clamp(1.4rem, 5vw, 2rem);
+    font-size: clamp(2.4rem, 7vw, 3.4rem);
   }
 
   .candidates__panel-who {
-    font-size: clamp(1.8rem, 7vw, 3rem);
-    margin-top: 0;
+    font-size: clamp(3.2rem, 9vw, 4.6rem);
+    margin-top: clamp(2px, 0.8vw, 6px);
   }
 
   .candidates__panel-rule {
-    width: 100%;
-    flex-basis: 100%;
-    margin: 12px 0 10px;
+    width: clamp(56px, 12vw, 80px);
+    flex-basis: auto;
+    margin: clamp(16px, 3vw, 22px) auto;
   }
 
   .candidates__copy {
@@ -2131,31 +2135,33 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   }
 
   .employers__panel {
-    min-height: auto;
-    padding: clamp(36px, 8vw, 60px) clamp(24px, 5vw, 48px);
-    justify-content: flex-start;
+    min-height: clamp(280px, 38vw, 360px);
+    padding: clamp(48px, 9vw, 72px) clamp(24px, 5vw, 48px);
+    justify-content: center;
   }
 
   .employers__panel-mark {
-    flex-direction: row;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0 12px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-wrap: nowrap;
+    gap: 0;
+    width: 100%;
   }
 
   .employers__panel-for {
-    font-size: clamp(1.4rem, 5vw, 2rem);
+    font-size: clamp(2.4rem, 7vw, 3.4rem);
   }
 
   .employers__panel-who {
-    font-size: clamp(1.8rem, 7vw, 3rem);
-    margin-top: 0;
+    font-size: clamp(3.2rem, 9vw, 4.6rem);
+    margin-top: clamp(2px, 0.8vw, 6px);
   }
 
   .employers__panel-rule {
-    width: 100%;
-    flex-basis: 100%;
-    margin: 12px 0 10px;
+    width: clamp(56px, 12vw, 80px);
+    flex-basis: auto;
+    margin: clamp(16px, 3vw, 22px) auto;
   }
 
   .employers__copy {
@@ -2835,68 +2841,71 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .service-fp__list li { font-size: 0.84rem; padding: 6px 0 6px 20px; line-height: 1.35; }
   .service-fp__list li::before { width: 10px; top: 14px; }
 
-  /* ── Employers panel: restore column stacking on mobile ── */
-  /* At 960px the mark switches to flex-direction:row (horizontal), which reads
-     fine on tablet. At 375–600px that collapses into a cramped single-line.
-     Restore column so "For" sits above "Employers" as an editorial mark. */
+  /* ── Candidates / Employers editorial title panels — narrow mobile ── */
+  /* Centered column stack: large italic "For" + larger italic word + short
+     accent rule + small uppercase caption. The title block must read as a
+     proper editorial mark on mobile, not a cramped left-aligned label. */
   .employers__panel {
-    min-height: 220px;
-    padding: clamp(28px, 7vw, 44px) clamp(20px, 6vw, 32px);
-    align-items: flex-start;
+    min-height: clamp(280px, 56vw, 360px);
+    padding: clamp(44px, 10vw, 64px) clamp(20px, 6vw, 32px);
+    align-items: center;
     justify-content: center;
   }
   .employers__panel-mark {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 0;
+    width: 100%;
   }
   .employers__panel-for {
-    font-size: clamp(1.1rem, 4.5vw, 1.5rem);
-    line-height: 1.1;
+    font-size: clamp(2.2rem, 7.4vw, 3rem);
+    line-height: 1;
   }
   .employers__panel-who {
-    font-size: clamp(2rem, 8.5vw, 2.8rem);
-    margin-top: 2px;
+    font-size: clamp(2.9rem, 9.6vw, 4rem);
+    margin-top: clamp(2px, 0.8vw, 6px);
+    line-height: 0.95;
   }
   .employers__panel-rule {
     flex-basis: auto;
-    width: 100%;
-    margin: clamp(10px, 2.5vw, 16px) 0 clamp(8px, 2vw, 12px);
+    width: clamp(48px, 12vw, 72px);
+    margin: clamp(14px, 3vw, 20px) auto;
   }
-  /* caption "EXECUTIVE SEARCH" — decorative but must clear 13px floor */
   .employers__panel-caption {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 0.8125rem; /* 13px floor */
   }
 
-  /* caption "SENIOR CAREERS" — must clear 13px floor */
   .candidates__panel-caption {
-    font-size: 0.8125rem; /* 13px */
+    font-size: 0.8125rem; /* 13px floor */
   }
 
-  /* Candidates panel: restore column stacking on narrow mobile */
   .candidates__panel {
-    min-height: 220px;
-    padding: clamp(28px, 7vw, 44px) clamp(20px, 6vw, 32px);
-    align-items: flex-start;
+    min-height: clamp(280px, 56vw, 360px);
+    padding: clamp(44px, 10vw, 64px) clamp(20px, 6vw, 32px);
+    align-items: center;
     justify-content: center;
   }
   .candidates__panel-mark {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 0;
+    width: 100%;
   }
   .candidates__panel-for {
-    font-size: clamp(1.1rem, 4.5vw, 1.5rem);
-    line-height: 1.1;
+    font-size: clamp(2.2rem, 7.4vw, 3rem);
+    line-height: 1;
   }
   .candidates__panel-who {
-    font-size: clamp(2rem, 8.5vw, 2.8rem);
-    margin-top: 2px;
+    font-size: clamp(2.9rem, 9.6vw, 4rem);
+    margin-top: clamp(2px, 0.8vw, 6px);
+    line-height: 0.95;
   }
   .candidates__panel-rule {
     flex-basis: auto;
-    width: 100%;
-    margin: clamp(10px, 2.5vw, 16px) 0 clamp(8px, 2vw, 12px);
+    width: clamp(48px, 12vw, 72px);
+    margin: clamp(14px, 3vw, 20px) auto;
   }
 }
 
