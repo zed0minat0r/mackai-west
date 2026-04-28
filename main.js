@@ -190,38 +190,24 @@
   onScroll();
 })();
 
-/* ---- Hero: multi-layer parallax ---- */
+/* ---- Hero: subtle horizon parallax ---- */
 (function () {
-  var hero   = document.querySelector('.hero');
-  var layers = document.querySelectorAll('.hero__skyline[data-parallax-rate]');
-
-  if (!hero || !layers.length) return;
-
-  // Respect reduced-motion preference — skip all transforms
+  var hero    = document.querySelector('.hero');
+  var horizon = document.querySelector('.hero__horizon');
+  if (!hero || !horizon) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var ticking = false;
 
   function updateParallax() {
+    ticking = false;
     var scrollY = window.scrollY;
     var heroH   = hero.offsetHeight;
-
-    // Only apply while hero is at least partially in view
     if (scrollY > heroH) {
-      layers.forEach(function (layer) {
-        layer.style.transform = 'translateY(0)';
-      });
+      horizon.style.transform = 'translateY(0)';
       return;
     }
-
-    layers.forEach(function (layer) {
-      var rate = parseFloat(layer.getAttribute('data-parallax-rate')) || 0;
-      // Positive rate: layer moves up (slower = smaller translate = more depth)
-      var translate = -(scrollY * rate);
-      layer.style.transform = 'translateY(' + translate + 'px)';
-    });
-
-    ticking = false;
+    horizon.style.transform = 'translateY(' + (scrollY * 0.25) + 'px)';
   }
 
   function onScroll() {
@@ -241,15 +227,18 @@
   if (y) y.textContent = new Date().getFullYear();
 })();
 
-/* ---- Stat band: count-up animation ---- */
+/* ---- Stat band: count-up animation ----
+   Initial textContent is "40K" so a quick scroller never sees a partial
+   value. The animation fires only once when the section is solidly in
+   view (threshold 0.6); we briefly reset to 0K, run the 1.4s ease-out,
+   and land back on 40K. The "+" character fades in via CSS after the
+   .is-counted class is added. */
 (function () {
   var statNum = document.querySelector('.stat__number');
   var countEl = document.getElementById('stat-count');
   if (!statNum || !countEl) return;
 
-  // Respect reduced motion — show final value immediately
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    countEl.textContent = '40K';
     statNum.classList.add('is-counted');
     return;
   }
@@ -262,9 +251,11 @@
     fired = true;
     observer.disconnect();
 
-    var start     = null;
-    var duration  = 1400; // ms
-    var target    = 40;
+    countEl.textContent = '0K';
+
+    var start    = null;
+    var duration = 1400;
+    var target   = 40;
 
     function easeOutCubic(t) {
       return 1 - Math.pow(1 - t, 3);
@@ -286,7 +277,7 @@
     }
 
     window.requestAnimationFrame(frame);
-  }, { threshold: 0.2 });
+  }, { threshold: 0.6 });
 
   observer.observe(statNum);
 })();
