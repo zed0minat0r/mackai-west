@@ -1,122 +1,131 @@
-# Agent Plan — MacKai West Cycle 4
+# Agent Plan — MacKai West Cycle 5
 
 **Date:** 2026-04-27 (ET)
-**Score baseline:** 6.8 (cycle 3) | **Target:** 7.3–7.5 (cap 7.5 holds until photos / testimonials / address land)
-**Cycle focus:** Distinctiveness push — Candidates visual identity, Contact signature feature, Footer signature feature, About pillars subtle interactivity. Concentrated work in 4 agents.
+**Cycle:** 5
+**Score baseline:** 7.1 (cycle 4)
+**Score target this cycle:** 7.4 — pushing toward the 7.5 hard cap (cap holds until real photography + testimonials + address all land)
+**Live:** https://zed0minat0r.github.io/mackai-west/
 
-**Cycle 3 carryover already shipped (skip):**
-- Hero parallax fixed (b5a2549)
-- Stat count-up timing fixed (b5a2549)
-- Hero 3D wireframe octahedron + service tilt + industry flip (1863cee)
+## Dispatch Rationale
 
----
+Cycle 4 closed personality gaps but left three concrete live defects in AUDIT.md cycle 5 priorities: (P1) stat count-up shows $24K–$26K on mobile mid-fire, (P2) services scroll-lock at 375px shows two truncated headlines mid-transition, (P3) hero 3D mesh reads "tasteful but modest" against the user's explicit "impressive 3D" ask. All three are tight, scoped fixes — Builder owns all three in one pass. Spark does Frame B polish on the now-amplified mesh + recently-shipped sections (no new sections — replace-when-adding rule). Pixel verifies P1 mobile regression as the gate-fix and re-audits 375 + 414 alignment. Nigel re-scores under the strict 7.5 cap.
 
-## Memory rules (echoed into every agent prompt)
+## Memory Rules — Echoed Into Every Agent Brief
 
-- Apps must NOT look AI-generated. Editorial-luxury restraint.
-- NEVER bail features on mobile via `matchMedia`. Use TOUCH detection (`'ontouchstart' in window`) when needed.
-- NO fabricated content — no fake placement stories, no fake company names, no fake "Est. 1985" dates, no fake testimonials, no fake addresses.
-- NO ghost numbers (faded background numerals user dislikes). Foreground oversized numerals are fine.
+- Apps must NOT look AI-generated. Break Claude's default patterns — editorial-luxury restraint.
+- NEVER bail features on mobile via `matchMedia`. Use TOUCH detection (`'ontouchstart' in window`) only when needed.
+- NO fabricated content (no fake names, testimonials, addresses, placement counts, "Est. 19XX" dates).
+- NO ghost numbers (large faded background numerals behind content) — confirmed user dislike.
 - Spark replaces when adding, never piles on. Frame B keeps content count.
-- Pixel must audit center-alignment 375 + 414 mobile, every cycle.
-- Nigel scores from a real prospective customer lens. Strict cap 7.5 until real photography + real testimonials + real published office address all land.
+- Pixel must audit center-alignment at 375 + 414 mobile every cycle.
+- Nigel scores from real prospective customer lens. Strict cap 7.5 holds.
+- Nigel never recommends removing glows / animations / effects — only adds or improves.
 - Respectful tone — never call the user a bottleneck.
-- **DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER.** Only the orchestrator texts.
-- Verification: Playwright must scroll through ≥5 positions on desktop 1440 + iPhone 13 + iPhone SE; single-position snapshots are NOT verification.
 - After every CSS edit regenerate `style.min.css` via `npx clean-css-cli -o style.min.css style.css`.
-- Bump cache-buster on `style.min.css` link from `?v=cycle4-3d` → `?v=cycle4-<initial>` after CSS edits (b for builder, s for spark, p for pixel).
+- Bump cache-buster on `style.min.css` link from `?v=cycle4-p` → `?v=cycle5-<initial>` (b for builder, s for spark, p for pixel).
+- Verification: Playwright must scroll through ≥5 positions on desktop 1440 + iPhone 13 + iPhone SE. Single-position snapshots are NOT verification.
+- **NO per-agent texting. DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER.**
 
-## Cooldowns this cycle (DO NOT TOUCH)
+## Cooldowns This Cycle (DO NOT TOUCH beyond what each priority requires)
 
-- Hero word reveal, hero parallax horizon, hero 3D mesh octahedron
-- Nav (locked)
-- Stat band copper vignette + count-up + plus animation
-- Marquee tape
-- Industries 01/02/03 numerals + hover-reveal panels + 3D flip
-- About pillars **structural content** (interactivity-only changes are OK in cycle 4)
-- Employers navy panel
-- Process numerals + line + scroll-draw
-- Services scroll-lock structure + JS + 3D tilt
-- Services panel typography
-- Magnetic underlines
+- Hero word reveal, hero parallax horizon — UNTOUCHED
+- Hero 3D mesh **structure** — Builder may AMPLIFY per P3 (size + vertex-pulse), NOT restructure
+- Nav — DO NOT TOUCH
+- Stat band copper vignette + rule — only the JS observer threshold per P1
+- Marquee tape, industries (numerals + hover-reveal + 3D flip), about pillars (structural + stagger), employers navy panel, process (numerals + line + scroll-draw), services panel typography, magnetic underlines, candidates (cream gradient + copper edge), footer (wordmark stagger + progress rule), contact (floating labels + submit choreography)
+- Services scroll-lock structure + IIFE skeleton — Builder may adjust SLIDE_FRAC or panel overflow CSS per P2, NOT the IIFE skeleton
 - Mobile 13px font floor + tap targets
 
 ---
 
-## Agent execution order
+## Agent Slate (Execution Order)
 
-### 1) Builder — Candidates distinctive identity + Footer signature feature
+### 1. Builder — three focused fixes (P1 + P2 + P3 from AUDIT.md)
 
-**Scope (P1):** Give the Candidates section a distinct visual identity so it reads visually different from the navy Process above and the cream Employers below.
-- Apply a cream wash (e.g., `#FAF7F2` or `--cream` at low overlay) OR a copper left-edge treatment that bleeds inward from the `01` numeral column. Pick whichever creates clearer contrast with neighboring sections.
-- Verify the three bullet points render at full body weight (parity with Employers reasons list).
-- Verify the "Submit a Resume" CTA reads as primary — at minimum equal visual prominence with the Employers "Open a Search" button.
-- Acceptance: section reads visually distinct from neighbors at 5 scroll positions on desktop 1440 + iPhone 13 + iPhone SE.
+**P1 — Stat count-up mobile regression (CRITICAL).**
+At first visible frame, desktop shows $25K, iPhone 13 $26K, iPhone SE $24K. The firm's only verifiable claim is being served as a wrong number to mobile visitors. Pick approach (a) — simpler: raise the IntersectionObserver `threshold` from `0.6` → `0.95` so the count-up only triggers when the section is nearly fully in view (at that point the user's eyes are already on it, animation reads as intentional). Approach (b) — scroll-velocity detection (on observer fire, check `window.scrollY` delta over last 100ms; if >500px/s, skip animation and set textContent directly to "40K") — acceptable as fallback if (a) leaves edge cases. Acceptance: Playwright shows `$40K+` (or completed `is-counted` state) on desktop 1440 + iPhone 13 + iPhone SE at the first scroll position where the stat section is visible.
 
-**Scope (P3):** Footer signature feature — combine two subtle moves.
-- (a) Animated wordmark on scroll-into-view: Playfair italic letters of the wordmark animate in with a small stagger (translateY 12px → 0, opacity 0 → 1, ~80ms delay between letters, fires once on intersection).
-- (b) Scroll-driven progress indicator: thin gold rule across the top edge of the footer that fills 0% → 100% as the user reaches the very bottom of the page (use `scrollY / (docHeight - viewportHeight)` clamped). Reduced-motion guard required.
-- Both must respect `prefers-reduced-motion: reduce` (static end-state).
+**P2 — Services scroll-lock 375px split-panel readability.**
+At iPhone SE mid-transition, Panel 01 (Tax) exiting and Panel 02 (F&A) entering simultaneously expose truncated headlines fighting for width. Pick: (a) raise `SLIDE_FRAC` from `0.85` → `0.92` (sharper transition, more dwell on each panel), or (b) add `overflow: hidden` on each panel content wrapper so off-panel text does not bleed during slide. Acceptance: at any mid-transition state on iPhone SE through the services runway (sample at 5%, 25%, 50%, 75%, 95% of 240vh), only ONE complete title is readable (or both panels' fragments are clipped enough they do not compete). DO NOT use matchMedia bail. DO NOT touch the IIFE skeleton.
 
-**Files to touch:** `index.html`, `style.css`, `main.js`, regenerate `style.min.css`, bump cache-buster to `?v=cycle4-b`.
-**Files NOT to touch:** Hero, nav, stat band, marquee tape, industries 3D flip, about pillars, process, employers panel, services scroll-lock, contact section.
-**Commit:** `builder cycle 4: candidates cream wash + footer wordmark stagger + scroll progress rule`
-**MEMORY echoes:** No fabricated content. No ghost numbers. NEVER bail on mobile via matchMedia. After CSS edits regenerate min + bump cache-buster. DO NOT TEXT THE USER.
+**P3 — Hero 3D mesh amplification.**
+Current octahedron `hero__mesh-svg` reads "tasteful but modest" against the user's "impressive 3D" ask. Acceptance:
+- Increase SVG viewport coverage from current ~22vw to **~32vw clamped 280–460px** on desktop (≥50% of hero right-half).
+- Add **vertex-pulse animation**: each vertex circle's opacity pulses on a 3–5s cycle, **staggered between vertices** so the mesh has constant subtle motion beyond the rotation.
+- Mobile (375px) headline must remain fully legible — keep the mobile mesh at **clamp 140–200px**, but pulse animation runs there too.
+- DO NOT remove the existing rotation. DO NOT obscure the headline at 375px.
 
----
+**Files Builder may touch:** `index.html` (only mesh wrapper sizing if needed), `style.css` (mesh size clamp + vertex-pulse keyframes + service panel `overflow: hidden` if approach (b) chosen for P2), `main.js` (stat observer threshold per P1, `SLIDE_FRAC` value per P2 if approach (a)).
 
-### 2) Spark — Contact signature feature + About pillars interactivity
+**Files Builder must NOT touch:** every other section listed under Cooldowns above. The IIFE skeleton of the services scroll-lock. The hero word reveal. Nav. Stat band copper vignette CSS.
 
-**Scope (P2 / Frame A):** Contact section signature feature — combine two moves that read considered, not gimmicky.
-- (a) **Floating-label form fields**: label sits inside the field by default, animates upward + scales smaller when the field is focused or has a value. Apply across name, email, phone, message inputs and the type select. Keep accessibility (real `<label>` + `for=`) intact.
-- (d) **Animated submit button choreography**: button morphs into "Sending…" on submit, then a checkmark pulse on success (or back to default on mailto fallback dispatch). Smooth, no flash of unstyled state.
-- Replace the existing flat form styling — do not pile on top.
+**Memory rules to respect:** No matchMedia bail. No fabricated content. No ghost numbers. Regenerate style.min.css. Bump cache-buster to `?v=cycle5-b`. Playwright ≥5 positions across all 3 viewports. **DO NOT TEXT THE USER.**
 
-**Scope (P4 / Frame B):** About pillars subtle interactivity.
-- Either: subtle hover state on each pillar — Roman numeral grows slightly + the gold rule extends — OR a scroll-into-view stagger reveal where each pillar fades in with ~100ms delay.
-- Pick whichever adds polish without piling on. Frame B must KEEP content count — do NOT restructure or remove pillars I/II/III.
-
-**Files to touch:** `index.html`, `style.css`, `main.js`, regenerate `style.min.css`, bump cache-buster to `?v=cycle4-s`.
-**Files NOT to touch:** Hero, nav, stat band, marquee tape, industries, employers, process, services scroll-lock, candidates section (Builder owns Candidates this cycle), footer (Builder owns).
-**Commit:** `spark cycle 4: Frame A contact floating labels + animated submit / Frame B about pillar reveal`
-**MEMORY echoes:** Replace, don't pile on. Frame B keeps content count. No fabricated content. NEVER bail on mobile via matchMedia. After CSS edits regenerate min + bump cache-buster. DO NOT TEXT THE USER.
+**Commit format:** `builder cycle 5: stat observer 0.95 + services SLIDE_FRAC 0.92 + hero mesh 32vw vertex-pulse — <verification line>`
 
 ---
 
-### 3) Pixel — Mobile alignment audit + 3D regression check
+### 2. Spark — Frame B polish on amplified mesh + recently-shipped sections
 
-**Scope:** Mobile center-alignment audit at 375 (iPhone SE) + 414 (iPhone 13 Pro Max-ish) viewports.
-- Verify new Candidates treatment renders with the cream wash / copper edge as intended on mobile, no horizontal overflow, CTA tap target ≥44px, body bullets readable.
-- Verify floating labels in Contact: animate correctly on focus/blur, do not collide with field borders, no zoom-on-focus iOS issue (font-size ≥16px on inputs to prevent iOS zoom).
-- Verify footer scroll-driven progress rule renders correctly — does not cause layout shift, does not introduce horizontal scroll, fills smoothly at 5 scroll positions.
-- Verify About pillar interactivity fires on tap/scroll on mobile.
-- **Regression check on 3D features (1863cee):** industry card flip works on tap (mobile uses JS toggle, not hover), service-fp tilt is bypassed on touch (no broken tilt residue), hero mesh octahedron rotates without horizontal overflow.
-- Audit center-alignment of all section headers + CTAs at 375 and 414. Document any drift.
+**Scope:** Frame B only. Refine the now-amplified hero mesh vertex-pulse keyframes (stagger timing, ease curve, opacity range) so the pulse reads intentional, not flickery. Then sweep recently-shipped sections (candidates cream gradient, footer wordmark stagger + progress rule, contact floating labels + submit choreography) for typography / spacing / micro-timing refinement.
 
-**Files to touch:** `style.css` for any drift fixes, regenerate `style.min.css`, bump cache-buster to `?v=cycle4-p`. Otherwise verification-only.
-**Files NOT to touch:** Functional JS, structural HTML.
-**Commit:** `pixel cycle 4: mobile alignment audit + 3D regression check + any drift fixes`
-**MEMORY echoes:** Audit center-alignment 375 + 414 every cycle. NEVER bail on mobile — fix the underlying CSS. 13px font floor. Tap targets ≥44px. After CSS edits regenerate min + bump cache-buster. DO NOT TEXT THE USER.
+**Frame B rule:** keep content count. Do NOT strip bullets, do NOT remove sub-labels, do NOT consolidate. Refine spacing, leading, weight, micro-easing only.
 
----
+**Files Spark may touch:** `style.css` (vertex-pulse keyframe tuning, candidates / footer / contact spacing + leading + weight). `main.js` only if a micro-timing easing in the submit choreography or footer stagger needs adjustment — refinement only, not restructure.
 
-### 4) Nigel — Cycle 4 score + AUDIT.md cycle 5 priorities
+**Files Spark must NOT touch:** every section listed under Cooldowns. The hero mesh **structure** (Builder amplifies; Spark only tunes the pulse keyframe). The services scroll-lock CSS / JS (Builder owns P2). The stat observer JS (Builder owns P1). Nav. Stat band copper vignette.
 
-**Scope:** Re-score from a real prospective customer lens (Tax Practice Leader deciding on a $40K retained search; Senior Manager Tax candidate deciding to submit a resume).
-- Strict cap 7.5 holds — no real photos, no real testimonials, no real published street address yet.
-- Score ≥ cycle 3's 6.8 only if the new features (Candidates identity, Contact floating labels + submit choreography, Footer wordmark + progress rule, About pillar interactivity) actually elevate the section's perceived quality.
-- Nigel must NEVER recommend removing glows / animations / effects. Only ADD or IMPROVE.
-- Append one line to `SCORES.log` with the cycle 4 score + delta + one-sentence rationale.
-- Rewrite `AUDIT.md` for cycle 5: top-3 priorities ranked, acceptance criteria for each, what worked / what's still off.
-- Append one line to `CHANGELOG-AGENT.md`.
+**Memory rules to respect:** Frame B keeps content count. Replace-when-adding (no piling on). Apps must NOT look AI-generated. Regenerate style.min.css. Bump cache-buster to `?v=cycle5-s`. Playwright ≥5 positions across all 3 viewports. **DO NOT TEXT THE USER.**
 
-**Files to touch:** `AUDIT.md`, `SCORES.log`, `CHANGELOG-AGENT.md`.
-**Files NOT to touch:** index.html, style.css, main.js, style.min.css.
-**Commit:** `nigel cycle 4: re-score <X> — <one-line summary>`
-**MEMORY echoes:** Score from real customer lens. Cap 7.5. Never recommend removing glows / animations / effects. Respectful tone — never blame user for blockers. DO NOT TEXT THE USER.
+**Commit format:** `spark cycle 5: Frame B — vertex-pulse keyframe tune + candidates/footer/contact micro-timing — <verification line>`
 
 ---
 
-## Rationale
+### 3. Pixel — Mobile alignment + P1 regression gate-check + overflow + tap targets
 
-Cycle 3 carryover (hero parallax + stat count-up + 3D features) already shipped in interrupt commits b5a2549 + 1863cee, so cycle 4 concentrates on the remaining open priorities: Candidates section identity (still the visual weak point), and three signature distinctiveness moves the user has been pushing for — Contact, Footer, About pillars. Four agents, no spread, each with one or two clearly-scoped deliverables. Section cooldowns prevent re-touching anything stable. Memory rules echoed in every brief.
+**Scope:**
+1. **Critical regression check:** Verify P1 (stat count-up) is actually fixed on iPhone 13 + iPhone SE — Playwright screenshot at the first scroll position where the stat is visible must show `$40K+` or the completed `is-counted` state, NOT a mid-count value. If the fix did not stick, file the regression and patch the threshold or add the velocity-skip fallback.
+2. **Mobile center-alignment audit at 375 + 414** (standing user concern): hero CTAs, stat band, services panel headlines, industries cards, about pillars, candidates section, employers panel, footer wordmark — all center-align cleanly at both viewports.
+3. **Full overflow audit:** docWidth must equal winWidth at 375 and 414. No horizontal scroll anywhere.
+4. **Tap target audit:** every interactive element ≥44×44px on mobile. Re-verify after Builder's hero mesh amplification (any new vertex circles must not be tappable in a way that misfires).
+5. **Verify P3:** mesh visibly larger on desktop 1440 (≥32vw or 280–460px clamp), and headline still fully legible at 375px.
+
+**Files Pixel may touch:** `style.css` for mobile-only fixes (≤480px or ≤768px breakpoints) — alignment, font-size floors, tap-target padding. `main.js` only if Builder's stat observer needs the velocity-skip fallback added.
+
+**Files Pixel must NOT touch:** desktop styles. Any structural HTML. Any section listed under Cooldowns at desktop scope.
+
+**Memory rules to respect:** Pixel must always audit center-alignment consistency on mobile (standing rule). Tap targets ≥44px. 13px font floor. No fabricated content. Regenerate style.min.css. Bump cache-buster to `?v=cycle5-p`. Playwright ≥5 positions across iPhone 13 + iPhone SE + desktop 1440. **DO NOT TEXT THE USER.**
+
+**Commit format:** `pixel cycle 5: P1 regression gate + 375/414 center-alignment audit + tap target sweep — <verification line>`
+
+---
+
+### 4. Nigel — Re-score, write cycle 6 priorities, append SCORES.log
+
+**Scope:**
+- Score the live site from a real prospective buyer's 90-second scroll: a Tax Practice Leader deciding whether to open a $40K retained search, and a Senior Tax Manager deciding whether to submit a resume.
+- Strict cap 7.5 until real photography + real testimonials + verifiable street address all land. Cycle 5 target: 7.4 if all three priorities (P1, P2, P3) verified live. 7.2–7.3 if two of three. 7.1 hold if regressions persist.
+- Write **AUDIT.md cycle 6 top-3 priorities** — concrete, ranked, with acceptance criteria. Do NOT recommend removing any glow / animation / effect (standing rule). Only add or improve.
+- Append one line to `SCORES.log`: `cycle 5: <score> (Δ <delta>) — <one-line summary>`
+- Append one Nigel entry to `CHANGELOG-AGENT.md`.
+
+**Files Nigel may touch:** `AUDIT.md`, `SCORES.log`, `CHANGELOG-AGENT.md`.
+
+**Files Nigel must NOT touch:** `index.html`, `style.css`, `style.min.css`, `main.js`. Nigel does not build — Nigel scores.
+
+**Memory rules to respect:** Nigel scores stricter (real-user perspective, sites start ~5.5 not 7+). Nigel never recommends removing quality features. Strict 7.5 cap. Respectful tone — never call user a bottleneck. No fabricated content recommendations. No ghost numbers. **DO NOT TEXT THE USER.**
+
+**Commit format:** `nigel cycle 5: re-score <score> — <one-line summary>`
+
+---
+
+## Verification gate before Nigel scores
+
+After Builder + Spark + Pixel ship, the live site must show on Playwright:
+- Desktop 1440 + iPhone 13 + iPhone SE: stat band shows `$40K+` (or `is-counted` state) at first visible frame.
+- iPhone SE through services runway (5 positions): no two complete headlines simultaneously readable mid-transition.
+- Desktop 1440: hero mesh visibly larger than cycle 4 (≥32vw or 280–460px clamp), vertex-pulse animation active.
+- iPhone SE 375px: hero headline "Specialist recruitment." fully legible, mesh proportionally scaled.
+- 375 + 414: no horizontal overflow, all tap targets ≥44px, center-alignment consistent.
+
+If any of these fail, the failing agent re-runs before Nigel scores.
