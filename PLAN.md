@@ -1,40 +1,43 @@
-# PLAN — Builder Cycle 13: Services Panel Layout Redo
+# PLAN — cycle 13: process journey bar — horizontal top -> vertical sticky side
 
 **Date:** 2026-04-27
-**Cycle:** 13
+**Cycle:** 13 (journey-vertical sub-task)
 
 ## Problem
-- `service-fp__num` is `clamp(3.2rem, 6vw, 5.5rem)` — too tall, clips at top of panel
-- `service-fp__inner` max-width is 760px — content sprawls too wide on desktop
-- `service-fp__lede` max-width 560px — still too wide relative to 760px inner
-- List items: 11px top+bottom padding × 6 items = too much vertical space, spreads content
-- Inner `overflow: hidden` clips tall numeral when top padding is insufficient
-- Mobile: `align-items: flex-start` + `padding-top: clamp(80px, 12vw, 120px)` clips numeral
+The horizontal `process__line` SVG sits above the `.process__steps` grid. As user scrolls into the steps, the line disappears from view — it does not track the user's progress through the 4 steps at all.
 
-## Fix — CSS-only, style.css lines 1166–1330 + mobile block ~2572–2591
+## Fix — Option A: vertical sticky journey bar
 
-### Changes:
-1. `.service-fp__num` — shrink to `clamp(1.2rem, 2.5vw, 1.8rem)`, eyebrow-style, opacity 0.7 (more visible as small label)
-2. `.service-fp__inner` — max-width 760px → 600px; add `padding-top: 8px` to give numeral breathing room above
-3. `.service-fp__title` — keep `clamp(2.2rem, 4.5vw, 3.4rem)` (stays as visual anchor)
-4. `.service-fp__lede` — max-width 560px → 480px
-5. `.service-fp__list` — max-width: 480px; margin-bottom 36px → 24px
-6. `.service-fp__list li` — padding 11px → 8px top/bottom; line-height 1.5 → 1.4
-7. Mobile overrides — num: `clamp(1rem, 4vw, 1.4rem)`; inner padding-top stays; list li padding 6px
+### HTML delta (index.html)
+- Remove the `.process__line` div entirely
+- Wrap `.process__steps` + new `.process__journey-bar` inside `.process__inner` (flex-row)
+- `.process__journey-bar` has: SVG with base + fill lines; 4 `.process__journey-marker` spans (01/02/03/04)
+- Bump cache-buster to `?v=cycle13-journey-vertical`
 
-## Files to touch
-- `style.css` — service-fp block ~1183–1291 + mobile block ~2572–2591
-- `style.min.css` — regenerated
-- `index.html` — cache-buster → `?v=cycle13-services-redo`
+### CSS delta (style.css)
+- Remove `.process__line` rules (lines ~1659-1686)
+- Add `.process__inner` flex layout (row, gap 0)
+- Add `.process__journey-bar`: sticky positioning, ~48px wide, full height of steps
+- Add `.process__journey-base`, `.process__journey-fill`, `.process__journey-marker` styles
+- Marker `.is-active` state = bright gold
+- Mobile (<=600px): bar 32px wide, runs alongside single-column stacked steps
+- Regenerate `style.min.css`
 
-## Files NOT to touch
-- index.html panel structure
-- main.js
+### JS delta (main.js)
+- Rewrite process IIFE: vertical line dashoffset based on scroll through .process section
+- Total line length = SVG height (dynamic, set via JS from .process__steps offsetHeight)
+- Activate marker[0] at progress 0, marker[1] at 0.25, marker[2] at 0.5, marker[3] at 0.75
+
+## Files
+- `index.html`
+- `style.css` + `style.min.css`
+- `main.js`
 
 ## Success criterion
-- Playwright 5 positions × 3 viewports: numeral not clipped, title 1-2 lines, content fits within 600px, no horizontal overflow
-- Panel feels composed, not spread
+- Bar visible at all 5 scroll positions inside Process section (desktop + iPhone 13 + SE)
+- dashoffset decreases progressively 0->100% scroll
+- Markers light up in sequence
+- Zero horizontal overflow
 
-## Estimated diff scope
-- style.css: ~15 lines changed
-- index.html: 1 line (cache-buster)
+## Scope
+~20 HTML lines, ~70 CSS lines, ~40 JS lines
