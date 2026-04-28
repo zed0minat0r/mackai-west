@@ -2622,6 +2622,17 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     padding-bottom: 9px;
   }
 
+  /* ── Services dots: reduce horizontal padding on mobile so 5 dots fit within viewport ──
+     Desktop: 17px padding → 78px per dot × 5 + 40px gaps = 430px total (fine at 1440).
+     Mobile: 430px > 390px viewport → dots 1+5 clip off-screen.
+     Fix: reduce to padding: 10px 6px → 56px per dot × 5 + 32px gaps = 312px (fits 320px SE). */
+  .services-dots {
+    gap: 8px;
+  }
+  .services-dot {
+    padding: 10px 6px;
+  }
+
   /* ── Services scroll-lock: mobile panel content sizing ── */
   /* Keep flex-direction: row and 100vw panels — the lock works on mobile.
      Only reduce typography to fit narrow viewports. */
