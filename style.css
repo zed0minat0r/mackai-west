@@ -1182,7 +1182,6 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   height: 100%;
   width: max-content;
   will-change: transform;
-  transition: transform 0.05s linear;
 }
 
 /* Full-viewport panels */
@@ -1422,19 +1421,22 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     0 0 12px 2px rgba(201, 169, 97, 0.5);
 }
 
-/* Pulse ring around active dot — emanates outward and fades */
+/* Pulse ring around active dot — emanates outward and fades.
+   Width matches the scaled active dot (8px × 2x scale = 16px effective)
+   so the ring starts at the same visual size as the dot, not smaller-and-offset. */
 .services-dot.is-active::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 8px;
-  height: 8px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   border: 1.5px solid rgba(201, 169, 97, 0.6);
   transform: translate(-50%, -50%) scale(1);
   animation: dot-pulse 2s ease-out infinite;
   pointer-events: none;
+  box-sizing: border-box;
 }
 @keyframes dot-pulse {
   0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.7; }
@@ -2720,8 +2722,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
       0 0 8px 1px rgba(201, 169, 97, 0.45);
   }
   .services-dot.is-active::before {
-    width: 6px;
-    height: 6px;
+    width: 11px;
+    height: 11px;
   }
 
   /* ── Services scroll-lock: mobile panel content sizing ── */

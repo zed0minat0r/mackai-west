@@ -213,7 +213,10 @@
     });
   }
 
-  function onScroll() {
+  var rafPending = false;
+
+  function update() {
+    rafPending = false;
     var rect    = runway.getBoundingClientRect();
     var runwayH = runway.offsetHeight;
     var vh      = window.innerHeight;
@@ -244,6 +247,13 @@
     setActiveDot(idx);
   }
 
+  function onScroll() {
+    if (!rafPending) {
+      rafPending = true;
+      window.requestAnimationFrame(update);
+    }
+  }
+
   // Dot clicks: smooth-scroll to the scroll position for that panel
   var SLIDE_FRAC_CLICK = 0.92;
   dots.forEach(function (dot, i) {
@@ -260,7 +270,7 @@
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
-  onScroll();
+  update();
 })();
 
 /* ---- Hero: subtle horizon parallax ---- */
