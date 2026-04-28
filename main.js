@@ -931,13 +931,7 @@ TextScramble.prototype.setText = function (newText) {
 
       /* Line-mask reveal: CSS drives translateY via is-revealed */
       heading.classList.add('is-revealed');
-
-      /* Scramble each inner span */
-      var spans = innerSpans.get(heading) || [];
-      spans.forEach(function (item) {
-        var scrambler = new TextScramble(item.el);
-        scrambler.setText(item.text);
-      });
+      /* Scramble decode REMOVED — read as spastic gold flicker. Line-mask wipe alone is the reveal. */
     });
   }, { threshold: 0.4 });
 

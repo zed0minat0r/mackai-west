@@ -2836,7 +2836,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
    transform/filter/opacity (would fight rAF).
    ============================================ */
 .hero__scroll-exit {
+  flex: 1 1 100%;
   width: 100%;
+  min-width: 0;
   transform-origin: center center;
   will-change: transform, opacity, filter;
 }
