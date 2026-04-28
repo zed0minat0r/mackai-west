@@ -1838,7 +1838,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: 0.75rem;
+  font-size: 0.8125rem; /* 13px floor */
   letter-spacing: 0.02em;
   color: rgba(201, 169, 97, 0.35);
   background: var(--navy);
@@ -2695,7 +2695,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .process__journey-bar { width: 20px; height: clamp(220px, 42vh, 360px); }
   /* Inner: no padding-left — flex gap handles bar separation */
   .process__inner { padding-left: 0; }
-  .process__journey-marker { font-size: 0.65rem; }
+  .process__journey-marker { font-size: 0.8125rem; } /* 13px floor — do not go below */
 
   .contact__details li { grid-template-columns: 1fr; gap: 4px; }
 
