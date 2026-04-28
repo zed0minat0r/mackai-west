@@ -1356,24 +1356,24 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 /* Pagination dots */
 .services-dots {
   position: absolute;
-  bottom: 32px;
+  top: clamp(20px, 4vh, 36px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: 8px;
   z-index: 10;
 }
 
 .services-dot {
-  width: 10px;
-  height: 10px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 6px;
+  height: 6px;
+  min-width: 32px;
+  min-height: 32px;
   border-radius: 50%;
-  background: rgba(201, 169, 97, 0.35);
+  background: transparent;
   border: none;
   cursor: pointer;
-  padding: 17px;
+  padding: 13px;
   box-sizing: content-box;
   position: relative;
   transition: background 0.25s;
@@ -1385,10 +1385,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(201, 169, 97, 0.35);
+  background: rgba(201, 169, 97, 0.4);
   transition: background 0.25s, transform 0.25s;
 }
 
@@ -2651,13 +2651,20 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   /* ── Services dots: reduce horizontal padding on mobile so 5 dots fit within viewport ──
      Desktop: 17px padding → 78px per dot × 5 + 40px gaps = 430px total (fine at 1440).
-     Mobile: 430px > 390px viewport → dots 1+5 clip off-screen.
-     Fix: reduce to padding: 10px 6px → 56px per dot × 5 + 32px gaps = 312px (fits 320px SE). */
+     Mobile (post-redo to top + smaller dots): 32px tap targets at 6px
+     gap = 5 × 32 + 4 × 6 = 184px. Fits 320px SE comfortably. */
   .services-dots {
-    gap: 8px;
+    gap: 6px;
+    top: clamp(16px, 3vh, 24px);
   }
   .services-dot {
-    padding: 10px 6px;
+    padding: 8px 4px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+  .services-dot::after {
+    width: 5px;
+    height: 5px;
   }
 
   /* ── Services scroll-lock: mobile panel content sizing ── */
