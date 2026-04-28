@@ -122,22 +122,22 @@
   var barNaturalTop = 0;
 
   function sizeBar() {
-    var stepsH = stepsEl.offsetHeight;
-    /* Natural top = innerEl.offsetTop within bodyEl, since bar is absolute in bodyEl */
-    barNaturalTop = innerEl.offsetTop;
-    bar.style.top    = barNaturalTop + 'px';
-    bar.style.height = stepsH + 'px';
+    /* Bar is now position: sticky with a fixed CSS height. SVG inside
+       sizes to the bar's rendered height. The fill animation runs over
+       the bar's height; the actual progress is computed from the steps
+       grid scroll position. */
+    var barH = bar.offsetHeight;
 
-    svg.setAttribute('viewBox', '0 0 4 ' + stepsH);
-    baseLine.setAttribute('y2', stepsH);
-    fillLine.setAttribute('y2', stepsH);
-    LINE_LEN = stepsH;
-    fillLine.style.strokeDasharray = stepsH;
+    svg.setAttribute('viewBox', '0 0 4 ' + barH);
+    baseLine.setAttribute('y2', barH);
+    fillLine.setAttribute('y2', barH);
+    LINE_LEN = barH;
+    fillLine.style.strokeDasharray = barH;
 
-    /* Markers at step positions: evenly distributed */
+    /* Markers evenly distributed along bar height */
     var positions = [0.0, 0.33, 0.66, 0.96];
     markers.forEach(function (m, i) {
-      m.style.top = Math.round(positions[i] * stepsH) + 'px';
+      m.style.top = Math.round(positions[i] * barH) + 'px';
     });
 
     if (reducedMotion) {
@@ -154,38 +154,20 @@
     rafPending = false;
     if (reducedMotion) return;
 
+    /* Progress: 0 → 1 across the steps grid scroll travel.
+       0 when stepsEl.top is at the bar's pin point (steps just arriving).
+       1 when stepsEl.bottom is at the bar's pin point (last step scrolling past).
+       The bar itself is position: sticky — browser handles pinning natively;
+       JS only updates the SVG fill + marker activation based on scroll progress. */
     var stepsRect = stepsEl.getBoundingClientRect();
-    var winH      = window.innerHeight;
     var stepsH    = stepsEl.offsetHeight;
-    var sectionRect = section.getBoundingClientRect();
-    var sectionH    = section.offsetHeight;
-
-    /* Progress = how far the steps grid has been scrolled past the bar's pin point.
-       0 when stepsEl.top is at PIN_TOP (steps just arrived at the bar's pinned position).
-       1 when stepsEl.bottom is at PIN_TOP (last step has just scrolled past the bar).
-       Range: PIN_TOP to PIN_TOP - stepsH = -stepsH px of stepsEl.top travel. */
-    var progress = (PIN_TOP - stepsRect.top) / stepsH;
+    var progress  = (PIN_TOP - stepsRect.top) / stepsH;
     progress = Math.max(0, Math.min(1, progress));
-
-    /* translateY pins the bar at PIN_TOP while inside the section.
-       barNaturalTop is the bar's offset within .process__body (its
-       absolute-positioning ancestor). For the clamp we need its offset
-       within .process (the section). Add bodyEl.offsetTop to bridge the
-       two coordinate systems — without this, maxTY is too generous and
-       the bar can translate past the section's bottom edge into the
-       next section (Candidates). */
-    var bodyOffset = bodyEl.offsetTop;
-    var barNatVP   = sectionRect.top + bodyOffset + barNaturalTop;
-    var rawTY      = PIN_TOP - barNatVP;
-    var BUFFER     = 48; /* keep bar's bottom 48px above section bottom */
-    var maxTY      = sectionH - bodyOffset - barNaturalTop - stepsH - BUFFER;
-    var translate  = Math.max(0, Math.min(Math.max(maxTY, 0), rawTY));
-    bar.style.transform = 'translateY(' + translate + 'px)';
 
     /* Fill line: dashoffset interpolates smoothly via CSS transition */
     fillLine.style.strokeDashoffset = String(LINE_LEN - LINE_LEN * progress);
 
-    /* Activate markers based on direct progress comparison */
+    /* Activate markers based on progress crossing each threshold */
     markers.forEach(function (m, i) {
       if (progress >= MARKER_THRESHOLDS[i]) {
         m.classList.add('is-active');

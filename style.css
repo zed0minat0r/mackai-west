@@ -1766,13 +1766,17 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   padding-left: clamp(52px, 5vw, 72px);
 }
 
-/* Journey bar — absolutely positioned LEFT of steps, translateY driven by JS to pin in viewport */
+/* Journey bar — sticky-pinned to viewport while user is in .process__body.
+   Was previously absolute + JS translateY trick, which over-clamped and
+   scrolled out of viewport. Sticky lets the browser handle the pin
+   natively: bar stays at `top: clamp(...)` from viewport edge for the
+   entire duration the parent .process__body is in view. */
 .process__journey-bar {
-  position: absolute;
-  left: clamp(24px, 5vw, 60px);
-  top: 0;
+  position: sticky;
+  top: clamp(96px, 18vh, 140px);
+  margin-left: clamp(24px, 5vw, 60px);
   width: 48px;
-  /* height set by JS to match .process__steps height */
+  height: clamp(280px, 48vh, 420px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2672,7 +2676,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   .process__steps { grid-template-columns: 1fr; }
   /* Journey bar: narrow on mobile, tucked to body left pad start */
-  .process__journey-bar { width: 20px; left: 0; }
+  .process__journey-bar { width: 20px; margin-left: 0; height: clamp(220px, 42vh, 360px); }
   /* Inner: 28px left = bar width (20) + 8px gap; right stays at 0 for
      symmetric visual weight relative to body's 24px right pad */
   .process__inner { padding-left: 28px; }
