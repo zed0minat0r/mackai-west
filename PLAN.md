@@ -1,4 +1,42 @@
-# PLAN — Scout Top 5 (line-mask heading reveal + text scramble decode)
+# PLAN — Builder Cycle 12 (Services 2→5 + Caption + Industries)
+
+**Date:** 2026-04-27
+**Cycle:** 12 (user escalated services expand to P1)
+
+## Files to touch
+- `index.html` — services 2→5 panels, dots 2→5, section title, about caption, industries back-face role lists, cache-buster → `?v=cycle12-b`
+- `style.css` — `.services-runway` height 240vh → 480vh; mobile breakpoint 260vh → 600vh
+- `style.min.css` — regenerated after CSS edits
+
+## Expected diff scope
+- index.html: ~100 lines changed (services panels 3-5 added, dots 3-5 added, title text, caption text, 3x back-face lists expanded)
+- style.css: 2 line changes (runway height desktop + mobile)
+
+## Task A — Services 2 → 5 panels
+- Desktop runway: 240vh → 480vh (5 panels need 4 transitions of ~100vh each + dwell)
+- Mobile runway: 260vh → 600vh
+- Panels: cream/navy/cream/navy/cream alternating
+- JS reads numPanels dynamically — no JS change needed
+- Section title: "Two specialist practices." → "Five practice lanes."
+- Eyebrow: "Practices" → "Practice areas"
+- 5 dots with correct data-panel + aria-label
+
+## Task B — About caption
+- "Studio photography forthcoming" → "Specialist tax & finance recruitment"
+
+## Task C — Industries back-face role expansion
+- Construction: +Project Controller, +Senior Estimator / Cost Lead, +Director of Tax (R&D Credits)
+- Real Estate: +Director of Asset Management, +Senior Property Tax Specialist, +REIT Reporting Manager
+- Manufacturing: +Plant CFO, +Senior Cost Analyst, +Treasury Manager
+- No structural changes — append only
+
+## Success criterion
+- Playwright: services track reaches -400vw at 95% scroll (5 panels = 4 transitions)
+- 5 dots present, active state advances 0→1→2→3→4
+- About caption shows new text at all 3 viewports
+- Industries back face shows new roles on hover/tap at all 3 viewports
+
+# PLAN — Scout Top 5 (line-mask heading reveal + text scramble decode) [archived]
 
 ## Goal
 Ship features 4 + 5 from SCOUT-REPORT.md (Scout priority order 4 = line-mask, 5 = scramble).
