@@ -2572,8 +2572,11 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .form-note { max-width: none; }
 
   .process__steps { grid-template-columns: 1fr; }
-  .process__inner { padding-left: clamp(36px, 4vw, 52px); }
-  .process__journey-bar { width: 32px; }
+  /* Journey bar: narrow on mobile, tucked to body left pad start */
+  .process__journey-bar { width: 20px; left: 0; }
+  /* Inner: 28px left = bar width (20) + 8px gap; right stays at 0 for
+     symmetric visual weight relative to body's 24px right pad */
+  .process__inner { padding-left: 28px; }
   .process__journey-marker { font-size: 0.65rem; }
 
   .contact__details li { grid-template-columns: 1fr; gap: 4px; }
@@ -2693,6 +2696,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     min-height: 220px;
     padding: clamp(28px, 7vw, 44px) clamp(20px, 6vw, 32px);
     align-items: flex-start;
+    justify-content: center;
   }
   .employers__panel-mark {
     flex-direction: column;
@@ -2727,6 +2731,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     min-height: 220px;
     padding: clamp(28px, 7vw, 44px) clamp(20px, 6vw, 32px);
     align-items: flex-start;
+    justify-content: center;
   }
   .candidates__panel-mark {
     flex-direction: column;
