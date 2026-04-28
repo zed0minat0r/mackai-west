@@ -1,0 +1,745 @@
+{
+  "desktop": {
+    "viewport": "desktop",
+    "candidatesResults": [
+      {
+        "frac": 0.05,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "0",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 1440,
+        "windowInnerWidth": 1440,
+        "overflow": false,
+        "panelTop": 6430.015625,
+        "copyTop": 6454.015625
+      },
+      {
+        "frac": 0.25,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "0",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 1440,
+        "windowInnerWidth": 1440,
+        "overflow": false,
+        "panelTop": 4809.015625,
+        "copyTop": 4833.015625
+      },
+      {
+        "frac": 0.5,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "0",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 1440,
+        "windowInnerWidth": 1440,
+        "overflow": false,
+        "panelTop": 2748.015625,
+        "copyTop": 2772.015625
+      },
+      {
+        "frac": 0.75,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "0",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 1440,
+        "windowInnerWidth": 1440,
+        "overflow": false,
+        "panelTop": 526.015625,
+        "copyTop": 549.1777954101562
+      },
+      {
+        "frac": 0.95,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "0",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 1440,
+        "windowInnerWidth": 1440,
+        "overflow": false,
+        "panelTop": -1366.984375,
+        "copyTop": -1361.44970703125
+      }
+    ],
+    "overflowTop": {
+      "bodyScrollWidth": 1440,
+      "windowWidth": 1440,
+      "overflow": false,
+      "documentScrollWidth": 1440
+    },
+    "overflowCandidates": {
+      "bodyScrollWidth": 1440,
+      "windowWidth": 1440,
+      "overflow": false,
+      "documentScrollWidth": 1440
+    },
+    "tapIssues": [
+      {
+        "tag": "A",
+        "class": "",
+        "text": "About",
+        "height": 34,
+        "width": 55
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Services",
+        "height": 34,
+        "width": 76
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Industries",
+        "height": 34,
+        "width": 92
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Process",
+        "height": 34,
+        "width": 73
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Candidates",
+        "height": 34,
+        "width": 98
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Employers",
+        "height": 34,
+        "width": 92
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Contact",
+        "height": 34,
+        "width": 75
+      },
+      {
+        "tag": "A",
+        "class": "btn btn--primary btn--sm",
+        "text": "Submit a search",
+        "height": 43,
+        "width": 170
+      },
+      {
+        "tag": "A",
+        "class": "link-arrow",
+        "text": "See how we work →",
+        "height": 26,
+        "width": 174
+      },
+      {
+        "tag": "A",
+        "class": "link-arrow",
+        "text": "Open a tax search →",
+        "height": 26,
+        "width": 184
+      },
+      {
+        "tag": "A",
+        "class": "link-arrow",
+        "text": "Open a finance search →",
+        "height": 26,
+        "width": 221
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "hello@mackaiwest.com",
+        "height": 26,
+        "width": 356
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "About",
+        "height": 25,
+        "width": 306
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Services",
+        "height": 25,
+        "width": 306
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Industries",
+        "height": 25,
+        "width": 306
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Candidates",
+        "height": 25,
+        "width": 306
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Employers",
+        "height": 25,
+        "width": 306
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "Contact",
+        "height": 25,
+        "width": 306
+      },
+      {
+        "tag": "A",
+        "class": "",
+        "text": "hello@mackaiwest.com",
+        "height": 25,
+        "width": 164
+      }
+    ],
+    "fontIssues": [
+      {
+        "tag": "SPAN",
+        "class": "nav__monogram",
+        "text": "MW",
+        "fontSize": 12.48
+      },
+      {
+        "tag": "A",
+        "class": "btn btn--primary btn--sm",
+        "text": "Submit a search",
+        "fontSize": 12.48
+      },
+      {
+        "tag": "P",
+        "class": "hero__eyebrow",
+        "text": "Tax · Finance · Accounting",
+        "fontSize": 12.48
+      },
+      {
+        "tag": "P",
+        "class": "stat__eyebrow",
+        "text": "Where we lead",
+        "fontSize": 11.52
+      },
+      {
+        "tag": "P",
+        "class": "stat__label",
+        "text": "Average placement fee",
+        "fontSize": 12
+      },
+      {
+        "tag": "P",
+        "class": "section-eyebrow",
+        "text": "About the firm",
+        "fontSize": 11.52
+      },
+      {
+        "tag": "P",
+        "class": "about__pillar-eyebrow",
+        "text": "The practice",
+        "fontSize": 11.52
+      },
+      {
+        "tag": "P",
+        "class": "section-eyebrow",
+        "text": "Practices",
+        "fontSize": 11.52
+      },
+      {
+        "tag": "P",
+        "class": "service-fp__sub",
+        "text": "Public Accounting",
+        "fontSize": 12
+      },
+      {
+        "tag": "P",
+        "class": "service-fp__sub",
+        "text": "Industry & Operating Companies",
+        "fontSize": 12
+      },
+      {
+        "tag": "P",
+        "class": "section-eyebrow",
+        "text": "Where we work",
+        "fontSize": 11.52
+      },
+      {
+        "tag": "SPAN",
+        "class": "industry__num",
+        "text": "01",
+        "fontSize": 12.48
+      },
+      {
+        "tag": "P",
+        "class": "industry__roles",
+        "text": "CFO · Controller · Project Acc",
+        "fontSize": 12.48
+      },
+      {
+        "tag": "SPAN",
+        "class": "industry__num",
+        "text": "02",
+        "fontSize": 12.48
+      },
+      {
+        "tag": "P",
+        "class": "industry__roles",
+        "text": "VP Finance · Fund Controller ·",
+        "fontSize": 12.48
+      },
+      {
+        "tag": "SPAN",
+        "class": "industry__num",
+        "text": "03",
+        "fontSize": 12.48
+      },
+      {
+        "tag": "P",
+        "class": "industry__roles",
+        "text": "Plant Controller · Cost Accoun",
+        "fontSize": 12.48
+      },
+      {
+        "tag": "P",
+        "class": "section-eyebrow",
+        "text": "How we work",
+        "fontSize": 11.52
+      },
+      {
+        "tag": "P",
+        "class": "section-eyebrow",
+        "text": "For candidates",
+        "fontSize": 11.52
+      },
+      {
+        "tag": "SPAN",
+        "class": "employers__panel-caption",
+        "text": "Executive Search",
+        "fontSize": 10.4
+      },
+      {
+        "tag": "P",
+        "class": "section-eyebrow",
+        "text": "For employers",
+        "fontSize": 11.52
+      },
+      {
+        "tag": "P",
+        "class": "section-eyebrow",
+        "text": "Get in touch",
+        "fontSize": 11.52
+      },
+      {
+        "tag": "SPAN",
+        "class": "contact__label",
+        "text": "Email",
+        "fontSize": 11.84
+      },
+      {
+        "tag": "SPAN",
+        "class": "contact__label",
+        "text": "Reach",
+        "fontSize": 11.84
+      },
+      {
+        "tag": "SPAN",
+        "class": "contact__label",
+        "text": "Hours",
+        "fontSize": 11.84
+      },
+      {
+        "tag": "SPAN",
+        "class": "",
+        "text": "2026",
+        "fontSize": 12.48
+      }
+    ],
+    "domChecks": {
+      "numeralAbsent": true,
+      "candidatesBefore_content": "none",
+      "candidatesBefore_borderLeft": "0px none rgb(6, 9, 15)",
+      "candidatesBackground": "rgb(255, 255, 255)",
+      "candidatesBackgroundImage": "none"
+    }
+  },
+  "iphone13": {
+    "viewport": "iphone13",
+    "candidatesResults": [
+      {
+        "frac": 0.05,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 390,
+        "windowInnerWidth": 390,
+        "overflow": false,
+        "panelTop": 7121.546875,
+        "copyTop": 7296.484375
+      },
+      {
+        "frac": 0.25,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 390,
+        "windowInnerWidth": 390,
+        "overflow": false,
+        "panelTop": 5121.546875,
+        "copyTop": 5296.484375
+      },
+      {
+        "frac": 0.5,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 390,
+        "windowInnerWidth": 390,
+        "overflow": false,
+        "panelTop": 2280.546875,
+        "copyTop": 2455.484375
+      },
+      {
+        "frac": 0.75,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 390,
+        "windowInnerWidth": 390,
+        "overflow": false,
+        "panelTop": -315.453125,
+        "copyTop": -151.5920867919922
+      },
+      {
+        "frac": 0.95,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 390,
+        "windowInnerWidth": 390,
+        "overflow": false,
+        "panelTop": -2771.453125,
+        "copyTop": -2620.496337890625
+      }
+    ],
+    "overflowTop": {
+      "bodyScrollWidth": 390,
+      "windowWidth": 390,
+      "overflow": false,
+      "documentScrollWidth": 390
+    },
+    "overflowCandidates": {
+      "bodyScrollWidth": 390,
+      "windowWidth": 390,
+      "overflow": false,
+      "documentScrollWidth": 390
+    },
+    "tapIssues": [],
+    "fontIssues": [
+      {
+        "tag": "A",
+        "class": "btn btn--primary btn--sm",
+        "text": "Submit a search",
+        "fontSize": 12.48
+      }
+    ],
+    "domChecks": {
+      "numeralAbsent": true,
+      "candidatesBefore_content": "none",
+      "candidatesBefore_borderLeft": "0px none rgb(6, 9, 15)",
+      "candidatesBackground": "rgb(255, 255, 255)",
+      "candidatesBackgroundImage": "none"
+    }
+  },
+  "iphoneSE": {
+    "viewport": "iphoneSE",
+    "candidatesResults": [
+      {
+        "frac": 0.05,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 375,
+        "windowInnerWidth": 375,
+        "overflow": false,
+        "panelTop": 7177.828125,
+        "copyTop": 7351.609375
+      },
+      {
+        "frac": 0.25,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 375,
+        "windowInnerWidth": 375,
+        "overflow": false,
+        "panelTop": 5233.828125,
+        "copyTop": 5407.609375
+      },
+      {
+        "frac": 0.5,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 375,
+        "windowInnerWidth": 375,
+        "overflow": false,
+        "panelTop": 2663.828125,
+        "copyTop": 2837.609375
+      },
+      {
+        "frac": 0.75,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 375,
+        "windowInnerWidth": 375,
+        "overflow": false,
+        "panelTop": -20.171875,
+        "copyTop": 148.0991973876953
+      },
+      {
+        "frac": 0.95,
+        "panelExists": true,
+        "panelBg": "rgb(250, 246, 238)",
+        "panelBgImage": "radial-gradient(at 60% 40%, rgba(168, 139, 69, 0.08) 0px, rgba(0, 0, 0, 0) 70%)",
+        "panelOrder": "-1",
+        "markFlexDirection": "column",
+        "forText": "For",
+        "whoText": "Candidates",
+        "ruleVisible": true,
+        "ruleHeight": "1px",
+        "captionText": "Senior Careers",
+        "captionFontSize": "13px",
+        "bulletCount": 3,
+        "ctaHref": "#contact",
+        "ctaVisible": true,
+        "numeralPresent": false,
+        "candidatesBorderLeft": "0px none rgb(6, 9, 15)",
+        "bodyScrollWidth": 375,
+        "windowInnerWidth": 375,
+        "overflow": false,
+        "panelTop": -2441.171875,
+        "copyTop": -2288.04541015625
+      }
+    ],
+    "overflowTop": {
+      "bodyScrollWidth": 375,
+      "windowWidth": 375,
+      "overflow": false,
+      "documentScrollWidth": 375
+    },
+    "overflowCandidates": {
+      "bodyScrollWidth": 375,
+      "windowWidth": 375,
+      "overflow": false,
+      "documentScrollWidth": 375
+    },
+    "tapIssues": [],
+    "fontIssues": [
+      {
+        "tag": "A",
+        "class": "btn btn--primary btn--sm",
+        "text": "Submit a search",
+        "fontSize": 12.48
+      }
+    ],
+    "domChecks": {
+      "numeralAbsent": true,
+      "candidatesBefore_content": "none",
+      "candidatesBefore_borderLeft": "0px none rgb(6, 9, 15)",
+      "candidatesBackground": "rgb(255, 255, 255)",
+      "candidatesBackgroundImage": "none"
+    }
+  }
+}
