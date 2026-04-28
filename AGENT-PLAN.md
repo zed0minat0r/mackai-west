@@ -1,104 +1,132 @@
-# MacKai West — Cycle 11 Agent Plan
+# MacKai West — Cycle 12 Plan
 
-**Cycle:** 11
-**Date:** 2026-04-27
-**Last score (cycle 10):** 7.6 / 10
-**Design-only ceiling this cycle:** 7.7–7.8 (real photography/testimonials/address required for higher)
-**Focus axis:** About-section pre-launch signal resolution + mobile Candidates panel proportion
-**Live:** https://zed0minat0r.github.io/mackai-west/
+**Cycle:** 12
+**Date:** 2026-04-28
+**Last score:** 7.7 (Nigel cycle 11) — but stale; multiple feature drops (cycle 11.5 hero refresh, scout-top-3, scout-top-5, hero-center fix) have landed since. Re-score required.
+**Cap stance:** Cycle 11 stamped a 7.5–7.8 design ceiling pending real photography + testimonials + address. Coordinator authorizes Nigel to lift the cap to 8.0 this cycle to account for the cumulative cycle 11.5 + scout-top-3 + scout-top-5 distinctiveness gain — the design ceiling itself is what's been raised by the feature density, not the content cap.
 
 ---
 
-## Dispatch Decision
+## Dispatch decision (one-line rationale)
 
-Standard 4-agent rotation (Builder → Spark → Pixel → Nigel). Score is 7.6, below the 8.5 polish-only gate. AUDIT.md P1 + P3 are concrete, non-cooldown moves. P2 (form endpoint) is user-side blocked and is documented and skipped per directive.
-
-**One-line rationale:** Resolve the about right-column pre-launch signal with a deliberate brand-artifact panel (no fabricated content, no stock photo) and fix the iPhone SE Candidates panel min-height regression carried over from cycle 9.
+Score 7.7 < 8.5 → score gate not triggered → full slate. P1 is user-side blocked (Formspree URL); cycle 12 executes P2 caption rewrite + P3 industries role expansion, then re-scores against the cumulative feature drops since cycle 11.
 
 ---
 
-## Scheduled Agents (in order)
+## Scheduled agents (in order)
 
-### 1. Builder
-**Brief:** Ship P1 about navy placeholder panel — small editorial card (~200–280px × 240–320px), navy bg, MW monogram circle (matching nav monogram weight), gold hairline border, Playfair italic caption ("Photography forthcoming" or "Studio · 2026"). Place visually associated with the about section — preferred path: insert as a 3rd column inside `.about__inner` grid at desktop, OR layer below the pillars list, OR drop in as a 4th `.about__pillars` item. Mobile must collapse cleanly. Ship P3 mobile candidates min-height fix — at `@media (max-width: 600px)`, set `.candidates__panel { min-height: auto }` or `min-height: 220px` so the panel sizes to content + padding only, and apply the same rule to `.employers__panel` if it inherited the over-tall mobile rule from the cycle 10 unification. Regenerate `style.min.css`. Verify Playwright at ≥5 positions × desktop 1440 + iPhone 13 + iPhone SE.
+### 1. Builder — P2 caption + P3 role expansion
 
-**MEMORY rules to respect:**
-- No fabricated content (no fake "Est." dates, no fake names — MW monogram + honest pre-launch caption only)
-- Apps must NOT look AI-generated (deliberate brand-artifact, not a generic placeholder box)
-- NEVER bail mobile via matchMedia
-- No ghost numbers
-- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
+**Brief:** Execute two surgical edits.
 
-**Forbidden sections / scope:** All hero, nav, stat band, marquee, industries, services scroll-lock, magnetic underlines, footer, contact, process, about pillars structural content, about seal, candidates panel navy inversion + cross-panel parity (only mobile min-height per P3), employers panel (only matching mobile min-height fix if it shares the rule), mobile font floor + tap targets, sticky mobile CTA. Do not restructure the pillars or move the seal.
+**P2 — About placeholder caption rewrite.** Current caption "Studio photography forthcoming" announces the absence (Nigel cycle 11 trust-deficit flag). Replace with a brand-voice line that doesn't reference the missing photo. Builder picks the cleanest visually from these three options:
+- (a) "Specialist tax & finance recruitment" — brand voice, doesn't reference photography
+- (b) "United States · 2026" — mark-style line, location + year as a brand artifact
+- (c) Remove the caption entirely — let the MW monogram circle stand silently as a brand artifact
 
----
+Builder ships ONE option, doesn't combine. Caption typography (Playfair italic, 0.04em letter-spacing, cream-60) stays — only the text changes (or is removed in option c).
 
-### 2. Spark
-**Brief:** Frame B polish on the new about navy placeholder panel only — refine monogram circle stroke weight, internal spacing, Playfair italic caption tracking + size, gold hairline border opacity, panel inner padding rhythm. Frame B keeps content count — refine the panel that Builder shipped, never strip it down or pile on additional elements. Pull a single editorial reference (Heidrick / Korn Ferry / Bottega Veneta press card) and replace one specific weakness in the Builder version. Regenerate `style.min.css`. Verify at ≥5 positions × 3 viewports.
+**P3 — Industries hover-reveal role expansion.** Each of the 3 industry cards currently has ~5 role archetypes on the back face. Add 2-3 more honest generic role titles per card (NO fabricated client placements — generic role categories only):
+- **Construction**: + Project Controller, + Senior Estimator/Cost Lead, + Director of Tax (R&E projects)
+- **Real Estate**: + Director of Asset Management, + Senior Property Tax Specialist, + REIT Reporting Manager
+- **Manufacturing**: + Plant CFO, + Senior Cost Analyst, + Treasury Manager
 
-**MEMORY rules to respect:**
-- Spark replaces, doesn't pile (one weakness identified, one targeted refinement, swap don't add)
-- Frame B keeps content count (no removing the monogram or the caption)
-- Apps must NOT look AI-generated
-- Simplicity over polish
-- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
+**MEMORY rules to respect (echo in the prompt):**
+- Apps must NOT look AI-generated (feedback_unique_design)
+- NEVER bail mobile via matchMedia (feedback_disabling_isnt_fixing / RULE 4)
+- NO fabricated content — generic role categories only, no fake client names (RULE 7 / feedback_no_invented_fight_data)
+- NO ghost numbers (feedback_no_ghost_numbers / RULE 8)
+- After CSS edits regenerate style.min.css (RULE 5)
+- Bump cache-buster to `cycle12-b` (RULE 6)
+- Verification Playwright at >=5 positions x 3 viewports (RULE 3 / feedback_actually_scroll_test)
+- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER (RULE 1)
 
-**Forbidden sections / scope:** Same cooldown list as Builder. Spark touches only the new about navy panel internals — no stat band, no marquee, no industries, no services typography, no contact form, no candidates/employers panels, no footer wordmark.
-
----
-
-### 3. Pixel
-**Brief:** Verify P1 about navy panel renders cleanly at desktop 1440 (no layout disruption to existing pillars, no overflow, no stacking break, monogram + caption legible, gold border crisp). Verify P3 mobile candidates panel proportion now correct at iPhone SE (375) — mark no longer stranded at the bottom of an over-tall navy bar; panel sizes to content. Standing 375 + 414 audit (font floor 13px, tap targets ≥44px, no horizontal overflow). Pixel must always audit center-alignment consistency on mobile. Confirm employers mobile panel didn't regress.
-
-**MEMORY rules to respect:**
-- Pixel must audit 375 + 414 always
-- Pixel must audit mobile center-alignment consistency
-- Verification Playwright at ≥5 positions × 3 viewports
-- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
-
-**Forbidden scope:** Do not modify any section outside what Builder + Spark touched this cycle except defensive font-floor or tap-target fixes if a regression is detected.
+**Forbidden sections (cooldown):** Hero (word reveal, parallax horizon, 3D meshes + vertex pulse + edge shimmer + glow, animated pattern, cursor parallax, eyebrow ticker, hero exit transform, scroll-exit wrapper, grain overlay), nav, stat band, marquee tape, employers panel, services scroll-lock, magnetic underlines, footer (wordmark stagger + progress rule + gradient + mobile timing), contact (floating labels + submit choreography + trust badge + label sizes), about pillars structural content, about seal, about placeholder panel structure (only adjust caption text per P2), process (numerals + line + scroll-draw + step reveal + stagger + ease), candidates panel navy inversion + cross-panel parity + mobile min-height, mobile font floor + tap targets, sticky mobile CTA, section bg color shift, line-mask H2 reveal.
 
 ---
 
-### 4. Nigel
-**Brief:** Re-score from a senior Tax / F&A buyer perspective scanning the live site cold in 90 seconds. Cycle 10 closed at 7.6. The design-only ceiling this cycle is 7.7–7.8 — anything above requires real photography + real testimonials + published office address. The about navy placeholder panel resolves the most prominent pre-launch signal but it is still a placeholder (not real photography), so the cap conditions remain unmet. Score honestly. Identify cycle 12 P1/P2/P3 and write them into AUDIT.md. Nigel never recommends removing glows / animations / effects — only adds or improves.
+### 2. Spark — Frame B polish (conditional)
 
-**MEMORY rules to respect:**
-- Nigel must score stricter (real-user perspective, not assistant optimism)
-- Nigel cap 7.7–7.8 design ceiling — do not exceed without real content
-- Nigel never removes quality
-- Respectful tone (never call the user a bottleneck)
-- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
+**Brief:** Frame B refines spacing/typography on whatever Builder shipped. If P2 went with option (c) caption removal, Spark may rebalance monogram circle position within the panel (no scale change, only padding/alignment). If P2 went with option (a) or (b), Spark adjusts caption letter-spacing/line-height for editorial rhythm if needed. P3 industries back-face role lists: Spark verifies type rhythm holds with the added rows — adjust line-height or row spacing only if the back face reads dense. Frame B never strips content count (feedback_frame_b_richness). If nothing needs polish, Spark skips and logs "no fixes — ships clean."
 
----
+**MEMORY rules:**
+- Spark replaces, doesn't pile (feedback_simplicity_over_polish)
+- Frame B keeps content count (feedback_frame_b_richness)
+- Apps must NOT look AI-generated (feedback_unique_design)
+- DO NOT TEXT THE USER (RULE 1)
 
-## Forbidden sections (cycle 11)
-
-All hero variants, nav, stat band, marquee tape, industries, services scroll-lock, magnetic underlines, footer (wordmark + progress + mobile timing), contact (floating labels + submit + trust badge + label sizes), about pillars structural content, about seal, process (numerals + line + scroll-draw + step reveal + stagger + ease), candidates panel navy inversion + cross-panel parity, employers panel (except matching mobile min-height fix if same issue exists), mobile font floor + tap targets, sticky mobile CTA.
-
-**Allowed touches this cycle:**
-- ADD: about navy placeholder panel (new element)
-- FIX: candidates `.candidates__panel` mobile min-height at `@media (max-width: 600px)`
-- FIX: employers `.employers__panel` mobile min-height ONLY if it inherited the same over-tall rule
-- POLISH: Spark Frame B internal refinement of the new about panel only
+**Forbidden sections:** Same cooldown list as Builder. Spark may only touch what Builder touched this cycle.
 
 ---
 
-## Memory guardrails — repeated for every agent
+### 3. Pixel — P3 mobile back-face overflow audit + standing 375+414 audit
 
-- Apps must NOT look AI-generated
-- NEVER bail mobile via matchMedia
-- NO fabricated content
-- NO ghost numbers
-- Spark replaces, doesn't pile
-- Frame B keeps content count
-- Pixel must audit 375 + 414 + center-alignment
-- Nigel cap 7.7–7.8 design ceiling holds
-- Respectful tone
-- Verification Playwright at ≥5 positions × 3 viewports
-- After CSS edits regenerate `style.min.css`
-- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
+**Brief:** Verify P3 expanded role lists don't overflow on mobile cards. The 3D flip back face on industries cards is the highest-risk surface for cycle 12 — adding 2-3 rows per card could break iPhone SE (375). Pixel audits:
+- iPhone SE 375x667: each industries card hover/tap-flip back face — does the role list fit without clipping or vertical scroll inside the card? All 3 cards: Construction, Real Estate, Manufacturing.
+- iPhone 13 390x664: same audit.
+- iPhone 14 Pro Max 414: confirm the standing 414 alignment audit per Pixel cooldown rule.
+- Standing center-alignment audit on mobile (feedback_pixel_alignment).
+- P2 caption: confirm whichever option Builder shipped renders correctly at 375 + 414 (no overflow, correct font, correct letter-spacing).
+
+**MEMORY rules:**
+- Pixel must audit 375 + 414 (feedback_pixel_alignment)
+- Pixel must audit center-alignment consistency on mobile (feedback_pixel_alignment)
+- After CSS edits regenerate style.min.css (RULE 5)
+- Bump cache-buster to `cycle12-p` if any CSS edit (RULE 6)
+- Verification at >=5 positions x 3 viewports for any scroll-driven feature (RULE 3)
+- DO NOT TEXT THE USER (RULE 1)
+
+**Forbidden sections:** Same cooldown list. Pixel may only fix what Builder touched OR the standing mobile alignment audit.
 
 ---
 
-*Plan written 2026-04-27 by Coordinator. Live: https://zed0minat0r.github.io/mackai-west/*
+### 4. Nigel — RE-SCORE cumulative feature drops + write cycle 13 priorities
+
+**Brief:** Cycle 11 score (7.7) is stale. Re-score the site accounting for ALL feature work landed since:
+- Cycle 11.5 hero refresh: animated SVG blueprint pattern (10 strokes), cursor-reactive parallax (hero inner + meshes + touch bail), headline scale clamp(3.2rem, 9vw, 7.4rem), eyebrow ticker (7-word rotating), dual 3D meshes (primary upper-right + secondary lower-left)
+- scout-top-3: SVG feTurbulence grain overlay (hero + process + panels), hero-exit scroll transform (scale -> 0.92, blur -> 8px, fade), section bg color shift (8 sections, IO -45% rootMargin)
+- scout-top-5: line-mask H2 reveal (SplitType CDN, 7 section H2s, 80ms stagger), text scramble decode (REMOVED in 8cd5178 — confirm absent)
+- Hero off-center FIXED (3b8f4ff) — `.hero > *` universal rule replaced with specific selector
+- Cycle 12 P2 caption rewrite + P3 industries role expansion
+
+**Cap directive:** The cycle 11 cap was 7.5–7.8 pending real photography + testimonials + address. Coordinator authorizes Nigel to RAISE the cap floor to 8.0 this cycle in light of the cumulative distinctiveness work — the design ceiling has been materially elevated by cycle 11.5 + scout-top-3 + scout-top-5. Score honestly: if site warrants 8.0+ on UI distinctiveness alone, give it. The content gates (real photo / real testimonials / real address) still cap at ~8.5 — but they no longer cap at 7.8.
+
+**Score from a real prospective customer's lens** (feedback_nigel_stricter). Top issue must be specific and actionable. Write 3 ranked cycle 13 priorities (P1 / P2 / P3).
+
+**MEMORY rules:**
+- Nigel must score stricter from a real user lens (feedback_nigel_stricter)
+- Nigel never recommends removing glows/animations/effects — only adds or improves (feedback_nigel_no_removal)
+- NO ghost numbers in any recommendation (feedback_no_ghost_numbers)
+- NO fabricated content recommendations (RULE 7)
+- Respectful tone — never blame the user for the photography/testimonials/address gap (feedback_respectful_tone / RULE 10)
+- DO NOT TEXT THE USER (RULE 1)
+
+**Forbidden:** Recommending removal of any feature. Inventing content. Calling the user a bottleneck.
+
+---
+
+## Cooldown roster (forbidden across the whole cycle)
+
+Hero (word reveal, parallax horizon, 3D meshes + vertex pulse + edge shimmer + glow, animated pattern, cursor parallax, eyebrow ticker, hero exit transform, scroll-exit wrapper, grain overlay) · nav · stat band · marquee tape · employers panel · services scroll-lock · magnetic underlines · footer wordmark stagger + progress rule + gradient + mobile timing · contact floating labels + submit choreography + trust badge + label sizes · about pillars structural content · about seal · about placeholder panel structure (caption text only per P2) · process numerals + line + scroll-draw + step reveal + stagger + ease · candidates panel navy inversion + cross-panel parity + mobile min-height · industries hover-reveal mechanics + 3D flip + numerals (only ADD role copy per P3) · mobile font floor + tap targets · sticky mobile CTA · section bg color shift · line-mask H2 reveal.
+
+---
+
+## Memory drift check
+
+Recent (<=7 day) memory entries — all visibly active:
+- feedback_actually_scroll_test (cycle 11 builder used 5pos x 3 viewports — followed)
+- feedback_disabling_isnt_fixing (cycle 11.5 hero used touch-bail not matchMedia bail — followed)
+- feedback_no_self_throttle (cycle 11.5 + scout-top-3 + scout-top-5 shipped at full intensity — followed)
+- RULE 1 no per-agent texting (echoed in every brief)
+
+No drift. All recent rules are landing in agent behavior.
+
+---
+
+## Audit priority match
+
+Cycle 11 audit P1 (form endpoint) = user-side blocked. P2 (caption) + P3 (industries depth) both scheduled this cycle. Audit priorities current.
+
+---
+
+*Coordinator cycle 12 — full 4-agent slate. Builder executes P2 + P3, Spark frame-B polishes, Pixel verifies mobile back-face overflow, Nigel re-scores against cumulative feature drops with cap raised to 8.0 floor.*
