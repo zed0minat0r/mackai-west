@@ -167,11 +167,19 @@
     var progress = (PIN_TOP - stepsRect.top) / stepsH;
     progress = Math.max(0, Math.min(1, progress));
 
-    /* translateY pins the bar at PIN_TOP while inside the section */
-    var barNatVP  = sectionRect.top + barNaturalTop;
-    var rawTY     = PIN_TOP - barNatVP;
-    var maxTY     = sectionH - barNaturalTop - stepsH;
-    var translate = Math.max(0, Math.min(Math.max(maxTY, 0), rawTY));
+    /* translateY pins the bar at PIN_TOP while inside the section.
+       barNaturalTop is the bar's offset within .process__body (its
+       absolute-positioning ancestor). For the clamp we need its offset
+       within .process (the section). Add bodyEl.offsetTop to bridge the
+       two coordinate systems — without this, maxTY is too generous and
+       the bar can translate past the section's bottom edge into the
+       next section (Candidates). */
+    var bodyOffset = bodyEl.offsetTop;
+    var barNatVP   = sectionRect.top + bodyOffset + barNaturalTop;
+    var rawTY      = PIN_TOP - barNatVP;
+    var BUFFER     = 48; /* keep bar's bottom 48px above section bottom */
+    var maxTY      = sectionH - bodyOffset - barNaturalTop - stepsH - BUFFER;
+    var translate  = Math.max(0, Math.min(Math.max(maxTY, 0), rawTY));
     bar.style.transform = 'translateY(' + translate + 'px)';
 
     /* Fill line: dashoffset interpolates smoothly via CSS transition */
