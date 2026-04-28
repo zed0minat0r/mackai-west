@@ -293,14 +293,19 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     radial-gradient(ellipse 60% 80% at 20% 80%, rgba(35, 53, 83, 0.65), transparent 60%),
     linear-gradient(180deg, var(--navy) 0%, var(--ink) 100%);
 }
+/* Base layer rule — individual modifiers set height + opacity */
 .hero__skyline {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 280px;
   pointer-events: none;
-  opacity: 0.85;
+  will-change: transform;
 }
 .hero__skyline svg { display: block; width: 100%; height: 100%; }
+
+/* --- Parallax layers --- */
+.hero__skyline--back  { height: 320px; }
+.hero__skyline--mid   { height: 300px; }
+.hero__skyline--front { height: 280px; }
 
 .hero__inner {
   position: relative;
@@ -721,6 +726,208 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   background: var(--gold);
 }
 .practice .link-arrow { margin-top: auto; align-self: flex-start; }
+
+/* ============================================
+   SERVICES — horizontal scroll-lock panels
+   ============================================ */
+
+/* The runway provides the scroll distance — 2 panels, modest budget */
+.services-runway {
+  position: relative;
+  height: 240vh;
+}
+
+/* Sticky viewport: pinned at top for the full runway scroll */
+.services-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Track: horizontal flex row, animated via JS translate3d */
+.services-track {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+
+/* Full-viewport panels */
+.service-fp {
+  flex: 0 0 100vw;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(60px, 8vw, 120px) clamp(40px, 8vw, 120px);
+  background: var(--cream-2);
+}
+
+/* Panel 2: navy theme */
+.service-fp--navy {
+  background: var(--navy);
+}
+
+/* Inner content block */
+.service-fp__inner {
+  max-width: 760px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Large italic numeral */
+.service-fp__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(4rem, 8vw, 7rem);
+  line-height: 1;
+  color: var(--gold-deep);
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.service-fp--navy .service-fp__num {
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.service-fp__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--navy);
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+}
+
+.service-fp--navy .service-fp__title {
+  color: var(--cream);
+}
+
+.service-fp__sub {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 24px;
+}
+
+.service-fp--navy .service-fp__sub {
+  color: var(--gold-soft);
+}
+
+.service-fp__lede {
+  font-size: clamp(0.98rem, 1.4vw, 1.08rem);
+  line-height: 1.75;
+  color: var(--navy);
+  margin-bottom: 24px;
+  max-width: 580px;
+}
+
+.service-fp--navy .service-fp__lede {
+  color: rgba(245, 240, 230, 0.82);
+}
+
+.service-fp__list {
+  list-style: none;
+  margin-bottom: 32px;
+}
+
+.service-fp__list li {
+  position: relative;
+  padding: 10px 0 10px 24px;
+  font-size: 0.96rem;
+  line-height: 1.55;
+  color: var(--slate);
+  border-top: 1px solid var(--hairline);
+}
+
+.service-fp--navy .service-fp__list li {
+  color: rgba(245, 240, 230, 0.72);
+  border-top-color: rgba(245, 240, 230, 0.1);
+}
+
+.service-fp__list li:first-child { border-top: none; }
+
+.service-fp__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 19px;
+  width: 12px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.service-fp--navy .service-fp__list li::before {
+  background: var(--gold-soft);
+}
+
+/* CTA: inherit from shared link-arrow */
+.service-fp .link-arrow {
+  align-self: flex-start;
+}
+
+.service-fp--navy .link-arrow {
+  color: var(--cream);
+}
+
+.service-fp--navy .link-arrow:hover {
+  color: var(--gold-soft);
+}
+
+/* Pagination dots */
+.services-dots {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.services-dot {
+  width: 10px;
+  height: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  background: rgba(201, 169, 97, 0.35);
+  border: none;
+  cursor: pointer;
+  padding: 17px;
+  box-sizing: content-box;
+  position: relative;
+  transition: background 0.25s;
+}
+
+.services-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(201, 169, 97, 0.35);
+  transition: background 0.25s, transform 0.25s;
+}
+
+.services-dot.is-active::after {
+  background: var(--gold);
+  transform: translate(-50%, -50%) scale(1.2);
+}
 
 /* ============================================
    INDUSTRIES
@@ -1356,7 +1563,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 @media (max-width: 600px) {
   :root { --section-pad: clamp(60px, 12vw, 100px); }
   .hero { min-height: 92vh; }
-  .hero__skyline { height: 200px; }
+  .hero__skyline--back  { height: 180px; }
+  .hero__skyline--mid   { height: 170px; }
+  .hero__skyline--front { height: 160px; }
   .hero__inner { padding: 60px 24px; }
   .hero__actions { flex-direction: column; align-items: stretch; }
   .hero__actions .btn { width: 100%; }
@@ -1406,6 +1615,24 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     padding-top: 10px;
     padding-bottom: 10px;
   }
+
+  /* ── Services scroll-lock: mobile panel content sizing ── */
+  /* Keep flex-direction: row and 100vw panels — the lock works on mobile.
+     Only reduce typography to fit narrow viewports. */
+  .services-runway { height: 260vh; }
+  .service-fp {
+    padding: clamp(80px, 12vw, 120px) clamp(20px, 5vw, 40px) clamp(50px, 8vw, 80px);
+    align-items: flex-start;
+  }
+  .service-fp__num {
+    font-size: clamp(3rem, 15vw, 5rem);
+    margin-bottom: 10px;
+  }
+  .service-fp__title {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+  }
+  .service-fp__lede { font-size: 0.93rem; }
+  .service-fp__list li { font-size: 0.88rem; }
 
   /* ── Employers panel: restore column stacking on mobile ── */
   /* At 960px the mark switches to flex-direction:row (horizontal), which reads

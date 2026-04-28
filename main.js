@@ -119,6 +119,122 @@
   updateLine();
 })();
 
+/* ---- Services section: horizontal scroll-lock ---- */
+(function () {
+  var runway  = document.getElementById('services-runway');
+  var track   = document.getElementById('services-track');
+  var panels  = document.querySelectorAll('.service-fp');
+  var dots    = document.querySelectorAll('.services-dot');
+
+  if (!runway || !track || !panels.length) return;
+
+  var numPanels  = panels.length;
+  var currentIdx = -1;
+
+  function setActiveDot(idx) {
+    if (idx === currentIdx) return;
+    currentIdx = idx;
+    dots.forEach(function (d, i) {
+      d.classList.toggle('is-active', i === idx);
+      d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+    });
+  }
+
+  function onScroll() {
+    var rect    = runway.getBoundingClientRect();
+    var runwayH = runway.offsetHeight;
+    var vh      = window.innerHeight;
+
+    var budget = runwayH - vh;
+    if (budget <= 0) {
+      track.style.transform = 'translate3d(0,0,0)';
+      setActiveDot(0);
+      return;
+    }
+
+    var scrolled = -rect.top;
+    if (scrolled < 0) scrolled = 0;
+
+    var progress = scrolled / budget; // 0 → 1
+    if (progress > 1) progress = 1;
+
+    // SLIDE_FRAC: slide completes at 85% of budget, giving dwell on final panel
+    var SLIDE_FRAC   = 0.85;
+    var slideProgress = progress / SLIDE_FRAC;
+    if (slideProgress > 1) slideProgress = 1;
+
+    var translatePct = -slideProgress * (numPanels - 1) * 100;
+    track.style.transform = 'translate3d(' + translatePct + 'vw, 0, 0)';
+
+    var idx = Math.round(slideProgress * (numPanels - 1));
+    if (idx >= numPanels) idx = numPanels - 1;
+    setActiveDot(idx);
+  }
+
+  // Dot clicks: smooth-scroll to the scroll position for that panel
+  var SLIDE_FRAC_CLICK = 0.85;
+  dots.forEach(function (dot, i) {
+    dot.addEventListener('click', function () {
+      var runwayTop = runway.getBoundingClientRect().top + window.scrollY;
+      var budget    = runway.offsetHeight - window.innerHeight;
+      var segments  = numPanels - 1;
+      var target = segments > 0
+        ? runwayTop + (budget * SLIDE_FRAC_CLICK / segments) * i + 2
+        : runwayTop + 2;
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    });
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ---- Hero: multi-layer parallax ---- */
+(function () {
+  var hero   = document.querySelector('.hero');
+  var layers = document.querySelectorAll('.hero__skyline[data-parallax-rate]');
+
+  if (!hero || !layers.length) return;
+
+  // Respect reduced-motion preference — skip all transforms
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var ticking = false;
+
+  function updateParallax() {
+    var scrollY = window.scrollY;
+    var heroH   = hero.offsetHeight;
+
+    // Only apply while hero is at least partially in view
+    if (scrollY > heroH) {
+      layers.forEach(function (layer) {
+        layer.style.transform = 'translateY(0)';
+      });
+      return;
+    }
+
+    layers.forEach(function (layer) {
+      var rate = parseFloat(layer.getAttribute('data-parallax-rate')) || 0;
+      // Positive rate: layer moves up (slower = smaller translate = more depth)
+      var translate = -(scrollY * rate);
+      layer.style.transform = 'translateY(' + translate + 'px)';
+    });
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  updateParallax();
+})();
+
 /* ---- Footer year ---- */
 (function () {
   var y = document.getElementById('year');

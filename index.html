@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="style.min.css?v=cycle2-fix-about" />
+  <link rel="stylesheet" href="style.min.css?v=cycle2-impressive" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1B2D'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23C9A961' font-family='Georgia,serif' font-size='18' font-weight='600'%3EM%3C/text%3E%3C/svg%3E" />
 </head>
@@ -54,28 +54,61 @@
        ================================================ -->
   <section class="hero" id="home" aria-label="MacKai West — recruitment built around niche expertise">
     <div class="hero__bg" aria-hidden="true"></div>
-    <div class="hero__skyline" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 280" preserveAspectRatio="xMidYMax slice">
-        <g fill="#0A0F1A" opacity="0.55">
-          <rect x="40"   y="120" width="60"  height="160" />
-          <rect x="115"  y="80"  width="48"  height="200" />
-          <rect x="180"  y="140" width="80"  height="140" />
-          <rect x="280"  y="50"  width="56"  height="230" />
-          <rect x="350"  y="100" width="68"  height="180" />
-          <rect x="430"  y="160" width="44"  height="120" />
-          <rect x="490"  y="70"  width="72"  height="210" />
-          <rect x="580"  y="120" width="60"  height="160" />
-          <rect x="660"  y="40"  width="80"  height="240" />
-          <rect x="760"  y="90"  width="52"  height="190" />
-          <rect x="830"  y="130" width="68"  height="150" />
-          <rect x="920"  y="60"  width="60"  height="220" />
-          <rect x="1000" y="110" width="76"  height="170" />
-          <rect x="1100" y="80"  width="48"  height="200" />
-          <rect x="1170" y="140" width="80"  height="140" />
-          <rect x="1270" y="100" width="64"  height="180" />
-          <rect x="1350" y="50"  width="60"  height="230" />
+    <!-- Skyline: 3 parallax layers — back / mid / front -->
+    <div class="hero__skyline hero__skyline--back" aria-hidden="true" data-parallax-rate="0.15">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice">
+        <g fill="#06090F" opacity="0.45">
+          <rect x="20"   y="160" width="40"  height="160" />
+          <rect x="80"   y="100" width="32"  height="220" />
+          <rect x="130"  y="180" width="50"  height="140" />
+          <rect x="210"  y="60"  width="36"  height="260" />
+          <rect x="265"  y="120" width="44"  height="200" />
+          <rect x="330"  y="190" width="28"  height="130" />
+          <rect x="375"  y="80"  width="46"  height="240" />
+          <rect x="445"  y="140" width="38"  height="180" />
+          <rect x="510"  y="50"  width="52"  height="270" />
+          <rect x="590"  y="110" width="34"  height="210" />
+          <rect x="645"  y="150" width="44"  height="170" />
+          <rect x="715"  y="70"  width="38"  height="250" />
+          <rect x="780"  y="130" width="50"  height="190" />
+          <rect x="860"  y="90"  width="30"  height="230" />
+          <rect x="910"  y="160" width="52"  height="160" />
+          <rect x="990"  y="110" width="40"  height="210" />
+          <rect x="1060" y="55"  width="46"  height="265" />
+          <rect x="1130" y="130" width="36"  height="190" />
+          <rect x="1195" y="170" width="52"  height="150" />
+          <rect x="1280" y="100" width="40"  height="220" />
+          <rect x="1350" y="60"  width="38"  height="260" />
+          <rect x="1410" y="140" width="30"  height="180" />
         </g>
-        <g fill="#0F1B2D" opacity="0.85">
+      </svg>
+    </div>
+    <div class="hero__skyline hero__skyline--mid" aria-hidden="true" data-parallax-rate="0.35">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice">
+        <g fill="#0A0F1A" opacity="0.60">
+          <rect x="40"   y="120" width="60"  height="180" />
+          <rect x="115"  y="80"  width="48"  height="220" />
+          <rect x="180"  y="140" width="80"  height="160" />
+          <rect x="280"  y="50"  width="56"  height="250" />
+          <rect x="350"  y="100" width="68"  height="200" />
+          <rect x="430"  y="160" width="44"  height="140" />
+          <rect x="490"  y="70"  width="72"  height="230" />
+          <rect x="580"  y="120" width="60"  height="180" />
+          <rect x="660"  y="40"  width="80"  height="260" />
+          <rect x="760"  y="90"  width="52"  height="210" />
+          <rect x="830"  y="130" width="68"  height="170" />
+          <rect x="920"  y="60"  width="60"  height="240" />
+          <rect x="1000" y="110" width="76"  height="190" />
+          <rect x="1100" y="80"  width="48"  height="220" />
+          <rect x="1170" y="140" width="80"  height="160" />
+          <rect x="1270" y="100" width="64"  height="200" />
+          <rect x="1350" y="50"  width="60"  height="250" />
+        </g>
+      </svg>
+    </div>
+    <div class="hero__skyline hero__skyline--front" aria-hidden="true" data-parallax-rate="0.55">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 280" preserveAspectRatio="xMidYMax slice">
+        <g fill="#0F1B2D" opacity="0.90">
           <rect x="0"    y="180" width="80"  height="100" />
           <rect x="90"   y="160" width="60"  height="120" />
           <rect x="160"  y="200" width="100" height="80" />
@@ -205,7 +238,7 @@
   </section>
 
   <!-- ================================================
-       SERVICES — two specialist practices
+       SERVICES — horizontal scroll-lock, two practice panels
        ================================================ -->
   <section class="services" id="services" aria-label="Our specialist practices">
     <div class="services__intro">
@@ -213,47 +246,58 @@
       <h2 class="section-title">Two specialist practices.<br /><em>One disciplined approach.</em></h2>
     </div>
 
-    <div class="services__grid">
-      <!-- Practice 1: Tax -->
-      <article class="practice">
-        <div class="practice__head">
-          <p class="practice__num">01</p>
-          <h3 class="practice__title">Tax Recruitment</h3>
-          <p class="practice__sub">Public Accounting</p>
-        </div>
-        <p class="practice__lede">
-          Senior tax placements into Big 4, national, and regional public accounting firms. Our profitable niche — and the practice we&rsquo;re known for.
-        </p>
-        <ul class="practice__list">
-          <li>Tax Senior Manager &amp; Partner-track</li>
-          <li>State &amp; Local Tax (SALT) specialists</li>
-          <li>International, Transfer Pricing, M&amp;A Tax</li>
-          <li>Real Estate Tax &amp; Partnership Tax</li>
-          <li>Tax Directors &amp; Tax Managing Directors</li>
-        </ul>
-        <a href="#contact" class="link-arrow">Open a tax search <span aria-hidden="true">→</span></a>
-      </article>
+    <div class="services-runway" id="services-runway">
+      <div class="services-sticky" id="services-sticky">
+        <div class="services-track" id="services-track">
 
-      <!-- Practice 2: F&A -->
-      <article class="practice">
-        <div class="practice__head">
-          <p class="practice__num">02</p>
-          <h3 class="practice__title">Finance &amp; Accounting</h3>
-          <p class="practice__sub">Industry &amp; Operating Companies</p>
+          <!-- Panel 1: Tax Recruitment -->
+          <article class="service-fp" id="sfp-1">
+            <div class="service-fp__inner">
+              <p class="service-fp__num" aria-hidden="true">01</p>
+              <h3 class="service-fp__title">Tax Recruitment</h3>
+              <p class="service-fp__sub">Public Accounting</p>
+              <p class="service-fp__lede">
+                Senior tax placements into Big 4, national, and regional public accounting firms. Our profitable niche &mdash; and the practice we&rsquo;re known for.
+              </p>
+              <ul class="service-fp__list">
+                <li>Tax Senior Manager &amp; Partner-track</li>
+                <li>State &amp; Local Tax (SALT) specialists</li>
+                <li>International, Transfer Pricing, M&amp;A Tax</li>
+                <li>Real Estate Tax &amp; Partnership Tax</li>
+                <li>Tax Directors &amp; Tax Managing Directors</li>
+              </ul>
+              <a href="#contact" class="link-arrow">Open a tax search <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <!-- Panel 2: Finance & Accounting -->
+          <article class="service-fp service-fp--navy" id="sfp-2">
+            <div class="service-fp__inner">
+              <p class="service-fp__num" aria-hidden="true">02</p>
+              <h3 class="service-fp__title">Finance &amp; Accounting</h3>
+              <p class="service-fp__sub">Industry &amp; Operating Companies</p>
+              <p class="service-fp__lede">
+                Finance leadership and senior accounting talent placed into operating companies &mdash; with strong concentrations in Construction, Real Estate, and Manufacturing.
+              </p>
+              <ul class="service-fp__list">
+                <li>CFO, VP Finance, Corporate Controller</li>
+                <li>Director of FP&amp;A, Director of Accounting</li>
+                <li>Assistant Controllers &amp; Senior Accountants</li>
+                <li>Internal Audit &amp; Technical Accounting Leads</li>
+                <li>Construction / Real Estate / Manufacturing finance</li>
+              </ul>
+              <a href="#contact" class="link-arrow">Open a finance search <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+        </div><!-- /.services-track -->
+
+        <div class="services-dots" role="tablist" aria-label="Practice areas">
+          <button class="services-dot is-active" data-panel="0" aria-selected="true" aria-label="Tax Recruitment"></button>
+          <button class="services-dot" data-panel="1" aria-selected="false" aria-label="Finance &amp; Accounting"></button>
         </div>
-        <p class="practice__lede">
-          Finance leadership and senior accounting talent placed into operating companies — with strong concentrations in Construction, Real Estate, and Manufacturing.
-        </p>
-        <ul class="practice__list">
-          <li>CFO, VP Finance, Corporate Controller</li>
-          <li>Director of FP&amp;A, Director of Accounting</li>
-          <li>Assistant Controllers &amp; Senior Accountants</li>
-          <li>Internal Audit &amp; Technical Accounting Leads</li>
-          <li>Construction / Real Estate / Manufacturing finance</li>
-        </ul>
-        <a href="#contact" class="link-arrow">Open a finance search <span aria-hidden="true">→</span></a>
-      </article>
-    </div>
+      </div><!-- /.services-sticky -->
+    </div><!-- /.services-runway -->
   </section>
 
   <!-- ================================================
