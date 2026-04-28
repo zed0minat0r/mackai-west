@@ -2665,8 +2665,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
      Only reduce typography to fit narrow viewports. */
   .services-runway { height: 600vh; }
   .service-fp {
-    padding: clamp(52px, 10vw, 80px) clamp(20px, 5vw, 40px) clamp(40px, 6vw, 60px);
-    align-items: flex-start;
+    padding: clamp(40px, 8vw, 64px) clamp(20px, 5vw, 40px);
+    align-items: center;
   }
   .service-fp__inner {
     padding-top: 4px;
