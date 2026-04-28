@@ -1354,29 +1354,47 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 
 /* Pagination dots */
+/* Pagination dots — positioned at the top of the sticky panel as a
+   horizontal timeline. Connecting hairline runs through the dots; the
+   active dot expands + glows; passed dots stay filled. */
 .services-dots {
   position: absolute;
-  top: clamp(20px, 4vh, 36px);
+  top: clamp(72px, 12vh, 110px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: clamp(28px, 5vw, 56px);
   z-index: 10;
+  padding: 0 clamp(14px, 3vw, 20px);
+}
+
+/* Hairline connector behind the dots — full width of the dots row */
+.services-dots::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(201, 169, 97, 0.32);
+  transform: translateY(-50%);
+  z-index: -1;
 }
 
 .services-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   min-width: 32px;
   min-height: 32px;
   border-radius: 50%;
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 13px;
+  padding: 12px;
   box-sizing: content-box;
   position: relative;
-  transition: background 0.25s;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .services-dot::after {
@@ -1384,17 +1402,46 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 6px;
-  height: 6px;
+  transform: translate(-50%, -50%) scale(1);
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: rgba(201, 169, 97, 0.4);
-  transition: background 0.25s, transform 0.25s;
+  background: rgba(201, 169, 97, 0.45);
+  box-shadow: 0 0 0 0 rgba(201, 169, 97, 0);
+  transition:
+    background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .services-dot.is-active::after {
   background: var(--gold);
-  transform: translate(-50%, -50%) scale(1.2);
+  transform: translate(-50%, -50%) scale(2);
+  box-shadow:
+    0 0 0 4px rgba(201, 169, 97, 0.18),
+    0 0 12px 2px rgba(201, 169, 97, 0.5);
+}
+
+/* Pulse ring around active dot — emanates outward and fades */
+.services-dot.is-active::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201, 169, 97, 0.6);
+  transform: translate(-50%, -50%) scale(1);
+  animation: dot-pulse 2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes dot-pulse {
+  0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0;   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .services-dot.is-active::before { animation: none; opacity: 0; }
 }
 
 /* ============================================
@@ -2650,21 +2697,31 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   }
 
   /* ── Services dots: reduce horizontal padding on mobile so 5 dots fit within viewport ──
-     Desktop: 17px padding → 78px per dot × 5 + 40px gaps = 430px total (fine at 1440).
-     Mobile (post-redo to top + smaller dots): 32px tap targets at 6px
-     gap = 5 × 32 + 4 × 6 = 184px. Fits 320px SE comfortably. */
+     Mobile timeline dots: position lower so visible past iOS Safari URL bar;
+     keep timeline hairline + active glow + pulse ring. Smaller circles + tighter gaps. */
   .services-dots {
-    gap: 6px;
-    top: clamp(16px, 3vh, 24px);
+    top: clamp(72px, 12vh, 96px);
+    gap: clamp(22px, 7vw, 36px);
+    padding: 0 8px;
   }
   .services-dot {
-    padding: 8px 4px;
-    min-width: 32px;
-    min-height: 32px;
+    padding: 8px;
+    min-width: 28px;
+    min-height: 28px;
   }
   .services-dot::after {
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
+  }
+  .services-dot.is-active::after {
+    transform: translate(-50%, -50%) scale(1.8);
+    box-shadow:
+      0 0 0 3px rgba(201, 169, 97, 0.18),
+      0 0 8px 1px rgba(201, 169, 97, 0.45);
+  }
+  .services-dot.is-active::before {
+    width: 6px;
+    height: 6px;
   }
 
   /* ── Services scroll-lock: mobile panel content sizing ── */
