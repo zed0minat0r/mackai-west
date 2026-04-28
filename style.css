@@ -2516,6 +2516,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   /* About pillar eyebrow — 0.72rem base, must clear 13px floor */
   .about__pillar-eyebrow { font-size: 0.8125rem; }
 
+  /* Industries: ensure back face (8 roles) doesn't clip on narrow viewports */
+  .industry { min-height: 400px; }
+  .industry__inner { min-height: 400px; }
+
   .practice__num,
   .industry__num,
   .industry__roles { font-size: 0.8125rem; }
