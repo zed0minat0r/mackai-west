@@ -1617,14 +1617,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .process .section-title em { color: var(--gold); }
 
 .process__steps {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 clamp(24px, 5vw, 60px);
   list-style: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(20px, 2.5vw, 36px);
   counter-reset: step;
+  padding: 0;
+  margin: 0;
+  /* flex: 1 and min-width: 0 set in journey-bar block below */
 }
 .process-step {
   position: relative;
@@ -1655,34 +1655,84 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   color: rgba(245, 240, 230, 0.7);
 }
 
-/* ---- Process: scroll-drawn copper line ---- */
-.process__line {
+/* ---- Process: vertical journey bar ---- */
+
+/* .process__body wraps bar + inner — position relative for absolute bar */
+.process__body {
+  position: relative;
   max-width: var(--max-w);
-  margin: 0 auto clamp(32px, 4vw, 48px);
+  margin: 0 auto;
   padding: 0 clamp(24px, 5vw, 60px);
-  width: 100%;
-  display: block;
 }
-.process__line svg {
+
+/* .process__inner wraps the steps grid with left indent to clear the bar */
+.process__inner {
+  padding-left: clamp(52px, 5vw, 72px);
+}
+
+/* Journey bar — absolutely positioned LEFT of steps, translateY driven by JS to pin in viewport */
+.process__journey-bar {
+  position: absolute;
+  left: clamp(24px, 5vw, 60px);
+  top: 0;
+  width: 48px;
+  /* height set by JS to match .process__steps height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  will-change: transform;
+}
+
+/* SVG vertical line spanning full bar height */
+.process__journey-svg {
   display: block;
-  width: 100%;
-  height: 4px;
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   overflow: visible;
 }
-.process__line-base {
+.process__journey-base {
   stroke: var(--gold);
-  stroke-opacity: 0.32;
+  stroke-opacity: 0.25;
   stroke-width: 1.5;
   fill: none;
 }
-.process__line-fill {
+.process__journey-fill {
   stroke: var(--gold);
   stroke-opacity: 1;
-  stroke-width: 2.5;
+  stroke-width: 2px;
   fill: none;
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
+  /* dasharray / dashoffset set dynamically by JS */
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
   transition: stroke-dashoffset 0.08s linear;
+}
+
+/* Marker numerals — positioned absolutely along bar height by JS */
+.process__journey-marker {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: rgba(201, 169, 97, 0.35);
+  background: var(--navy);
+  padding: 3px 0;
+  line-height: 1;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  white-space: nowrap;
+  z-index: 3;
+}
+.process__journey-marker.is-active {
+  color: var(--gold);
+  text-shadow: 0 0 8px rgba(201, 169, 97, 0.5);
 }
 
 /* ============================================
@@ -2474,6 +2524,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   /* On tablets, ensure cards are tall enough for the flip panel */
   .industry__inner { min-height: 320px; }
   .process__steps { grid-template-columns: repeat(2, 1fr); }
+  .process__journey-bar { width: 36px; }
   .contact__inner { grid-template-columns: 1fr; }
   .footer__inner { grid-template-columns: 1fr; gap: 32px; }
 }
@@ -2497,6 +2548,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .form-note { max-width: none; }
 
   .process__steps { grid-template-columns: 1fr; }
+  .process__inner { padding-left: clamp(36px, 4vw, 52px); }
+  .process__journey-bar { width: 32px; }
+  .process__journey-marker { font-size: 0.65rem; }
 
   .contact__details li { grid-template-columns: 1fr; gap: 4px; }
 
@@ -2818,8 +2872,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 /* Process children above grain */
 .process__intro,
-.process__line,
-.process__steps { position: relative; z-index: 1; }
+.process__body { position: relative; z-index: 1; }
 
 /* Candidate + Employer panels: grain overlay (::after is free on these elements) */
 .candidates__panel,

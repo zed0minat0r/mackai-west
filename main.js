@@ -94,29 +94,102 @@
   items.forEach(function (el) { observer.observe(el); });
 })();
 
-/* ---- Process section: scroll-drawn copper line ---- */
+/* ---- Process section: vertical journey bar (scroll-pinned via translateY) ---- */
 (function () {
   var section  = document.querySelector('.process');
-  var lineFill = document.querySelector('.process__line-fill');
-  if (!section || !lineFill) return;
+  var bodyEl   = document.querySelector('.process__body');
+  var bar      = document.querySelector('.process__journey-bar');
+  var svg      = document.querySelector('.process__journey-svg');
+  var baseLine = document.querySelector('.process__journey-base');
+  var fillLine = document.querySelector('.process__journey-fill');
+  var markers  = document.querySelectorAll('.process__journey-marker');
+  var stepsEl  = document.querySelector('.process__steps');
+  var innerEl  = document.querySelector('.process__inner');
+
+  if (!section || !bar || !svg || !fillLine || !stepsEl || !innerEl || !bodyEl) return;
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reducedMotion) {
-    lineFill.style.strokeDashoffset = '0';
-    return;
+
+  /* Marker thresholds as fraction of section scroll progress */
+  var MARKER_THRESHOLDS = [0.0, 0.28, 0.55, 0.80];
+
+  var LINE_LEN = 800;
+  var PIN_TOP  = 80; /* px from viewport top to pin bar */
+
+  /* barNaturalTop: bar's top offset in px from section top (set by CSS absolutely) */
+  var barNaturalTop = 0;
+
+  function sizeBar() {
+    var stepsH = stepsEl.offsetHeight;
+    /* Natural top = innerEl.offsetTop within bodyEl, since bar is absolute in bodyEl */
+    barNaturalTop = innerEl.offsetTop;
+    bar.style.top    = barNaturalTop + 'px';
+    bar.style.height = stepsH + 'px';
+
+    svg.setAttribute('viewBox', '0 0 4 ' + stepsH);
+    baseLine.setAttribute('y2', stepsH);
+    fillLine.setAttribute('y2', stepsH);
+    LINE_LEN = stepsH;
+    fillLine.style.strokeDasharray = stepsH;
+
+    /* Markers at step positions: evenly distributed */
+    var positions = [0.0, 0.33, 0.66, 0.96];
+    markers.forEach(function (m, i) {
+      m.style.top = Math.round(positions[i] * stepsH) + 'px';
+    });
+
+    if (reducedMotion) {
+      fillLine.style.strokeDashoffset = '0';
+      markers.forEach(function (m) { m.classList.add('is-active'); });
+    } else {
+      update();
+    }
   }
 
-  function updateLine() {
-    var rect     = section.getBoundingClientRect();
-    var winH     = window.innerHeight;
-    // progress 0 when section top is at viewport bottom; 1 when section bottom is at viewport top
-    var progress = (winH - rect.top) / (winH + rect.height);
+  function update() {
+    if (reducedMotion) return;
+    var sectionRect = section.getBoundingClientRect();
+    var winH        = window.innerHeight;
+    var sectionH    = section.offsetHeight;
+
+    /* Scroll progress through section: 0 when top reaches viewport bottom, 1 when bottom exits top */
+    var progress = (winH - sectionRect.top) / (winH + sectionH);
     progress     = Math.max(0, Math.min(1, progress));
-    lineFill.style.strokeDashoffset = String(1200 - 1200 * progress);
+
+    /* translateY to pin bar at PIN_TOP from viewport top while inside section.
+       bar.offsetTop (= barNaturalTop) is relative to .process__body.
+       sectionRect.top = px from viewport top to section top.
+       bar natural viewport position = sectionRect.top + barNaturalTop.
+       To bring bar to PIN_TOP: translate = PIN_TOP - (sectionRect.top + barNaturalTop)
+       Clamp: min 0 (never above natural position), max sectionH - bar.offsetHeight (never below section) */
+    var barNatVP  = sectionRect.top + barNaturalTop;
+    var rawTY     = PIN_TOP - barNatVP;
+    var maxTY     = sectionH - barNaturalTop - (stepsEl ? stepsEl.offsetHeight : 400);
+    var translate = Math.max(0, Math.min(Math.max(maxTY, 0), rawTY));
+    bar.style.transform = 'translateY(' + translate + 'px)';
+
+    /* Fill line */
+    fillLine.style.strokeDashoffset = String(LINE_LEN - LINE_LEN * progress);
+
+    /* Activate markers */
+    markers.forEach(function (m, i) {
+      if (progress >= MARKER_THRESHOLDS[i]) {
+        m.classList.add('is-active');
+      } else {
+        m.classList.remove('is-active');
+      }
+    });
   }
 
-  window.addEventListener('scroll', updateLine, { passive: true });
-  updateLine();
+  sizeBar();
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(sizeBar, 60);
+  }, { passive: true });
+
+  window.addEventListener('scroll', update, { passive: true });
 })();
 
 /* ---- Services section: horizontal scroll-lock ---- */
