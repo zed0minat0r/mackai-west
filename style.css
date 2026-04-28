@@ -1753,28 +1753,30 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 /* ---- Process: vertical journey bar ---- */
 
-/* .process__body wraps bar + inner — position relative for absolute bar */
+/* .process__body wraps bar + inner — flex so bar sits LEFT, steps RIGHT */
 .process__body {
   position: relative;
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 0 clamp(24px, 5vw, 60px);
+  display: flex;
+  gap: clamp(16px, 3vw, 36px);
+  align-items: flex-start; /* required: keeps sticky working inside flex */
 }
 
-/* .process__inner wraps the steps grid with left indent to clear the bar */
+/* .process__inner is the right flex column — takes remaining space */
 .process__inner {
-  padding-left: clamp(52px, 5vw, 72px);
+  flex: 1;
+  min-width: 0; /* allow shrinking below intrinsic width */
+  padding-left: 0; /* no longer needed — flex gap handles separation */
 }
 
-/* Journey bar — sticky-pinned to viewport while user is in .process__body.
-   Was previously absolute + JS translateY trick, which over-clamped and
-   scrolled out of viewport. Sticky lets the browser handle the pin
-   natively: bar stays at `top: clamp(...)` from viewport edge for the
-   entire duration the parent .process__body is in view. */
+/* Journey bar — sticky-pinned, sits as the left flex column.
+   align-items: flex-start on parent is required for sticky to work. */
 .process__journey-bar {
+  flex: 0 0 auto;
   position: sticky;
   top: clamp(96px, 18vh, 140px);
-  margin-left: clamp(24px, 5vw, 60px);
   width: 48px;
   height: clamp(280px, 48vh, 420px);
   display: flex;
@@ -2675,11 +2677,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .form-note { max-width: none; }
 
   .process__steps { grid-template-columns: 1fr; }
-  /* Journey bar: narrow on mobile, tucked to body left pad start */
-  .process__journey-bar { width: 20px; margin-left: 0; height: clamp(220px, 42vh, 360px); }
-  /* Inner: 28px left = bar width (20) + 8px gap; right stays at 0 for
-     symmetric visual weight relative to body's 24px right pad */
-  .process__inner { padding-left: 28px; }
+  /* Body: tighten gap on mobile so bar doesn't eat horizontal space */
+  .process__body { gap: clamp(12px, 2.5vw, 20px); }
+  /* Journey bar: narrow on mobile */
+  .process__journey-bar { width: 20px; height: clamp(220px, 42vh, 360px); }
+  /* Inner: no padding-left — flex gap handles bar separation */
+  .process__inner { padding-left: 0; }
   .process__journey-marker { font-size: 0.65rem; }
 
   .contact__details li { grid-template-columns: 1fr; gap: 4px; }
