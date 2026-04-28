@@ -594,6 +594,73 @@
   observer.observe(wordmark);
 })();
 
+/* ---- Sticky mobile CTA: show between hero CTAs exit and contact section enter ---- */
+(function () {
+  var bar         = document.getElementById('stickyCta');
+  var heroActions = document.querySelector('.hero__actions');
+  var contactSec  = document.getElementById('contact');
+  if (!bar || !heroActions || !contactSec) return;
+
+  var heroVisible    = true;  // start: hero is in view
+  var contactVisible = false;
+
+  function updateBar() {
+    var shouldShow = !heroVisible && !contactVisible;
+    if (shouldShow) {
+      bar.removeAttribute('hidden');
+      // Force reflow so transition fires after display change
+      bar.offsetHeight; // eslint-disable-line no-unused-expressions
+      bar.classList.add('is-visible');
+      bar.setAttribute('aria-hidden', 'false');
+    } else {
+      bar.classList.remove('is-visible');
+      bar.setAttribute('aria-hidden', 'true');
+      // Re-hide after transition completes (300ms)
+      setTimeout(function () {
+        if (!bar.classList.contains('is-visible')) {
+          bar.setAttribute('hidden', '');
+        }
+      }, 350);
+    }
+  }
+
+  var heroObserver = new IntersectionObserver(function (entries) {
+    heroVisible = entries[0].isIntersecting;
+    updateBar();
+  }, { threshold: 0 });
+
+  var contactObserver = new IntersectionObserver(function (entries) {
+    contactVisible = entries[0].isIntersecting;
+    updateBar();
+  }, { threshold: 0 });
+
+  heroObserver.observe(heroActions);
+  contactObserver.observe(contactSec);
+})();
+
+/* ---- Process step reveal: fade-up on scroll entry (single-fire) ---- */
+(function () {
+  var steps = document.querySelectorAll('.process-step');
+  if (!steps.length) return;
+
+  /* Reduced motion: reveal all immediately */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    steps.forEach(function (el) { el.classList.add('is-revealed'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  steps.forEach(function (el) { observer.observe(el); });
+})();
+
 /* ---- Footer: scroll-driven gold progress rule (rAF-throttled) ---- */
 (function () {
   var progressEl = document.querySelector('.footer__progress');

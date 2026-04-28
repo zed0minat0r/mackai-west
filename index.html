@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="style.min.css?v=cycle5-s" />
+  <link rel="stylesheet" href="style.min.css?v=cycle6-b" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1B2D'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23C9A961' font-family='Georgia,serif' font-size='18' font-weight='600'%3EM%3C/text%3E%3C/svg%3E" />
 </head>
@@ -377,22 +377,22 @@
     </div>
 
     <ol class="process__steps">
-      <li class="process-step">
+      <li class="process-step" style="--i:0">
         <span class="process-step__num" aria-hidden="true">01</span>
         <h3 class="process-step__title">Discovery</h3>
         <p class="process-step__desc">We sit with the hiring leader — sometimes the CFO, sometimes the Tax Partner — and write the search the way a candidate would actually read it.</p>
       </li>
-      <li class="process-step">
+      <li class="process-step" style="--i:1">
         <span class="process-step__num" aria-hidden="true">02</span>
         <h3 class="process-step__title">Search</h3>
         <p class="process-step__desc">Targeted outreach to senior talent we already know, paired with active sourcing in the right specialty pockets. No spam, no scattershot.</p>
       </li>
-      <li class="process-step">
+      <li class="process-step" style="--i:2">
         <span class="process-step__num" aria-hidden="true">03</span>
         <h3 class="process-step__title">Placement</h3>
         <p class="process-step__desc">A short, vetted slate. Real interview prep on both sides. Honest negotiation. The fee covers the work — not the volume.</p>
       </li>
-      <li class="process-step">
+      <li class="process-step" style="--i:3">
         <span class="process-step__num" aria-hidden="true">04</span>
         <h3 class="process-step__title">Aftercare</h3>
         <p class="process-step__desc">First 90 days matter. We stay in touch with the candidate and the hiring leader, and we replace the placement if it doesn&rsquo;t take.</p>
@@ -471,7 +471,7 @@
 
         <ul class="contact__details">
           <li><span class="contact__label">Email</span><a href="mailto:hello@mackaiwest.com">hello@mackaiwest.com</a></li>
-          <li><span class="contact__label">Office</span><span>Headquartered in the United States · Searches handled nationally</span></li>
+          <li><span class="contact__label">Reach</span><span>Searches handled across the United States</span></li>
           <li><span class="contact__label">Hours</span><span>Mon&ndash;Fri, 8a&ndash;6p ET</span></li>
         </ul>
       </div>
@@ -528,6 +528,14 @@
   </section>
 
   </main>
+
+  <!-- ================================================
+       STICKY MOBILE CTA — mobile only (CSS display:none at desktop)
+       ================================================ -->
+  <div class="sticky-cta" id="stickyCta" aria-hidden="true" hidden>
+    <a href="#contact" class="sticky-cta__btn sticky-cta__btn--primary">Submit a search</a>
+    <a href="#candidates" class="sticky-cta__btn sticky-cta__btn--ghost">Submit a resume</a>
+  </div>
 
   <!-- ================================================
        FOOTER
