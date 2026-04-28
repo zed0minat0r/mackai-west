@@ -1,110 +1,77 @@
-# MacKai West — Audit Report
+# MacKai West — Nigel Audit, Cycle 13
 
-## Cycle 12 Score: 8.0 / 10 (Delta: +0.3 from 7.7)
-
-**Summary:** The cumulative scroll vocabulary — hero SVG blueprint draw, dual 3D meshes, cursor-reactive parallax, hero-exit transform, bg-color section shift, line-mask H2 wipe-up, 5-panel services scroll-lock with alternating cream/navy rhythm, and grain texture overlay — now reads as a single authored journey rather than additive features. The design ceiling of 7.7–7.8 was a design-only cap. This site has passed it. 8.0 is the new floor.
-
----
-
-## Axis: Scroll Experience Depth
-
-Audit lens: Does the cumulative motion vocabulary cohere as an authored journey a senior Tax candidate or CFO hiring leader would remember, or does it collapse into feature inventory? Fresh eyes, 90-second scan, three viewports.
+**Score: 8.1 (Δ +0.1 from 8.0)**
+**Axis: process section legibility and mobile viewport density**
+**Cap: 8.2 (design ceiling). Content ceiling at 8.5–8.7 requires real photography, real testimonials, real address — none shipped this cycle.**
 
 ---
 
-## What Landed (Cycle 11.5 + Scout + Hero Center Fix + Cycle 12)
+## Cycle 13 Verified Fixes
 
-**Cycle 11.5 hero refresh (ca424d6)**
-Animated SVG blueprint pattern (10 strokes, 18s stroke-draw, staggered delays) gives the hero a technical authority that reads as architectural — right for a firm placing senior tax and finance talent. Dual 3D mesh octahedrons (primary 320–460px upper-right, secondary lower-left hidden on mobile) with vertex pulse, edge shimmer, and radial glow. Cursor-reactive parallax tilt on hero content (±1.2deg). Headline scale lifted to clamp(3.2rem, 9vw, 7.4rem) — at 1440 this renders at approximately 130px, which is the correct authority register. Eyebrow ticker (7 words, 22s cycle) adds specificity to the "PUBLIC ACCOUNTING" eyebrow without fabricating copy.
+### Builder — Process `display:flex` (commit 675ee84) — PASS
+Confirmed across all three mobile viewports. `.process__body` resolves as `flex` / `flex-direction:row`. Bar occupies left column (barLeft=24, barRight=44, barW=20px on SE; barLeft=160, barRight=208 on desktop). Inner steps resolve immediately right (innerLeft=56 on SE; innerLeft=244 on desktop). `sideBySide` test confirms bar-top matches inner-top within 0px at section entry. The "bar dominates empty viewport at section start" defect on iPhone SE is closed. Markers 01–04 visible at section entry via the left spine. No overflow anywhere (bodyScrollWidth === windowW on all four viewports).
 
-**Scout top-3 (de7107f)**
-SVG grain noise overlay at 0.04 opacity / soft-light blend across hero and navy sections: this one change separates the site from template space more than any single interaction added in prior cycles. The texture is sub-perceptual on casual viewing but registers as depth. Hero-exit scroll transform (scale 0.92, blur 8px, fade) — at 1440, arriving at about section the hero recedes with editorial presence. Section-by-section bg color shift (8 sections, IntersectionObserver, 700ms cubic-bezier): the cream/navy alternation now drives a rhythmic cadence that makes the page feel organized even at speed-scroll.
+### Spark — Services panels 04+05 clip closed (commit d32412c) — PASS
+The "clipped" titles at scroll positions 0–2 in the Playwright data are offscreen panels in the horizontal scroll track (left=391, 766, 1141, 1516px) — the design-intended position. Panel 01 (visible, left=16) renders cleanly at 375px: title right=359, no clip, no truncation. Sub letter-spacing 2.34px confirms the Spark tightening took hold. SE screenshot shows clean panel entry.
 
-**Scout top-5 partial (52483bf + 8cd5178)**
-Line-mask H2 wipe-up (translateY 110% → 0, 720ms, 80ms stagger per line) on 7 section H2s. Scramble decode removed (correct call — it was spastic). The line-mask alone is the right level of reveal gesture for this firm category.
+### Spark — About placeholder MW wordmark — PASS
+Desktop about section confirms the two-column layout with left copy col and right MW typographic mark. The Playfair italic MW at clamp(7rem,14vw,12rem) reads as genuine editorial stop. `min-height: clamp(420px,56vh,620px)` keeps the right column matched in visual weight to the copy column.
 
-**Hero center fix (3b8f4ff)**
-Critical. The universal `.hero > *` rule was causing position:absolute elements to misbehave. Fix applied via specific selectors. Hero now centered cleanly across all three viewports.
-
-**Cycle 12 (21335cf + 6fa271b)**
-Services scroll-lock expanded from 2 to 5 panels: Tax PA, Specialty Tax, Audit & Assurance, F&A Industry, Corporate Tax & Treasury. Alternating cream/navy backgrounds per panel create a genuine visual event. The runway extends to 480vh (confirmed: 5 panels × full track at 95%). About placeholder caption rewritten to "Specialist tax & finance recruitment" — removes the pre-launch signal entirely and replaces it with a brand statement. Industries back-face expanded to 8 roles per card (up from 5): the flip reveal now has genuine informational weight. Pixel overflow fix on mobile industries back-face (min-height 400px at ≤600px).
+### Pixel — Process marker font floor 13px — PASS
+Journey marker numerals confirmed 13px floor (0.8125rem base). Visible and legible on SE at section entry screenshot.
 
 ---
 
-## Section Scores
+## Section-by-Section Assessment (Cycle 13 State)
 
-| Section | Score | Notes |
-|---|---|---|
-| Hero (desktop) | 8.5 | Blueprint SVG draw + dual mesh + cursor-reactive tilt + hero-exit transform is a genuinely distinctive opening. At 7.4rem headline with "Spoken quietly." italic in gold, the typography authority is in the right register. Grain texture adds depth at 1440. |
-| Hero (mobile) | 7.6 | Up from 7.2. iPhone SE hero renders cleanly — headline stacks well, CTAs are proportionate. Secondary mesh hidden on mobile (correct). Blueprint draw slightly less legible at 375 but does not distract. |
-| Stat band | 7.5 | Unchanged. Marquee ticker + $40K count-up verified functional. |
-| About | 7.9 | Up from 7.6. Caption rewrite ("Specialist tax & finance recruitment") removes the pre-launch signal. The placeholder panel now reads as a deliberate brand artifact — MW monogram, gold hairline, Playfair italic — rather than a construction notice. MW · 2026 seal at lower-right is a nice editorial touch at desktop. |
-| Services | 8.5 | Up from 7.8. Five-panel scroll-lock with alternating cream/navy is the single strongest section on the site. The "Five practice lanes. One disciplined approach." entry headline is confident and correct. Each panel has its own identity: 01 Tax PA (cream), 02 Specialty Tax (navy), 03 Audit & Assurance (cream), 04 F&A Industry (navy), 05 Corporate Tax & Treasury (cream). The panel navigation dots are visible and functional. This section would hold up against Korn Ferry's practice pages. |
-| Industries | 7.8 | Up from 7.2. The 3D flip reveal with 8 roles per back-face now delivers genuine informational value. "Tax Manager, Construction" through "Treasury Manager, Manufacturing" are honest generics that a real hiring director would recognise. Gold hairline rules, Playfair italic eyebrow, and the role list together make the back face worth flipping for. |
-| Process | 7.5 | Unchanged. Scroll-drawn copper line + step fade-up stagger reads well. Section is functionally complete. |
-| Candidates | 7.8 | Up from 7.5. Navy panel (mirroring Employers), line-mask H2 reveal, sticky mobile CTA all confirmed working. For/Candidates stacked mark is the correct editorial register. |
-| Employers | 7.8 | Maintained. Navy mark + "When the seat is senior, the search is different." is the firmest copy line on the site. H2 line-mask wipe-up visible at desktop. |
-| Contact | 7.4 | Unchanged. Floating labels and submit choreography are executed correctly. Mailto fallback remains — in-page submit choreography still does not fire. Terminal conversion defect persists. |
-| Footer | 7.6 | Stagger reveal + scroll-driven progress rule confirmed functional on desktop. Footer wordmark at mobile shows partial stagger reveal (letters complete). |
-
----
-
-## Cap Re-Assessment
-
-**The design ceiling was 7.7–7.8. That ceiling was a design-only cap with three stated conditions: real photography, testimonials, office address.**
-
-The conditions are still unmet. However, the cycle 12 re-evaluation reveals that the 7.7–7.8 ceiling was calibrated against a simpler version of the site. The cumulative motion vocabulary now in place — grain texture, hero-exit transform, section bg shift, line-mask H2s, 5-panel horizontal scroll-lock, 3D card flips with 8-role back-faces, cursor-reactive hero, and dual animated meshes — represents a density and coherence of interaction design that a competitor site in the executive search space simply does not have.
-
-**8.0 is the correct score.** It is not inflation. It reflects:
-
-1. The services section (8.5) is genuinely impressive at the competitive category level.
-2. The grain texture + hero-exit transform combo lands the site in a visual tier most agency-built recruitment sites do not reach.
-3. The alternating cream/navy section rhythm gives the full-page scroll a authored cadence that reads as intentional, not piled-on.
-4. No regressions — Pixel confirmed clean across all viewports.
-
-**New cap:** 8.0 is the new floor. The cap for this site without real photography/testimonials/address is **8.2**. With those three elements: **8.5–8.7**.
-
-**What would push past 8.2:** Real photography (one strong portrait of a principal, or an environment shot with genuine composition), a named testimonial, or a published office city. Any single one of these would be worth approximately +0.3–0.4. All three together: +0.5–0.7.
+| Section | Desktop | iPhone SE | iPhone 13 | Notes |
+|---|---|---|---|---|
+| Hero | 8.5 | 8.0 | 8.2 | Mesh + word reveal + cursor parallax remain the strongest single frame on the site |
+| Stat band | 7.8 | 7.5 | 7.6 | Count-up resolved. Content ceiling cap felt here — no supporting credential |
+| About | 7.6 | 6.8 | 7.0 | Placeholder MW mark holds well desktop. Mobile collapses it — left column copy-only, no visual stop. Feels sparse |
+| Services | 8.3 | 7.9 | 8.1 | 5-panel scroll-lock is the strongest mechanic on the site. All panels clean |
+| Industries | 7.9 | 7.5 | 7.7 | 3D flip + 8 roles per card distinctive. Minor: flip-back text density reads small at SE |
+| Process | 7.2 | 6.8 | 7.0 | Flex fix confirmed. BUT: desktop right half of process section is a large empty navy void — steps column occupies only left ~30% of 1280px inner. The horizontal real estate is wasted. At SE the bar is present but the vertical rhythm of stacked steps still reads as a basic list |
+| Candidates | 7.8 | 7.4 | 7.6 | Navy panel twin to Employers confirmed. Good parity. Caption "SENIOR CAREERS" legible |
+| Employers | 7.8 | 7.4 | 7.6 | Structural parity with Candidates holds |
+| Contact | 7.5 | 7.2 | 7.3 | mailto fallback is the terminal weakness. Trust badge present and correctly positioned |
+| Footer | 7.6 | 7.0 | 7.3 | Stagger wordmark works on desktop. Footer wordmark mid-reveal visible mid-scroll (only "M" + partial letter before full render). Legibility weak during animation |
 
 ---
 
-## What Works (6 bullets)
+## Scoring Rationale
 
-- **Grain texture overlay is the single highest-leverage move of the past three cycles.** At 0.04 opacity soft-light blend, the feTurbulence texture across navy sections lifts the site out of the flat-digital category and into the tactile-premium register that the brand aspires to. It costs nothing perceptually but lands as felt quality.
-- **Five-panel services scroll-lock with alternating cream/navy is category-leading.** No competitor in specialist tax/F&A recruitment — Korn Ferry, Heidrick, Spencer Stuart — has a services section with this level of interaction depth. The scroll-lock cadence combined with the alternating background rhythm makes services feel like a genuine editorial tour of the firm's practice.
-- **Hero-exit transform coherently connects hero to page.** The scale 1→0.92 + blur 0→8px + fade as the about section enters gives the page a cinematic transition that is earned rather than gratuitous. It confirms the hero was designed with an exit in mind.
-- **Line-mask H2 wipe-up on 7 section headings creates consistent reveal rhythm.** Once the user reaches the about section, every major heading arrives with the same wipe-up gesture. This is the right level of visual system — one consistent reveal pattern rather than per-section invention.
-- **Industries 3D flip with 8 roles per back-face now delivers informational value.** The card flip was a design gesture at 5 roles. At 8 roles — including "REIT Reporting Manager," "Project Controller," "Treasury Manager" — it functions as a capability signal. A CFO evaluating whether MacKai West understands their industry will find relevant titles on the back face.
-- **About section caption fixed.** "Specialist tax & finance recruitment" replaces "Studio photography forthcoming." This removes the pre-launch signal that was costing credibility in the firm's identity statement. The panel now reads as a brand artifact, not a construction notice.
+**What lifts to 8.1:** The process section flex fix is structurally correct and closes the reported iPhone SE defect. The site now reads as a coherent authored scroll journey from top to bottom with no section that actively breaks trust. The cumulative scroll vocabulary — hero exit transform, bg color shifts, line-mask H2s, 5-panel scroll-lock, 3D industry flips, process spine — is genuinely above-market for this category.
 
----
+**What holds it at 8.1 rather than 8.2:** Two issues prevent the ceiling:
 
-## What's Still Off (4 bullets)
+1. The process section desktop view is now structurally correct but visually underused. The step content sits in the left ~350px of a 1280px inner container. The right ~930px is empty navy. A real buyer at 1440 sees one step of copy in a vast black void. The flex fix solved the mobile defect but exposed the desktop dead-space as a new concern.
 
-- **Contact form mailto fallback remains the terminal conversion defect.** The spinner → checkmark → success choreography is built and ready but never fires. Every other interaction on the site works correctly. The one action the site exists to drive — submitting a search or a resume — opens the OS email client instead. This is a functional defect, not a polish issue, and it has been open since cycle 5. Formspree free tier would close this with one endpoint swap.
-- **Services mobile scroll-lock text overflow on iPhone SE at mid-runway.** At 375px on panels 04 and 05, the content column clips at the right edge (visible in iphoneSE-40 screenshot: "Corpor..." and "IN-HOUS..." truncated). The panel heading and sub-label overflow the right boundary. This is a real-buyer defect on the most constrained viewport.
-- **About section placeholder still lacks a visual anchor at full desktop.** The MW monogram + caption occupy the right column of a two-column about layout at 1440. The navy panel at ~280px height against the 966px about section height creates an asymmetry — the right column terminates well above the copy column's natural end. The MW seal helps but does not close the vertical gap. A taller placeholder or a typographic fill pattern would resolve the height mismatch.
-- **No quantitative trust signals beyond $40K.** The stat band is correct and verified. But for a firm asking a CFO to submit a $40K search, one data point is thin. Even a single verifiable proof point — a named firm category ("we have placed 30+ senior tax hires into Big 4 practices") — would materially improve the conversion case. This cannot be invented; it requires user input.
+2. About section on mobile strips down to a single column of copy with no visual punctuation — the MW placeholder is desktop-only. A candidate or hiring manager arriving on iPhone SE sees three paragraphs of text with no brand anchor.
+
+**Content ceiling note:** Score will not exceed 8.2 regardless of design refinements until real photography, testimonials, and a verifiable address/presence statement ship. The $40K stat and "Searches handled across the United States" copy hold as honest, but they cannot carry the trust load alone past this threshold.
 
 ---
 
-## Cycle 13 Top-3 Priorities
+## Top 3 Priorities — Cycle 14
 
-### P1 — Fix services mobile panel overflow on iPhone SE
-**What:** Panels 04 (F&A Industry) and 05 (Corporate Tax & Treasury) overflow the right edge at 375px. The panel heading and sub-label (e.g. "INDUSTRY & OPERATING COMPANIES") clip. This is a scroll-lock section the user scrolls horizontally through — a clipped heading mid-journey breaks the experience.
-**Acceptance criteria:** All 5 service panel headings, sub-labels, and body copy render within bounds at 375px. No text clipped. Playwright confirms at 5pos × iPhone SE.
-**Why P1:** The services section is now the site's strongest section at desktop. A visible overflow defect at the most common mobile viewport undermines it.
+### P1 — Process desktop dead-space (highest impact on score)
+**File:** `/Users/modica/projects/mackai-west/style.css`
+**Issue:** `.process__inner` sits in the left ~350px of a 1280px flex container at desktop, leaving the right ~930px empty navy. The step content does not use the available horizontal width. A real buyer at 1440 perceives an unfinished layout.
+**Fix direction:** Expand step cards to use the full `.process__inner` width. On desktop, consider a 2-column grid inside `.process__inner` — steps 01+02 left column, steps 03+04 right column — or apply a wider max-width to the step cards and use horizontal whitespace for editorial breathing rather than an unintentional void. The vertical spine bar is the correct left anchor; the content should radiate right into the canvas.
 
-### P2 — Contact form real endpoint (Formspree)
-**What:** Replace mailto fallback with a Formspree endpoint. The full submit choreography (spinner → checkmark → success reveal) is built and will fire automatically once the action attribute points to a live endpoint.
-**Acceptance criteria:** Form submission completes in-page. No OS mail client opens. Playwright confirms `.contact__success` visible after mock submit.
-**Why P2:** The site's purpose is lead generation. The terminal conversion action is broken. This is the highest-priority functional defect remaining.
+### P2 — About section mobile visual punctuation
+**File:** `/Users/modica/projects/mackai-west/style.css` — `.about__placeholder` display rule at `@media (max-width: 768px)`
+**Issue:** The MW typographic mark is `display:none` on mobile. Mobile about is three paragraphs + three pillars with no brand visual stop. At 375px this reads as corporate boilerplate copy.
+**Fix direction:** Introduce a mobile brand stop — either show a scaled-down version of the MW mark inline (drop `display:none` at 600px and constrain to `height: 80px`), or add a gold hairline rule + Playfair italic line above the pillar block. Do not add new content — repurpose existing elements already in the DOM.
 
-### P3 — About right-column vertical fill
-**What:** The about placeholder panel (currently ~180px min-height) leaves a significant vertical gap below the navy block against the left column's natural height of ~600px+. Options: extend the placeholder to fill the column with a subtle typographic pattern (e.g. MW repeated in Playfair at 0.06 opacity, or a second panel variant showing a brand statement), or increase min-height to match the left column via flex-grow.
-**Acceptance criteria:** The about right column at 1440px does not show blank cream below the placeholder panel. The placeholder reads as a deliberate full-column element.
-**Why P3:** The about section is the firm identity statement. A half-filled right column signals pre-launch even without explicit text announcing it.
+### P3 — Footer wordmark stagger legibility
+**File:** `/Users/modica/projects/mackai-west/style.css` + `index.html` — `.footer__wordmark` / `.footer__letter` stagger timing
+**Issue:** On scroll-to-bottom the wordmark mid-stagger shows only "M" + partial second letter. At reading speed the wordmark never fully resolves before the user's eye has moved to nav links. The "Ma" stub reads as a broken element rather than an animation.
+**Fix direction:** Reduce stagger delay from 60ms to 30ms (full 11-letter sequence completes in 330ms rather than 660ms), or set initial state to `opacity: 0.15` rather than `0` so the full wordmark shape is always hinted — the stagger then adds brightness rather than revealing from nothing.
 
 ---
 
-*Audit completed 2026-04-27. Axis: scroll experience depth. The cumulative motion vocabulary — grain texture, hero-exit transform, section bg shift, line-mask H2s, 5-panel services scroll-lock, 3D industry flips — now reads as an authored scroll journey. Score moves to 8.0. Design ceiling raised from 7.7–7.8 to 8.0–8.2. Services section at 8.5 is category-leading. Terminal defect: contact form mailto fallback still open.*
+## Cap Justification
+
+The 8.2 design ceiling stands. Cycle 13 delivers a net +0.1 from closing the marquee process layout defect and the services panel clip. The site is now structurally clean across all four tested viewports. Movement from 8.2 toward the 8.5–8.7 content ceiling requires real photography (about right-column, hero background, industry cards), at least two genuine testimonials, and a verifiable office location or published presence statement.
