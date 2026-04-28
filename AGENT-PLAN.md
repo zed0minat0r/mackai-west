@@ -1,153 +1,104 @@
-# MacKai West — Cycle 10 Agent Plan
+# MacKai West — Cycle 11 Agent Plan
 
-**Coordinator dispatch:** 2026-04-27
-**Cycle 9 outcome:** 7.5 plateau (third cycle at cap). Candidates section moved 6.8 → 7.0 internally; overall held at the cap. Cap remains content-gated (real photography + testimonials + address).
+**Cycle:** 11
+**Date:** 2026-04-27
+**Last score (cycle 10):** 7.6 / 10
+**Design-only ceiling this cycle:** 7.7–7.8 (real photography/testimonials/address required for higher)
+**Focus axis:** About-section pre-launch signal resolution + mobile Candidates panel proportion
 **Live:** https://zed0minat0r.github.io/mackai-west/
 
 ---
 
-## Decision rationale
+## Dispatch Decision
 
-- **Score gate (7.5 cap):** Cycle 9 = 7.5, just at the cap line. Treating as "polish + decisive contrast move" — not a content cycle. Builder is still scheduled because the central remaining design lever is contrast on the Candidates panel, not content.
-- **Convergence guard:** Last 2 coordinator entries committed cleanly. Not stuck.
-- **Section cooldown:** Hero, nav, stat band, marquee, industries, employers panel, services scroll-lock, magnetic underlines, footer, contact, process, mobile font floor, sticky mobile CTA, about pillars structural content — all FORBIDDEN.
-- **Spark frequency:** Spark ran cycle 9; running again as Frame B polish on the new navy-twin Candidates panel.
-- **Memory drift check:** Recent memory entries (no-ghost-numbers, no-dev-content, frame-b-richness, simplicity-over-polish, unique-design) all echoed into briefs.
-- **Audit priority match:** AUDIT.md cycle 9 P1 = Candidates panel contrast (recommended option B = full navy). Builder owns this. P2 (form endpoint) is user-side blocked, documented and skipped. P3 (about image slot) re-scoped to small intentional brand artifact, not stock photography.
+Standard 4-agent rotation (Builder → Spark → Pixel → Nigel). Score is 7.6, below the 8.5 polish-only gate. AUDIT.md P1 + P3 are concrete, non-cooldown moves. P2 (form endpoint) is user-side blocked and is documented and skipped per directive.
+
+**One-line rationale:** Resolve the about right-column pre-launch signal with a deliberate brand-artifact panel (no fabricated content, no stock photo) and fix the iPhone SE Candidates panel min-height regression carried over from cycle 9.
 
 ---
 
-## Cycle 10 axis
-
-**Visual weight parity between Candidates and Employers** — close the contrast gap that held cycle 9 at the cap. Recommend option B (full navy panel, mirroring Employers in color while remaining mirrored in column position) for decisive parity.
-
----
-
-## Scheduled agents (in order)
+## Scheduled Agents (in order)
 
 ### 1. Builder
-
-**Brief:** Execute P1 + P3 from AUDIT.md cycle 10.
-
-**P1 — Candidates panel full-navy inversion (recommended path):**
-- Flip `.candidates__panel` background from cream-2 (#FAF6EE) to full navy (#0F1B2D) — color-twins Employers panel, retains mirrored right-column position.
-- Type colors flip:
-  - `For` mark → cream-60 (or copper-deep, match Employers' gold-on-navy treatment)
-  - `Candidates` italic display → gold (#C9A961) — becomes the dominant accent on dark
-  - Gold rule → gold-deep
-  - `SENIOR CAREERS` small-caps caption → cream-60 (NOT gold-deep — that color was readable on cream-2 but won't have enough contrast on navy)
-  - Copper radial wash: keep but raise opacity slightly (was 8% on cream — try 12-15% on navy to remain perceptible without going decorative)
-- DO NOT touch Candidates panel structure (column position, width, mark layout, mobile collapse). Color shift only.
-- Fallback: if visual review during build clearly favors option (a) deeper warm cream (#EDE3D2 or #E8DCC4) over full navy, builder may pivot, but document the choice in changelog.
-
-**P3 — About small intentional brand artifact:**
-- Add ONE small deliberate element NEXT TO or BENEATH the about pillars area. Keep it small, deliberate, must not compete visually with the pillars.
-- Options (pick one, document choice):
-  - Small navy card with MW monogram + Playfair italic "Photography forthcoming" caption (no fabricated date)
-  - Typographic anchor: "MW · 2026" in Playfair italic, gold, corner of about section
-- HARD constraints: NO stock photography. NO fabricated dates beyond the brand year. NO ghost numbers (background giant numerals — confirmed user dislike). Element must read as deliberate brand artifact, not as filler.
-
-**P2 — Form endpoint:** USER-SIDE BLOCKED. Document in changelog that this is awaiting Formspree/Netlify account credentials and skip. No code change this cycle.
+**Brief:** Ship P1 about navy placeholder panel — small editorial card (~200–280px × 240–320px), navy bg, MW monogram circle (matching nav monogram weight), gold hairline border, Playfair italic caption ("Photography forthcoming" or "Studio · 2026"). Place visually associated with the about section — preferred path: insert as a 3rd column inside `.about__inner` grid at desktop, OR layer below the pillars list, OR drop in as a 4th `.about__pillars` item. Mobile must collapse cleanly. Ship P3 mobile candidates min-height fix — at `@media (max-width: 600px)`, set `.candidates__panel { min-height: auto }` or `min-height: 220px` so the panel sizes to content + padding only, and apply the same rule to `.employers__panel` if it inherited the over-tall mobile rule from the cycle 10 unification. Regenerate `style.min.css`. Verify Playwright at ≥5 positions × desktop 1440 + iPhone 13 + iPhone SE.
 
 **MEMORY rules to respect:**
-- **Apps must NOT look AI-generated** (feedback_unique_design)
-- **NEVER bail mobile via matchMedia** (feedback_disabling_isnt_fixing) — color shift won't trigger this but stay alert
-- **NO ghost numbers** (feedback_no_ghost_numbers) — small artifact must not be a giant background numeral
-- **NO fabricated content** (feedback_no_invented_fight_data + content honesty in CLAUDE.md) — no fake dates, no fake quotes
-- **Simplicity over polish** (feedback_simplicity_over_polish) — small artifact, not piled-on decoration
-- **Verification ≥5 positions × 3 viewports** (Playwright at 1440 + iPhone 13 + iPhone SE)
-- **Regenerate style.min.css** after every CSS edit
-- **DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER**
+- No fabricated content (no fake "Est." dates, no fake names — MW monogram + honest pre-launch caption only)
+- Apps must NOT look AI-generated (deliberate brand-artifact, not a generic placeholder box)
+- NEVER bail mobile via matchMedia
+- No ghost numbers
+- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
 
-**Forbidden sections (cooldown):**
-Hero (mesh + parallax + word reveal), nav, stat band, marquee tape, industries, employers panel, services scroll-lock, magnetic underlines, footer (wordmark + progress + mobile timing), contact (floating labels + submit + trust badge + label sizes), about pillars structural content (only ADD small artifact), process (numerals + line + scroll-draw + step reveal + stagger + ease), candidates panel structure (only adjust bg/type per P1 contrast shift), mobile font floor + tap targets, sticky mobile CTA.
+**Forbidden sections / scope:** All hero, nav, stat band, marquee, industries, services scroll-lock, magnetic underlines, footer, contact, process, about pillars structural content, about seal, candidates panel navy inversion + cross-panel parity (only mobile min-height per P3), employers panel (only matching mobile min-height fix if it shares the rule), mobile font floor + tap targets, sticky mobile CTA. Do not restructure the pillars or move the seal.
 
 ---
 
 ### 2. Spark
-
-**Brief:** Frame B polish on the new navy Candidates panel. Goal: type contrast and rule weights match Employers exactly since the two panels are now color-twinned.
-
-- Compare gold-on-navy treatment between Candidates and Employers panels at 1440 + iPhone 13.
-- Refine Candidates panel typography weights, letter-spacing, rule opacity, caption color so the two panels read as a deliberate matched pair (mirrored color twins).
-- Frame B = spacing + typography refinement, NOT content removal. Do not strip the mark, the rule, or the caption. Do not remove the radial copper wash.
-- If Builder picked option (a) deeper warm cream instead of full navy, recalibrate accordingly — but the panels will not be color-twins so parity polish targets will differ.
+**Brief:** Frame B polish on the new about navy placeholder panel only — refine monogram circle stroke weight, internal spacing, Playfair italic caption tracking + size, gold hairline border opacity, panel inner padding rhythm. Frame B keeps content count — refine the panel that Builder shipped, never strip it down or pile on additional elements. Pull a single editorial reference (Heidrick / Korn Ferry / Bottega Veneta press card) and replace one specific weakness in the Builder version. Regenerate `style.min.css`. Verify at ≥5 positions × 3 viewports.
 
 **MEMORY rules to respect:**
-- **Frame B keeps content count** (feedback_frame_b_richness)
-- **Spark replaces, doesn't pile** (feedback_simplicity_over_polish) — refining only
-- **Nigel never removes quality** echoes here too — do not strip glows or animations
-- **Regenerate style.min.css**
-- **DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER**
+- Spark replaces, doesn't pile (one weakness identified, one targeted refinement, swap don't add)
+- Frame B keeps content count (no removing the monogram or the caption)
+- Apps must NOT look AI-generated
+- Simplicity over polish
+- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
 
-**Forbidden sections (cooldown):** Same list as Builder.
+**Forbidden sections / scope:** Same cooldown list as Builder. Spark touches only the new about navy panel internals — no stat band, no marquee, no industries, no services typography, no contact form, no candidates/employers panels, no footer wordmark.
 
 ---
 
 ### 3. Pixel
-
-**Brief:** Verification cycle for the new Candidates panel + new about brand artifact + standing 375 + 414 mobile audit.
-
-- **Candidates panel readability verification:** Capture at desktop 1440 + iPhone 13 + iPhone SE. Confirm gold "Candidates" italic mark reads cleanly on navy. Confirm "For" mark color is readable. Confirm "SENIOR CAREERS" caption is legible. Confirm rule visible. Confirm radial wash perceptible without going decorative. Capture at ≥5 scroll positions through the section.
-- **New about artifact verification:** Confirm artifact reads as deliberate (not filler), does not compete with pillars, does not introduce horizontal overflow at 375/414, and is centered or anchored correctly per builder's choice.
-- **Standing mobile audit:** 375 + 414. All tap targets ≥44px. Center alignment consistency on every section. No horizontal overflow.
-- **Verification standard:** ≥5 positions × 3 viewports (1440, iPhone 13, iPhone SE).
-- If any defect found: fix the CSS/JS mismatch, regenerate style.min.css, commit. NEVER bail via matchMedia.
+**Brief:** Verify P1 about navy panel renders cleanly at desktop 1440 (no layout disruption to existing pillars, no overflow, no stacking break, monogram + caption legible, gold border crisp). Verify P3 mobile candidates panel proportion now correct at iPhone SE (375) — mark no longer stranded at the bottom of an over-tall navy bar; panel sizes to content. Standing 375 + 414 audit (font floor 13px, tap targets ≥44px, no horizontal overflow). Pixel must always audit center-alignment consistency on mobile. Confirm employers mobile panel didn't regress.
 
 **MEMORY rules to respect:**
-- **Pixel must audit 375 + 414 center alignment** (feedback_pixel_alignment)
-- **Actually scroll-test, not single-position** (feedback_actually_scroll_test)
-- **Disabling isn't fixing** (feedback_disabling_isnt_fixing) — fix CSS/JS mismatch, never matchMedia bail
-- **Regenerate style.min.css** after any CSS fix
-- **DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER**
+- Pixel must audit 375 + 414 always
+- Pixel must audit mobile center-alignment consistency
+- Verification Playwright at ≥5 positions × 3 viewports
+- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
 
-**Forbidden sections (cooldown):** Same list, except Pixel may verify and fix any cooldown section as defensive regression checks.
+**Forbidden scope:** Do not modify any section outside what Builder + Spark touched this cycle except defensive font-floor or tap-target fixes if a regression is detected.
 
 ---
 
 ### 4. Nigel
-
-**Brief:** Re-score from a real senior Tax / F&A candidate's perspective at first scroll. Cap remains at 7.5 until real photography + real testimonials + real published address all land.
-
-- Expected delta range this cycle: +0.0 to +0.2 within cap. A decisive contrast move (full navy Candidates panel) could finally close the Candidates/Employers visual weight gap, possibly justifying movement within cap; could not break it.
-- Score Candidates section specifically. Compare directly to Employers at section level — has the parity gap closed?
-- Score from a real-buyer's perspective, NOT a designer's checklist.
-- Strict cap 7.5 holds. No movement above 7.5 until photography + testimonials + address.
-- **Nigel never recommends removing quality** (no removing glows, animations, effects). Only ADD or IMPROVE.
-- Identify cycle 11 P1/P2/P3 priorities for next coordinator dispatch.
+**Brief:** Re-score from a senior Tax / F&A buyer perspective scanning the live site cold in 90 seconds. Cycle 10 closed at 7.6. The design-only ceiling this cycle is 7.7–7.8 — anything above requires real photography + real testimonials + published office address. The about navy placeholder panel resolves the most prominent pre-launch signal but it is still a placeholder (not real photography), so the cap conditions remain unmet. Score honestly. Identify cycle 12 P1/P2/P3 and write them into AUDIT.md. Nigel never recommends removing glows / animations / effects — only adds or improves.
 
 **MEMORY rules to respect:**
-- **Nigel must score stricter** (feedback_nigel_stricter) — buyer's lens, not designer's checklist
-- **Nigel never removes quality** (feedback_nigel_no_removal)
-- **Nigel cap 7.5 holds**
-- **Respectful tone** (feedback_respectful_tone) — never call the user a bottleneck or blame for blockers (form endpoint is user-side, frame collaboratively)
-- **No content in agent loops** (feedback_no_news_in_loops) — UI/UX scoring, not content additions
-- **DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER**
-
-**Forbidden sections (cooldown):** N/A — Nigel reviews everything but recommends nothing in cooldown sections this cycle.
+- Nigel must score stricter (real-user perspective, not assistant optimism)
+- Nigel cap 7.7–7.8 design ceiling — do not exceed without real content
+- Nigel never removes quality
+- Respectful tone (never call the user a bottleneck)
+- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
 
 ---
 
-## Forbidden across cycle 10
+## Forbidden sections (cycle 11)
 
-- Hero (mesh + parallax + word reveal)
-- Nav
-- Stat band
-- Marquee tape
-- Industries
-- Employers panel
-- Services scroll-lock
-- Magnetic underlines
-- Footer (wordmark + progress + mobile timing)
-- Contact (floating labels + submit + trust badge + label sizes)
-- About pillars structural content (Builder may ONLY ADD small artifact)
-- Process (numerals + line + scroll-draw + step reveal + stagger + ease)
-- Candidates panel structure (Builder may ONLY adjust bg/type per P1)
-- Mobile font floor + tap targets
-- Sticky mobile CTA
+All hero variants, nav, stat band, marquee tape, industries, services scroll-lock, magnetic underlines, footer (wordmark + progress + mobile timing), contact (floating labels + submit + trust badge + label sizes), about pillars structural content, about seal, process (numerals + line + scroll-draw + step reveal + stagger + ease), candidates panel navy inversion + cross-panel parity, employers panel (except matching mobile min-height fix if same issue exists), mobile font floor + tap targets, sticky mobile CTA.
+
+**Allowed touches this cycle:**
+- ADD: about navy placeholder panel (new element)
+- FIX: candidates `.candidates__panel` mobile min-height at `@media (max-width: 600px)`
+- FIX: employers `.employers__panel` mobile min-height ONLY if it inherited the same over-tall rule
+- POLISH: Spark Frame B internal refinement of the new about panel only
 
 ---
 
-## One-line rationale
+## Memory guardrails — repeated for every agent
 
-Full-navy Candidates inversion (mirroring Employers in color, mirrored in position) plus a small deliberate about brand artifact — a decisive contrast move targeting the visual weight parity gap that held cycle 9 at the cap.
+- Apps must NOT look AI-generated
+- NEVER bail mobile via matchMedia
+- NO fabricated content
+- NO ghost numbers
+- Spark replaces, doesn't pile
+- Frame B keeps content count
+- Pixel must audit 375 + 414 + center-alignment
+- Nigel cap 7.7–7.8 design ceiling holds
+- Respectful tone
+- Verification Playwright at ≥5 positions × 3 viewports
+- After CSS edits regenerate `style.min.css`
+- DO NOT call mcp__plugin_imessage_imessage__reply / DO NOT TEXT THE USER
+
+---
+
+*Plan written 2026-04-27 by Coordinator. Live: https://zed0minat0r.github.io/mackai-west/*
