@@ -1,22 +1,31 @@
-## Cycle 13 Builder — Process Section START layout fix
+# PLAN.md — Cycle 14 Builder
 
-**Problem:** `.process__body` is a block container so `.process__journey-bar` (sticky, tall)
-sits ABOVE `.process__inner` in normal flow. On iPhone SE at section start, the bar dominates
-the viewport with empty navy space and step content is barely visible at the bottom.
+## Changes
 
-**Files touched:** `style.css` (L1757-1785 main rules, L2654 768px breakpoint, L2679-2682 600px breakpoint, L3044 z-index override), `index.html` (cache-buster), `style.min.css` (regenerated).
+### B1: 2x2 grid on .process__steps (desktop)
+- File: style.css line ~1730
+- Change base `grid-template-columns` from `repeat(4, 1fr)` to `repeat(2, 1fr)`
+- Add `gap: clamp(40px, 4vw, 64px) clamp(32px, 3vw, 48px)` (row x col)
+- Tablet override line 2673 `repeat(2, 1fr)` stays (already correct for 960px)
+- Mobile override line 2697 `1fr` stays untouched
+- Steps 01+02 top row, 03+04 bottom row naturally
 
-**Changes:**
-1. `.process__body` -> `display: flex; gap: clamp(16px, 3vw, 36px); align-items: flex-start;`
-2. `.process__journey-bar` -> `flex: 0 0 auto;` remove `margin-left`
-3. `.process__inner` -> `flex: 1; min-width: 0; padding-left: 0;`
-4. `@media (max-width: 768px)` `.process__journey-bar`: keep width 36px, no margin-left needed
-5. `@media (max-width: 600px)` `.process__body`: add gap override `clamp(12px, 2.5vw, 20px)`; `.process__inner`: remove `padding-left: 28px`
-6. Regenerate `style.min.css`
-7. Bump cache-buster to `?v=cycle13-b`
+### B2: Marker ring halo via ::before pseudo
+- File: style.css lines ~1834-1854
+- Add `::before` on `.process__journey-marker`: 14px circle, gold stroke ring, opacity 0.25
+- `.process__journey-marker.is-active::before`: expand to 22px, opacity 1.0, glow box-shadow
+- Transition 0.4s cubic-bezier on ring properties
+- Numeral stays at 0.8125rem (13px floor) — never reduced
 
-**Success criterion:** At section start (5% scroll pos) on iPhone SE 375, step "01 Discovery"
-header+content visible in viewport alongside the bar (bar LEFT, steps RIGHT). Sticky pin holds
-at mid-runway (50%). No bleed into Candidates at 95%.
+### B3: Sync .is-active to step cards
+- File: style.css — add `.process-step.is-active` rule: border-top full gold + border-left 3px gold-soft + padding-left clamp
+- File: main.js lines ~170-177 — extend existing marker forEach loop to also toggle `.is-active` on matching `.process-step`
 
-**Scope:** Surgical CSS only, no JS changes, under 200 words.
+## Success criteria
+- Desktop 1440: `.process__steps` 2 columns, both rows fill inner width
+- Mobile 375: single column, no overflow
+- Marker rings visible; active = bigger + glow
+- Active step card gets gold top + left accent
+- `style.min.css` regenerated; cache-buster `?v=cycle14-b`
+
+Scope: ~30 CSS lines, ~5 JS lines
