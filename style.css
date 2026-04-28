@@ -1851,15 +1851,17 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .candidates__panel-mark {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 0;
+  width: 100%;
 }
 
 .candidates__panel-for {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
   color: var(--gold);
   line-height: 1;
   letter-spacing: -0.01em;
@@ -1870,12 +1872,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-size: clamp(2.8rem, 6vw, 5rem);
   color: var(--gold-soft);
   line-height: 1;
   letter-spacing: -0.02em;
   display: block;
-  margin-top: 4px;
+  margin-top: 6px;
+  text-shadow: 0 0 24px rgba(201, 169, 97, 0.18);
 }
 
 .candidates__panel-rule {
@@ -1931,15 +1934,17 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .employers__panel-mark {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 0;
+  width: 100%;
 }
 
 .employers__panel-for {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
   color: var(--gold-soft);
   line-height: 1;
   letter-spacing: -0.01em;
@@ -1950,12 +1955,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-size: clamp(2.8rem, 6vw, 5rem);
   color: var(--gold);
   line-height: 1;
   letter-spacing: -0.02em;
   display: block;
-  margin-top: 4px;
+  margin-top: 6px;
+  text-shadow: 0 0 24px rgba(201, 169, 97, 0.25);
 }
 
 .employers__panel-rule {
