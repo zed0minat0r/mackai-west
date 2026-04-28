@@ -158,8 +158,8 @@
     var progress = scrolled / budget; // 0 → 1
     if (progress > 1) progress = 1;
 
-    // SLIDE_FRAC: slide completes at 85% of budget, giving dwell on final panel
-    var SLIDE_FRAC   = 0.85;
+    // SLIDE_FRAC: slide completes at 92% of budget, giving dwell on final panel
+    var SLIDE_FRAC   = 0.92;
     var slideProgress = progress / SLIDE_FRAC;
     if (slideProgress > 1) slideProgress = 1;
 
@@ -172,7 +172,7 @@
   }
 
   // Dot clicks: smooth-scroll to the scroll position for that panel
-  var SLIDE_FRAC_CLICK = 0.85;
+  var SLIDE_FRAC_CLICK = 0.92;
   dots.forEach(function (dot, i) {
     dot.addEventListener('click', function () {
       var runwayTop = runway.getBoundingClientRect().top + window.scrollY;
@@ -277,7 +277,7 @@
     }
 
     window.requestAnimationFrame(frame);
-  }, { threshold: 0.6 });
+  }, { threshold: 0.95 });
 
   observer.observe(statNum);
 })();

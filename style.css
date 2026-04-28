@@ -486,7 +486,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: absolute;
   top: clamp(80px, 12vh, 140px);
   right: clamp(40px, 6vw, 120px);
-  width: clamp(200px, 22vw, 360px);
+  width: clamp(260px, 32vw, 460px);
   aspect-ratio: 1;
   pointer-events: none;
   opacity: 0.48;
@@ -511,9 +511,29 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   100% { transform: rotateY(360deg) rotateX(12deg); }
 }
 
-/* Reduced motion: pause, lock at static orientation */
+/* Vertex pulse — staggered per-vertex opacity breathing */
+@keyframes vertex-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1;   }
+}
+
+.hero__mesh-vertex {
+  animation: vertex-pulse 4.2s ease-in-out infinite;
+}
+
+.hero__mesh-vertex--0 { animation-delay: 0s; }
+.hero__mesh-vertex--1 { animation-delay: 0.7s; }
+.hero__mesh-vertex--2 { animation-delay: 1.4s; }
+.hero__mesh-vertex--3 { animation-delay: 2.1s; }
+.hero__mesh-vertex--4 { animation-delay: 2.8s; }
+.hero__mesh-vertex--5 { animation-delay: 3.5s; }
+
+/* Reduced motion: pause all animations, lock at static orientation */
 @media (prefers-reduced-motion: reduce) {
   .hero__mesh-svg {
+    animation-play-state: paused;
+  }
+  .hero__mesh-vertex {
     animation-play-state: paused;
   }
 }
@@ -951,6 +971,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 /* Large italic numeral — refined: tighter bottom margin, slightly more visible */
