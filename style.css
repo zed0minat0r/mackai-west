@@ -1152,10 +1152,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
    SERVICES — horizontal scroll-lock panels
    ============================================ */
 
-/* The runway provides the scroll distance — 2 panels, modest budget */
+/* The runway provides the scroll distance. With stepped dwell-then-slide
+   behavior (60% dwell + 40% slide per segment), need ~120vh per panel
+   for the dwell to read as a real "lock" before the next slide. */
 .services-runway {
   position: relative;
-  height: 480vh;
+  height: 600vh;
 }
 
 /* Sticky viewport: pinned at top for the full runway scroll.
@@ -2729,7 +2731,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   /* ── Services scroll-lock: mobile panel content sizing ── */
   /* Keep flex-direction: row and 100vw panels — the lock works on mobile.
      Only reduce typography to fit narrow viewports. */
-  .services-runway { height: 600vh; }
+  .services-runway { height: 800vh; }
   .service-fp {
     padding: clamp(40px, 8vw, 64px) clamp(20px, 5vw, 40px);
     align-items: center;

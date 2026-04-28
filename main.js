@@ -213,6 +213,13 @@
     });
   }
 
+  /* Stepped scroll-lock: each panel dwells for DWELL_FRAC of its segment
+     of the scroll budget, then transitions to the next. Reads as
+     "lock on panel for ~2s, slide to next panel, lock again, slide..."
+     instead of a continuous linear pan. Matches the craft-site Process
+     pattern the user referenced. */
+  var DWELL_FRAC = 0.6; // 60% of each segment dwells; 40% transitions
+
   var rafPending = false;
 
   function update() {
@@ -231,18 +238,28 @@
     var scrolled = -rect.top;
     if (scrolled < 0) scrolled = 0;
 
-    var progress = scrolled / budget; // 0 → 1
-    if (progress > 1) progress = 1;
+    var rawProgress = scrolled / budget; // 0 → 1
+    if (rawProgress > 1) rawProgress = 1;
 
-    // SLIDE_FRAC: slide completes at 92% of budget, giving dwell on final panel
-    var SLIDE_FRAC   = 0.92;
-    var slideProgress = progress / SLIDE_FRAC;
-    if (slideProgress > 1) slideProgress = 1;
+    var segments = numPanels - 1;
+    var segSize  = 1 / numPanels;
+    var i        = Math.min(Math.floor(rawProgress / segSize), numPanels - 1);
+    var local    = (rawProgress - i * segSize) / segSize; // 0 → 1 within segment
 
-    var translatePct = -slideProgress * (numPanels - 1) * 100;
+    var slideProgress;
+    if (local < DWELL_FRAC || i >= segments) {
+      // Dwelling on panel i (or already at last panel)
+      slideProgress = segments > 0 ? i / segments : 0;
+    } else {
+      // Transitioning from panel i to panel i+1
+      var t = (local - DWELL_FRAC) / (1 - DWELL_FRAC);
+      slideProgress = (i + t) / segments;
+    }
+
+    var translatePct = -slideProgress * segments * 100;
     track.style.transform = 'translate3d(' + translatePct + 'vw, 0, 0)';
 
-    var idx = Math.round(slideProgress * (numPanels - 1));
+    var idx = Math.round(slideProgress * segments);
     if (idx >= numPanels) idx = numPanels - 1;
     setActiveDot(idx);
   }
@@ -254,16 +271,14 @@
     }
   }
 
-  // Dot clicks: smooth-scroll to the scroll position for that panel
-  var SLIDE_FRAC_CLICK = 0.92;
+  // Dot clicks: smooth-scroll to the start of each panel's dwell zone
+  // (segment i starts at raw progress i * segSize where segSize = 1/numPanels)
   dots.forEach(function (dot, i) {
     dot.addEventListener('click', function () {
       var runwayTop = runway.getBoundingClientRect().top + window.scrollY;
       var budget    = runway.offsetHeight - window.innerHeight;
-      var segments  = numPanels - 1;
-      var target = segments > 0
-        ? runwayTop + (budget * SLIDE_FRAC_CLICK / segments) * i + 2
-        : runwayTop + 2;
+      var segSize   = 1 / numPanels;
+      var target    = runwayTop + (i * segSize) * budget + 2;
       window.scrollTo({ top: target, behavior: 'smooth' });
     });
   });
