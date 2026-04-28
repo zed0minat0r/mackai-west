@@ -1,31 +1,22 @@
-# PLAN.md — Cycle 14 Builder
+# PLAN.md — Cycle 15 Builder
 
-## Changes
+## P1 — Employers nav anchor
+MOOT. `<a href="#employers">Employers</a>` already exists at index.html line 36. No change.
 
-### B1: 2x2 grid on .process__steps (desktop)
-- File: style.css line ~1730
-- Change base `grid-template-columns` from `repeat(4, 1fr)` to `repeat(2, 1fr)`
-- Add `gap: clamp(40px, 4vw, 64px) clamp(32px, 3vw, 48px)` (row x col)
-- Tablet override line 2673 `repeat(2, 1fr)` stays (already correct for 960px)
-- Mobile override line 2697 `1fr` stays untouched
-- Steps 01+02 top row, 03+04 bottom row naturally
+## P2 — Process mobile row-gap
+- File: style.css line 2738
+- Change: add `row-gap: clamp(28px, 6vw, 48px);` to `.process__steps { grid-template-columns: 1fr; }` inside @media (max-width: 600px)
 
-### B2: Marker ring halo via ::before pseudo
-- File: style.css lines ~1834-1854
-- Add `::before` on `.process__journey-marker`: 14px circle, gold stroke ring, opacity 0.25
-- `.process__journey-marker.is-active::before`: expand to 22px, opacity 1.0, glow box-shadow
-- Transition 0.4s cubic-bezier on ring properties
-- Numeral stays at 0.8125rem (13px floor) — never reduced
+## P3 — Stat band micro-label
+- File: index.html line 170 — insert `<p class="stat__label-aux">Senior roles only. Manager and above.</p>` after `.stat__label`
+- File: style.css after `.stat__label` block — add `.stat__label-aux` (0.8125rem, uppercase, letter-spacing 0.18em, color rgba(245,240,230,0.55), margin-top: 8px, margin-bottom: 22px)
+- Mobile: add floor override in @media (max-width: 600px)
 
-### B3: Sync .is-active to step cards
-- File: style.css — add `.process-step.is-active` rule: border-top full gold + border-left 3px gold-soft + padding-left clamp
-- File: main.js lines ~170-177 — extend existing marker forEach loop to also toggle `.is-active` on matching `.process-step`
+## Guardrails
+- RULE 5: regen style.min.css
+- RULE 6: bump cache-buster cycle14-p → cycle15-b
+- RULE 1: no iMessage
 
-## Success criteria
-- Desktop 1440: `.process__steps` 2 columns, both rows fill inner width
-- Mobile 375: single column, no overflow
-- Marker rings visible; active = bigger + glow
-- Active step card gets gold top + left accent
-- `style.min.css` regenerated; cache-buster `?v=cycle14-b`
-
-Scope: ~30 CSS lines, ~5 JS lines
+## Success criterion
+- P2: step-03 mobile row gap ≤60px
+- P3: micro-label visible, ≥13px, no overflow
