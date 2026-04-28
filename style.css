@@ -1453,12 +1453,17 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   border-radius: 50%;
   border: 1.5px solid rgba(201, 169, 97, 0.6);
   transform: translate(-50%, -50%);
-  animation: dot-pulse 2s ease-out infinite;
+  animation: dot-pulse 2.4s ease-out infinite;
   pointer-events: none;
   box-sizing: border-box;
+  opacity: 0;
 }
 @keyframes dot-pulse {
-  0%   { width: 16px; height: 16px; opacity: 0.7; }
+  /* Loop seam at 0/100% has opacity 0 BOTH ends so the cycle restart is
+     invisible — eliminates the "glitchy snap" the user saw when the
+     fully-expanded faded ring instantly reset to a small high-opacity ring. */
+  0%   { width: 16px; height: 16px; opacity: 0;   }
+  12%  { width: 20px; height: 20px; opacity: 0.7; }
   100% { width: 56px; height: 56px; opacity: 0;   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2775,7 +2780,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     animation-name: dot-pulse-mobile;
   }
   @keyframes dot-pulse-mobile {
-    0%   { width: 11px; height: 11px; opacity: 0.7; }
+    0%   { width: 11px; height: 11px; opacity: 0;   }
+    12%  { width: 14px; height: 14px; opacity: 0.7; }
     100% { width: 36px; height: 36px; opacity: 0;   }
   }
 
