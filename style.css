@@ -2267,6 +2267,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   .hero__eyebrow { font-size: 0.8125rem; }
 
+  /* About pillar eyebrow — 0.72rem base, must clear 13px floor */
+  .about__pillar-eyebrow { font-size: 0.8125rem; }
+
   .practice__num,
   .industry__num,
   .industry__roles { font-size: 0.8125rem; }
@@ -2329,7 +2332,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     font-size: clamp(1.7rem, 7vw, 2.4rem);
   }
   .service-fp__sub {
-    font-size: 0.72rem;
+    font-size: 0.8125rem; /* 13px floor — was 0.72rem */
     margin-bottom: 20px;
     padding-bottom: 16px;
   }
