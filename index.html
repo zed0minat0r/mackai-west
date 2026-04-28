@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="style.min.css?v=cycle11-s" />
+  <link rel="stylesheet" href="style.min.css?v=cycle11-hero-refresh" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1B2D'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23C9A961' font-family='Georgia,serif' font-size='18' font-weight='600'%3EM%3C/text%3E%3C/svg%3E" />
 </head>
@@ -54,6 +54,26 @@
        ================================================ -->
   <section class="hero" id="home" aria-label="MacKai West — recruitment built around niche expertise">
     <div class="hero__bg" aria-hidden="true"></div>
+
+    <!-- Architectural SVG pattern — blueprint draw animation, behind content -->
+    <div class="hero__pattern" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+        <!-- Long diagonal strokes — draw themselves in sequence, blueprint aesthetic -->
+        <line class="hp-stroke hp-stroke--0"  x1="0"    y1="620"  x2="480"  y2="0"    stroke="rgba(201,169,97,0.22)" stroke-width="0.7"/>
+        <line class="hp-stroke hp-stroke--1"  x1="300"  y1="900"  x2="900"  y2="120"  stroke="rgba(201,169,97,0.18)" stroke-width="0.5"/>
+        <line class="hp-stroke hp-stroke--2"  x1="820"  y1="0"    x2="1440" y2="580"  stroke="rgba(201,169,97,0.2)"  stroke-width="0.6"/>
+        <line class="hp-stroke hp-stroke--3"  x1="0"    y1="200"  x2="680"  y2="900"  stroke="rgba(201,169,97,0.15)" stroke-width="0.5"/>
+        <line class="hp-stroke hp-stroke--4"  x1="1100" y1="0"    x2="1440" y2="300"  stroke="rgba(201,169,97,0.25)" stroke-width="0.8"/>
+        <line class="hp-stroke hp-stroke--5"  x1="0"    y1="900"  x2="560"  y2="340"  stroke="rgba(201,169,97,0.17)" stroke-width="0.5"/>
+        <!-- Gentle cross-lines for grid depth -->
+        <line class="hp-stroke hp-stroke--6"  x1="0"    y1="440"  x2="1440" y2="460"  stroke="rgba(201,169,97,0.14)" stroke-width="0.5"/>
+        <line class="hp-stroke hp-stroke--7"  x1="720"  y1="0"    x2="720"  y2="900"  stroke="rgba(201,169,97,0.12)" stroke-width="0.5"/>
+        <!-- Two long architectural diagonals with higher opacity anchoring the composition -->
+        <line class="hp-stroke hp-stroke--8"  x1="140"  y1="0"    x2="1440" y2="760"  stroke="rgba(201,169,97,0.28)" stroke-width="0.9"/>
+        <line class="hp-stroke hp-stroke--9"  x1="1300" y1="900"  x2="60"   y2="0"    stroke="rgba(201,169,97,0.2)"  stroke-width="0.6"/>
+      </svg>
+    </div>
+
     <div class="hero__horizon" aria-hidden="true"></div>
 
     <!-- 3D wireframe geometric mark — CSS 3D + SVG, editorial restraint -->
@@ -87,8 +107,40 @@
       </svg>
     </div>
 
+    <!-- Second mesh — lower-left compositional balance, slower 40s rotation -->
+    <div class="hero__mesh hero__mesh--secondary" aria-hidden="true">
+      <svg class="hero__mesh-svg hero__mesh-svg--secondary" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <line class="hero__mesh-edge hero__mesh-edge--0" x1="100" y1="20"  x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--1" x1="100" y1="20"  x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--2" x1="100" y1="20"  x2="100" y2="88"  stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--3" x1="100" y1="20"  x2="100" y2="112" stroke="rgba(201,169,97,0.3)"  stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--4" x1="100" y1="180" x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--5" x1="100" y1="180" x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--6" x1="100" y1="180" x2="100" y2="112" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--7" x1="100" y1="180" x2="100" y2="88"  stroke="rgba(201,169,97,0.3)"  stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--8"  x1="20"  y1="100" x2="100" y2="88"  stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--9"  x1="100" y1="88"  x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--10" x1="180" y1="100" x2="100" y2="112" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--11" x1="100" y1="112" x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <circle class="hero__mesh-vertex hero__mesh-vertex--0" cx="100" cy="20"  r="1.8" fill="rgba(201,169,97,0.7)"/>
+        <circle class="hero__mesh-vertex hero__mesh-vertex--1" cx="100" cy="180" r="1.8" fill="rgba(201,169,97,0.7)"/>
+        <circle class="hero__mesh-vertex hero__mesh-vertex--2" cx="20"  cy="100" r="1.8" fill="rgba(201,169,97,0.7)"/>
+        <circle class="hero__mesh-vertex hero__mesh-vertex--3" cx="180" cy="100" r="1.8" fill="rgba(201,169,97,0.7)"/>
+        <circle class="hero__mesh-vertex hero__mesh-vertex--4" cx="100" cy="88"  r="1.8" fill="rgba(201,169,97,0.55)"/>
+        <circle class="hero__mesh-vertex hero__mesh-vertex--5" cx="100" cy="112" r="1.8" fill="rgba(201,169,97,0.55)"/>
+      </svg>
+    </div>
+
     <div class="hero__inner">
-      <p class="hero__eyebrow">Tax · Finance · Accounting</p>
+      <p class="hero__eyebrow" aria-label="Tax, Public Accounting, Finance and Accounting, Construction, Real Estate, Manufacturing — $40K average fee">
+        <span class="hero__eyebrow-word" style="--i:0">Tax</span>
+        <span class="hero__eyebrow-word" style="--i:1">Public Accounting</span>
+        <span class="hero__eyebrow-word" style="--i:2">Finance &amp; Accounting</span>
+        <span class="hero__eyebrow-word" style="--i:3">Construction</span>
+        <span class="hero__eyebrow-word" style="--i:4">Real Estate</span>
+        <span class="hero__eyebrow-word" style="--i:5">Manufacturing</span>
+        <span class="hero__eyebrow-word" style="--i:6">$40K avg fee</span>
+      </p>
       <h1 class="hero__title">
         Specialist recruitment.<br />
         <em>Spoken quietly.</em>

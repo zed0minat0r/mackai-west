@@ -221,6 +221,62 @@
   updateParallax();
 })();
 
+/* ---- Hero: cursor-reactive parallax tilt (desktop / non-touch only) ---- */
+(function () {
+  // Touch devices: skip — no cursor to track
+  if ('ontouchstart' in window) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var hero  = document.querySelector('.hero');
+  var inner = document.querySelector('.hero__inner');
+  var mesh  = document.querySelector('.hero__mesh:not(.hero__mesh--secondary)');
+  if (!hero || !inner) return;
+
+  var pendingRaf = null;
+  var lastDX = 0;
+  var lastDY = 0;
+
+  function applyTilt(dX, dY) {
+    // inner: subtle tilt, max ±1.2deg
+    var rotXi =  dY * -1.2;
+    var rotYi =  dX *  1.2;
+    inner.style.transform = 'rotateX(' + rotXi + 'deg) rotateY(' + rotYi + 'deg)';
+
+    // mesh: more pronounced tilt for depth, max ±2deg
+    if (mesh) {
+      var rotXm =  dY * -2;
+      var rotYm =  dX *  2;
+      mesh.style.transform = 'rotateX(' + rotXm + 'deg) rotateY(' + rotYm + 'deg) translateZ(' + (dX * 8) + 'px)';
+    }
+  }
+
+  hero.addEventListener('mousemove', function (e) {
+    if (pendingRaf) return;
+    var rect    = hero.getBoundingClientRect();
+    var centerX = rect.left + rect.width  / 2;
+    var centerY = rect.top  + rect.height / 2;
+
+    // Normalise to -1 → +1, clamped
+    lastDX = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width  / 2)));
+    lastDY = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height / 2)));
+
+    pendingRaf = window.requestAnimationFrame(function () {
+      pendingRaf = null;
+      applyTilt(lastDX, lastDY);
+    });
+  });
+
+  hero.addEventListener('mouseleave', function () {
+    if (pendingRaf) {
+      window.cancelAnimationFrame(pendingRaf);
+      pendingRaf = null;
+    }
+    // CSS transition on .hero__inner and .hero__mesh handles smooth reset
+    inner.style.transform = '';
+    if (mesh) mesh.style.transform = '';
+  });
+})();
+
 /* ---- Footer year ---- */
 (function () {
   var y = document.getElementById('year');
