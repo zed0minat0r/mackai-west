@@ -755,6 +755,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   grid-template-columns: 1.05fr 0.95fr;
   gap: clamp(48px, 6vw, 80px);
   align-items: center;
+  position: relative;
 }
 .about__copy { max-width: 560px; }
 .about__lede {
@@ -860,6 +861,24 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .about__pillar-list.is-pillared li {
     animation: none;
   }
+}
+
+/* ---- About brand seal — typographic corner mark ---- */
+.about__seal {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.86rem;
+  color: var(--slate-2);
+  letter-spacing: 0.18em;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .about__seal { display: none; }
 }
 
 /* ============================================
@@ -1530,10 +1549,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   padding: clamp(80px, 10vw, 140px) clamp(32px, 5vw, 72px);
 }
 
-/* Cream-2 editorial panel — copper type on cream, mirrors employers' navy panel */
+/* Full-navy editorial panel — gold type on navy, color-twin of Employers but mirrored column position */
 .candidates__panel {
-  background: var(--cream-2);
-  background-image: radial-gradient(ellipse at 60% 40%, rgba(168, 139, 69, 0.08) 0%, transparent 70%);
+  background: var(--navy);
+  background-image: radial-gradient(circle at 30% 30%, rgba(201, 169, 97, 0.10), transparent 60%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1553,11 +1572,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-style: italic;
   font-weight: 400;
   font-size: clamp(1.5rem, 3vw, 2.4rem);
-  color: var(--gold-deep);
+  color: var(--gold);
   line-height: 1;
   letter-spacing: -0.01em;
   display: block;
-  opacity: 0.75;
 }
 
 .candidates__panel-who {
@@ -1565,7 +1583,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-style: italic;
   font-weight: 400;
   font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-  color: var(--navy);
+  color: var(--gold-soft);
   line-height: 1;
   letter-spacing: -0.02em;
   display: block;
@@ -1576,9 +1594,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: block;
   width: 100%;
   height: 1px;
-  background: var(--gold-deep);
+  background: var(--gold);
   margin: clamp(16px, 2.5vw, 24px) 0;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .candidates__panel-caption {
@@ -1587,8 +1605,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gold-deep);
-  opacity: 0.65;
+  color: rgba(245, 240, 230, 0.65);
   display: block;
 }
 
