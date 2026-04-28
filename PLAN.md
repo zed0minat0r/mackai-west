@@ -1,4 +1,45 @@
-# PLAN — Scout Top 3 (grain overlay + hero exit + section bg shift)
+# PLAN — Scout Top 5 (line-mask heading reveal + text scramble decode)
+
+## Goal
+Ship features 4 + 5 from SCOUT-REPORT.md (Scout priority order 4 = line-mask, 5 = scramble).
+Features 1-3 already landed in de7107f.
+
+## Files changing
+- `index.html`: add SplitType CDN script tag, bump cache-buster `?v=scout-top3` → `?v=scout-top5`
+- `style.css`: `.reveal-line` + `.reveal-line__inner` rules, stagger delays, `.scramble-char` gold color
+- `style.min.css`: regenerate
+- `main.js`: TextScramble class + heading-reveal IIFE + scramble-observer IIFE appended at end
+
+## Feature 4 — Line-mask heading reveal
+- Target: all `.section-title` H2s (7 elements) EXCEPT hero (hero already has word-fade)
+- SplitType at CDN split each H2 into `.reveal-line` / `.reveal-line__inner` pairs
+- Each `.reveal-line` has `overflow: hidden`, inner starts at `translateY(110%)`
+- IntersectionObserver threshold 0.4 fires `.is-revealed` on the H2
+- Stagger: `--i` CSS var per line, `transition-delay: calc(var(--i) * 80ms)`
+- Transition: 720ms cubic-bezier(0.22,1,0.36,1)
+- prefers-reduced-motion: skip transform, show immediately
+
+## Feature 5 — Text scramble / decode
+- Same 7 `.section-title` H2s
+- TextScramble vanilla class (~70 lines) using A-Z glyphs
+- Scramble chars render in `var(--gold)` via `.scramble-char` span
+- Triggered by same IntersectionObserver as Feature 4
+- Scramble runs WHILE line wipes up (they compose)
+- prefers-reduced-motion: skip scramble, set final text immediately
+
+## Conflict resolution
+Both features fire from same observer callback. Scramble fires first (runs async via rAF),
+line-mask class added at same time. They overlap visually — scramble happening inside
+the rising line mask = premium composed effect.
+
+## Success criteria
+- Each section H2 starts at translateY(110%) and resolves to translateY(0) on scroll-into-view
+- Scramble chars (gold .scramble-char spans) visible during animation, final text locked after
+- Playwright 5 positions × 3 viewports: Desktop 1440 + iPhone 13 + iPhone SE
+
+## Cache buster: scout-top5
+
+# PLAN — Scout Top 3 (grain overlay + hero exit + section bg shift) [archived]
 
 ## Goal
 Ship 3 features from SCOUT-REPORT.md in one commit. Per Scout priority order:
@@ -33,53 +74,3 @@ Cursor parallax IIFE targets `.hero__inner` (rotateX/Y). Scroll-exit targets new
 - Body bg-color changes per section confirmed in Playwright
 
 ## Cache buster: scout-top3
-
-# PLAN — Cycle 11.5 Hero Refresh (Interrupt) [archived]
-
-## Files touched
-- `index.html` — hero__pattern SVG + eyebrow ticker spans + second mesh + cache-buster bump
-- `style.css` — 5 feature blocks: SVG pattern keyframes, hero perspective + parallax transitions, headline scale, ticker keyframes, second mesh styles
-- `style.min.css` — regenerate
-- `main.js` — cursor parallax IIFE for .hero
-
-## Changes
-
-### FEATURE 1 — SVG architectural pattern
-- Add `<div class="hero__pattern" aria-hidden="true">` between `.hero__bg` and `.hero__horizon`
-- Inside: SVG 1440x900 with 10 long architectural strokes (diagonals + gentle curves)
-- stroke gold 0.15-0.3 opacity, stroke-width 0.5-1px
-- CSS draw keyframes: stroke-dasharray + stroke-dashoffset draw + pause + un-draw cycle
-- Staggered delays: 0s, 0.6s, 1.2s ... up to 6s
-- prefers-reduced-motion: animation-play-state paused
-
-### FEATURE 2 — Cursor-reactive parallax
-- Add IIFE in main.js after horizon parallax IIFE
-- Touch bail via `ontouchstart`
-- mousemove on `.hero` → normalize cursor to -1..+1 relative to hero center
-- Apply rotateX/rotateY to `.hero__inner` (max ±1.2deg) and `.hero__mesh` (max ±2deg)
-- CSS: `.hero { perspective: 1500px }`, inner/mesh `transform-style: preserve-3d; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1)`
-- mouseleave resets transforms
-
-### FEATURE 3 — Headline scale
-- `.hero__title` font-size: `clamp(2.6rem, 6.5vw, 5.4rem)` → `clamp(3.2rem, 9vw, 7.4rem)`
-- letter-spacing: -0.018em → -0.022em
-
-### FEATURE 4 — Eyebrow ticker
-- Replace `<p class="hero__eyebrow">Tax · Finance · Accounting</p>` with wrapper + 7 spans
-- Words: Tax, Public Accounting, Finance & Accounting, Construction, Real Estate, Manufacturing, $40K avg fee
-- CSS: ticker-word @keyframes, 22s cycle, each span --i:0-6 with calc delay
-- Wrapper `position: relative; height: 1.2em; overflow: hidden`
-
-### FEATURE 5 — Mesh amplification + second mesh
-- Upper-right mesh width: `clamp(260px,32vw,460px)` → `clamp(320px,38vw,540px)`
-- Add `filter: drop-shadow(0 0 8px rgba(201,169,97,0.5))` to .hero__mesh-svg
-- Add second `.hero__mesh--secondary` element lower-left
-- Same SVG octahedron, `clamp(160px,18vw,240px)` width, 40s rotation, hidden on mobile
-
-## Success criterion
-- All 5 features verified by Playwright at 5 scroll positions x 3 viewports
-- style.min.css regenerated
-- No horizontal overflow
-
-## Scope
-~120 CSS lines + 60 HTML lines + 40 JS lines
