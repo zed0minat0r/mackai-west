@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="style.min.css?v=cycle5-b" />
+  <link rel="stylesheet" href="style.min.css?v=cycle5-s" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1B2D'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23C9A961' font-family='Georgia,serif' font-size='18' font-weight='600'%3EM%3C/text%3E%3C/svg%3E" />
 </head>
@@ -63,20 +63,20 @@
         <!-- Vertices: top(100,20) bot(100,180) left(20,100) right(180,100) front(100,100) back(100,100) -->
         <!-- We render a flat projection of 3D octahedron edges — CSS 3D rotation gives depth -->
         <!-- Top vertex to equatorial ring -->
-        <line x1="100" y1="20"  x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
-        <line x1="100" y1="20"  x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
-        <line x1="100" y1="20"  x2="100" y2="88"  stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
-        <line x1="100" y1="20"  x2="100" y2="112" stroke="rgba(201,169,97,0.3)"  stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--0" x1="100" y1="20"  x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--1" x1="100" y1="20"  x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--2" x1="100" y1="20"  x2="100" y2="88"  stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--3" x1="100" y1="20"  x2="100" y2="112" stroke="rgba(201,169,97,0.3)"  stroke-width="0.8"/>
         <!-- Bottom vertex to equatorial ring -->
-        <line x1="100" y1="180" x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
-        <line x1="100" y1="180" x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
-        <line x1="100" y1="180" x2="100" y2="112" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
-        <line x1="100" y1="180" x2="100" y2="88"  stroke="rgba(201,169,97,0.3)"  stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--4" x1="100" y1="180" x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--5" x1="100" y1="180" x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--6" x1="100" y1="180" x2="100" y2="112" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--7" x1="100" y1="180" x2="100" y2="88"  stroke="rgba(201,169,97,0.3)"  stroke-width="0.8"/>
         <!-- Equatorial diamond -->
-        <line x1="20"  y1="100" x2="100" y2="88"  stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
-        <line x1="100" y1="88"  x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
-        <line x1="180" y1="100" x2="100" y2="112" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
-        <line x1="100" y1="112" x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--8"  x1="20"  y1="100" x2="100" y2="88"  stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--9"  x1="100" y1="88"  x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--10" x1="180" y1="100" x2="100" y2="112" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line class="hero__mesh-edge hero__mesh-edge--11" x1="100" y1="112" x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
         <!-- Vertices as small dots — hero__mesh-vertex classes enable staggered pulse animation -->
         <circle class="hero__mesh-vertex hero__mesh-vertex--0" cx="100" cy="20"  r="1.8" fill="rgba(201,169,97,0.7)"/>
         <circle class="hero__mesh-vertex hero__mesh-vertex--1" cx="100" cy="180" r="1.8" fill="rgba(201,169,97,0.7)"/>
