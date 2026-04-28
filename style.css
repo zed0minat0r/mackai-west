@@ -243,12 +243,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   bottom: 0;
   height: 1px;
   background: var(--gold);
-  transform: scaleX(0);
+  transform: scaleX(0) translateX(var(--mag-x, 0px));
   transform-origin: left;
   transition: transform 0.3s ease;
 }
 .nav__links a:hover { color: var(--cream); }
-.nav__links a:hover::after { transform: scaleX(1); }
+.nav__links a:hover::after { transform: scaleX(1) translateX(var(--mag-x, 0px)); }
 
 .nav__cta { display: flex; align-items: center; }
 
@@ -459,6 +459,11 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-size: 0.72em;
   vertical-align: super;
   line-height: 0;
+  opacity: 0;
+  transition: opacity 0.4s 0.2s ease-out;
+}
+.stat__number.is-counted .stat__plus {
+  opacity: 1;
 }
 .stat__label {
   font-size: 0.75rem;
@@ -1133,7 +1138,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   letter-spacing: -0.04em;
   user-select: none;
   padding-top: 6px;
-  /* anchor to first line of adjacent copy */
+  padding-right: clamp(16px, 2.5vw, 28px);
+  /* thin copper hairline visually connects numeral to right column */
+  border-right: 1px solid rgba(201, 169, 97, 0.28);
+  margin-right: 0;
 }
 
 .candidates__copy {
@@ -1275,6 +1283,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     font-size: clamp(6rem, 20vw, 9rem);
     line-height: 0.9;
     margin-bottom: 20px;
+    border-right: none;
+    padding-right: 0;
   }
 
   .employers__inner {
@@ -1481,8 +1491,22 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   letter-spacing: 0.06em;
   color: rgba(245, 240, 230, 0.7);
   transition: color 0.2s;
+  position: relative;
+  padding-bottom: 2px;
+}
+.footer__nav a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0) translateX(var(--mag-x, 0px));
+  transform-origin: left;
+  transition: transform 0.3s ease;
 }
 .footer__nav a:hover { color: var(--gold); }
+.footer__nav a:hover::after { transform: scaleX(1) translateX(var(--mag-x, 0px)); }
 
 .footer__contact {
   display: flex;
@@ -1679,5 +1703,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     transform: none;
   }
   .reveal-up { opacity: 1; transform: none; }
+  /* stat__plus visible immediately when reduced motion is preferred */
+  .stat__plus { opacity: 1; }
   html { scroll-behavior: auto; }
 }

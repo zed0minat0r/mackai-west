@@ -89,7 +89,7 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.05, rootMargin: '0px 0px -5% 0px' });
 
   items.forEach(function (el) { observer.observe(el); });
 })();
@@ -239,6 +239,81 @@
 (function () {
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
+})();
+
+/* ---- Stat band: count-up animation ---- */
+(function () {
+  var statNum = document.querySelector('.stat__number');
+  var countEl = document.getElementById('stat-count');
+  if (!statNum || !countEl) return;
+
+  // Respect reduced motion — show final value immediately
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    countEl.textContent = '40K';
+    statNum.classList.add('is-counted');
+    return;
+  }
+
+  var fired = false;
+
+  var observer = new IntersectionObserver(function (entries) {
+    if (fired) return;
+    if (!entries[0].isIntersecting) return;
+    fired = true;
+    observer.disconnect();
+
+    var start     = null;
+    var duration  = 1400; // ms
+    var target    = 40;
+
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function frame(timestamp) {
+      if (!start) start = timestamp;
+      var elapsed  = timestamp - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var value    = Math.round(easeOutCubic(progress) * target);
+      countEl.textContent = value + 'K';
+
+      if (progress < 1) {
+        window.requestAnimationFrame(frame);
+      } else {
+        countEl.textContent = '40K';
+        statNum.classList.add('is-counted');
+      }
+    }
+
+    window.requestAnimationFrame(frame);
+  }, { threshold: 0.2 });
+
+  observer.observe(statNum);
+})();
+
+/* ---- Magnetic copper underlines on nav + footer links ---- */
+(function () {
+  // Skip on touch devices — static underline is the correct fallback
+  if ('ontouchstart' in window) return;
+
+  var links = document.querySelectorAll('.nav__links a, .footer__nav a');
+  if (!links.length) return;
+
+  links.forEach(function (link) {
+    link.addEventListener('mousemove', function (e) {
+      var rect   = link.getBoundingClientRect();
+      var center = rect.left + rect.width / 2;
+      var offset = e.clientX - center;
+      // Scale: map full half-width to ±6px max pull
+      var halfW  = rect.width / 2 || 1;
+      var mag    = Math.max(-6, Math.min(6, (offset / halfW) * 6));
+      link.style.setProperty('--mag-x', mag + 'px');
+    });
+
+    link.addEventListener('mouseleave', function () {
+      link.style.setProperty('--mag-x', '0px');
+    });
+  });
 })();
 
 /* ---- Contact form: validation + mailto fallback ---- */
