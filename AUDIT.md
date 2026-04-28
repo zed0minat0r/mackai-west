@@ -1,24 +1,26 @@
 # MacKai West — Audit Report
 
-## Cycle 8 Score: 7.5 / 10 (Delta: 0.0 from 7.5 — plateau)
+## Cycle 9 Score: 7.5 / 10 (Delta: 0.0 from 7.5 — plateau holds)
 
-**Summary:** Cycle 8 was a deliberate polish cycle at the cap. Three minor fixes shipped: select label 0.82rem → 0.88rem (+0.96px, imperceptible to any real visitor), footer mobile stagger 60ms → 40ms (220ms timing shortening no user would consciously register), and contact email tap target 26 → 44px (a correctness fix that matters only if you previously failed to tap it). The about right-column gap was investigated and confirmed a non-issue — no CSS change was needed. None of these moves are visible in a 90-second site visit. Score holds at 7.5. Cap holds. Content gates unchanged.
-
----
-
-## Axis: Interaction Completeness
-
-Audit lens: does every interactive element on the page (CTAs, forms, scroll animations, hover states, sticky bar, services scroll-lock) complete its action without a dead end, broken route, or missing feedback state — at Desktop 1440, iPhone 13, and iPhone SE?
+**Summary:** The Candidates panel refresh is a genuine design improvement — the mirrored layout closes the structural gap with Employers meaningfully — but the section still registers as lighter than Employers from a real-buyer's perspective because of contrast differential: cream-on-cream (cream-2 panel on paper background) versus navy-on-cream (Employers). The identity gap narrowed; the visual weight gap persists. Cap holds at 7.5. Score unchanged.
 
 ---
 
-## What Landed This Cycle (Cycle 8 commits)
+## Axis: Section Hierarchy and Visual Weight Distribution
 
-**5c5a47a coordinator cycle 8 plan** — Scoped to three items: about right-col verify-then-fix, select label 0.88rem, footer mobile stagger 40ms.
+Audit lens: as a senior Tax or F&A candidate scanning this page for the first time in 90 seconds, does each section feel like it was given proportionate visual authority — does the page's weight stack communicate what matters most, and does the two-audience structure (Candidates / Employers) carry equal persuasive gravity?
 
-**bba0005 builder cycle 8** — P1: about right-column gap investigated, pillars confirmed filling 0.95fr cleanly, no CSS change required. P2: `.form-group--select label` 0.82rem → 0.88rem (14.08px, matching float labels). P3: `@media (max-width:600px)` footer stagger 60ms → 40ms per letter (440ms total). Cache-buster cycle8-b. style.min.css regenerated.
+---
 
-**e7ba513 pixel cycle 8** — Contact details email tap target 26px → 44px (inline-flex min-height on mobile). Skip-link 43px → 45px. Both pass WCAG 2.5.5.
+## What Landed This Cycle (Cycle 9 commits)
+
+**315e9ee coordinator cycle 9 plan** — Correctly identified Candidates as weakest section. Scoped tightly: no forbidden zone violations. The plan was sound.
+
+**dcb8c6a builder cycle 9** — Removed cream-wash + 3px copper left-edge + oversized "01" numeral. Replaced with mirrored cream-2 right panel: stacked Playfair italic "For / Candidates" mark in gold-deep + navy, gold rule, "SENIOR CAREERS" small-caps caption, copper-tinted radial wash. Mobile: panel collapses above copy with `order:-1`. This is a meaningful structural improvement — Candidates now has the same layout grammar as Employers.
+
+**4b679b5 spark cycle 9** — Confirmed panel ships clean with no CSS fixes needed. Vertical centering offset 0.0px both panels, rule opacity 0.4 on cream-2 confirmed optically correct.
+
+**5ed94fe pixel cycle 9** — Verified panel at 5 positions x 3 viewports. All tap targets pass. No overflow. Correct.
 
 ---
 
@@ -28,87 +30,106 @@ Audit lens: does every interactive element on the page (CTAs, forms, scroll anim
 |---|---|---|
 | Hero (desktop) | 8.0 | Unchanged. Mesh + vertex-pulse + edge-shimmer hold. |
 | Hero (mobile) | 7.2 | Unchanged. |
-| Stat band | 7.5 | Count-up clean. Gold vignette holds. No change. |
-| About | 7.5 | Two-column editorial, Playfair italic anchor, pillars with correct mobile eyebrow floor. Right-column image slot still reads as layout gap at 1440px — unchanged. |
+| Stat band | 7.5 | Unchanged. Count-up clean. |
+| About | 7.5 | Unchanged. Image slot still reads as layout gap at 1440px. |
 | Services | 7.8 | Horizontal scroll-lock verified. |
-| Industries | 7.2 | 3D card flip + slide-up expand panel. Unchanged. |
-| Process | 7.5 | Sequential stagger confirmed working. Unchanged. |
-| Candidates | 6.8 | No change. Still the weakest section identity on the page. |
-| Employers | 7.2 | Navy copper panel. Unchanged. |
-| Contact | 7.4 | Select label now 14.08px matching float labels. Email tap target now 44px. Both correctness improvements, invisible to a real visitor but correct. Badge and sticky CTA unchanged. |
-| Footer | 7.3 | Mobile stagger 440ms total. Unchanged at desktop (660ms). |
+| Industries | 7.2 | 3D card flip + expand panel. Unchanged. |
+| Process | 7.5 | Sequential stagger confirmed. Unchanged. |
+| Candidates | 7.0 | Up from 6.8. Panel structure now correct — mirrored grammar, right-col position, Playfair mark, gold rule, caption at 13px floor. Visual weight still lighter than Employers due to cream-on-cream contrast. |
+| Employers | 7.2 | Unchanged. Navy panel gives this section a stronger visual stop. |
+| Contact | 7.4 | Unchanged. |
+| Footer | 7.3 | Unchanged. |
 
 ---
 
-## Interaction Completeness Assessment (Cycle 8 axis)
+## Parity Assessment: Candidates vs Employers
 
-**Sticky mobile CTA (both routes):** Both "Submit a search" and "Submit a resume" anchor to #contact as confirmed cycle 7. Tap targets 48px. No regression.
+**What the screenshots show at desktop 1440:**
 
-**Services scroll-lock:** Two panels, fullscreen, dots advance, no horizontal overflow on any viewport. No regression.
+Employers: navy panel (15, 27, 45) left col, 300px wide, full section height. Gold italic "For / Employers" mark on dark ground. High contrast — the panel is unmistakably a deliberate editorial stop.
 
-**Industries 3D flip / tap-reveal:** Card flip hover on desktop, tap toggle on mobile with aria-expanded and keyboard support (Enter/Space/Escape). No regression.
+Candidates: cream-2 panel (250, 246, 238) right col, 300px wide, full section height, paper background (245, 240, 230) on the copy side. The contrast delta between cream-2 panel and paper background is minimal — approximately 5 luminosity points. The "For / Candidates" mark in gold-deep and navy is typographically correct but visually soft against the near-identical ground. The radial copper wash at 8% opacity is imperceptible at normal viewing distance.
 
-**Contact form floating labels:** All five labels at 14.08px including the select group. Spinner → checkmark choreography unchanged. mailto fallback present.
+**Structural parity: achieved.** Both sections now share: mirrored panel position (left/right), same column width (clamp 180–300px), same Playfair italic mark structure (For + Who), same gold rule, same small-caps caption, same copy layout.
 
-**Footer stagger + progress rule:** Letter stagger fires on IntersectionObserver. Progress rule scaleX 0→1 on rAF. Both present and working.
+**Visual weight parity: not achieved.** Employers reads as a deliberate navy anchor. Candidates reads as a slightly warmer cream variant. A senior tax candidate scanning the page will perceive Employers as the more authoritative section — which is the wrong signal on a site trying to recruit senior F&A professionals.
 
-**Hero word reveal:** Fires on load. Mesh + vertex-pulse + edge-shimmer running.
+**Mobile:** Panel collapses to 151px header bar above copy. `order:-1` confirmed on iPhone 13 and SE. Both sections behave identically on mobile. This is correct and clean.
 
-**One gap that remains:** The contact form's mailto fallback means form submissions generate an email client open rather than a true async POST. For a real buyer filling out the form, this is the most jarring UX moment on the site — the page does not confirm receipt; the OS email client appears. This is a known infrastructure gap (no real endpoint wired), not a design fault. It is the interaction-completeness ceiling until a real form backend lands.
+---
+
+## Visual Weight Distribution Assessment (Cycle 9 axis)
+
+**Page-level hierarchy from a buyer's scroll:**
+
+1. Hero — highest weight (navy + mesh + word reveal). Correct.
+2. Services — second-highest (fullscreen horizontal scroll-lock panels, both navy). Punches above its position.
+3. Employers — navy panel gives it the strongest identity of the middle sections.
+4. About, Process, Stat band — mid-weight, appropriate.
+5. Industries — 3D card flip adds personality, appropriate weight.
+6. Candidates — now tied with About in perceived weight rather than distinctly lighter. This is improvement but not parity with Employers.
+7. Contact — clean, appropriately terminal.
+
+**The imbalance that remains:** Services and Employers carry navy-dark weight. Candidates carries cream weight. For a two-audience firm, this asymmetry sends a subtle signal that the employer-side engagement is more premium than the candidate-side. The target buyer (senior Tax/F&A professional considering a move) will read this even without articulating it.
 
 ---
 
 ## What Works (5 bullets)
 
-- **All interactive routes functional and routed correctly** — Every CTA, anchor link, form element, and scroll-driven animation routes to the correct destination or completes its animation without a dead end.
-- **Select label hierarchy now clean** — The contact form's five labels are all 14.08px, removing the last scale inconsistency within the form group. The form reads as a single intentional system.
-- **Tap target compliance full** — Contact email link now 44px (was 26px), skip-link 45px, sticky CTA 48px. Every primary interactive element on mobile meets WCAG 2.5.5.
-- **About right column confirmed non-issue** — Builder's correct call to investigate first and ship nothing avoids a regression. The 0.95fr column fills cleanly; there is no visible gap artifact.
-- **Footer stagger tighter on mobile** — 440ms total at iPhone SE is within the natural glance window (under 500ms), so the reveal now has a chance of being consciously perceived. At 660ms it was completing outside the visual attention window on short-footer mobile views.
+- **Structural parity between Candidates and Employers is now real** — Same layout grammar, same column widths, same typographic mark system. The "matched pair" goal from the cycle 9 brief is architecturally achieved.
+- **Mobile collapse is correct** — Both panels collapse to 151px header bars with `order:-1`, stacking above copy. Identical behaviour across both sections on iPhone 13 and SE. No overflow.
+- **"For / Candidates" mark is typographically clean** — 60.8px Playfair italic "Candidates" at desktop, 38.4px "For" in gold-deep, 13px small-caps "SENIOR CAREERS" caption. The mark itself is well-constructed.
+- **No regressions from cycle 8** — All verified interactions from prior cycles (scroll-lock, sticky CTA, process stagger, form labels, footer stagger) remain intact.
+- **Pixel's 5-position x 3-viewport verification was correct** — The builder's changes were clean enough to require no Pixel fixes, which is the right outcome on a polish cycle.
 
 ---
 
 ## What's Still Off (5 bullets)
 
-- **Cap conditions unchanged** — No real photography, no verified testimonials, no published office address. The three user-side conditions that lift the ceiling to 7.7–7.8 are all absent.
-- **Contact form mailto fallback** — The most jarring UX moment: a real buyer submitting the contact form gets the OS email client rather than an in-page confirmation. This is a backend infrastructure gap, but from a buyer's lens it reads as "site not finished."
-- **About image slot** — The right column at 1440px still reads as a layout gap. This is the most immediately visible "pre-launch draft" signal on the site. No design substitute is adequate; only real photography resolves it.
-- **Candidates section identity** — Still the weakest section. The cream wash and copper border read as a styled content block, not a distinct editorial identity. Employers has the navy copper panel with the italic mark; Candidates has no equivalent anchor.
-- **No social proof anywhere** — The $40K stat is the site's only quantitative trust signal. No testimonials, no placement counts, no client names. For a firm charging $40K per placement, a real buyer will want some evidence of track record before contacting.
+- **Cream-on-cream contrast** — The candidates__panel (cream-2, rgb 250/246/238) sits against a paper background (rgb 245/240/230). The ~5-point luminosity gap is insufficient to read as a deliberate editorial panel — it reads as a background colour shift. This is the central remaining issue for the Candidates section.
+- **Cap conditions unchanged** — No real photography, no verified testimonials, no published office address. Cap ceiling remains at 7.5.
+- **About image slot** — Right column at 1440px still reads as a layout gap. Most visible "pre-launch draft" signal on the page.
+- **Contact form mailto fallback** — Remains the most jarring UX moment. OS email client opens on submit rather than in-page spinner → checkmark choreography completing.
+- **No social proof** — $40K stat is still the site's only quantitative trust signal. For a $40K-per-placement firm, a real buyer needs more evidence before contacting.
 
 ---
 
 ## Cap Assessment
 
-Score holds at **7.5** — the hard cap. Cycle 8's three polish fixes are correctness improvements, not experience improvements. A real prospective employer or candidate visiting the site for the first time cannot perceive the difference between cycle 7 and cycle 8. The cap is a content constraint:
+Score holds at **7.5**. The Candidates refresh earns +0.2 on the section score (6.8 → 7.0) but the overall page score does not move because:
 
-1. Real photography (About slot + anywhere else)
-2. Verified testimonials or placement case studies
-3. Published office address or location signal
+1. The section score improvement is from 6.8 → 7.0, not to parity with Employers (7.2).
+2. The three cap conditions remain unmet: photography, testimonials, address.
+3. The visual weight asymmetry between the two audience sections is a persistent brand signal problem that requires a contrast decision, not photography.
 
-All three absent. Cap holds at 7.5.
+**What would move the overall score above 7.5:**
 
-Expected score range when all three land: **7.8–8.1**, contingent on photography quality and testimonial specificity.
+- Real photography in the About slot (immediate +0.1–0.2)
+- One verified testimonial or named case study (+0.1–0.2)
+- Published office address or location signal (+0.05)
+- Candidates panel contrast resolution — either a non-white tint (warm copper #F0E6D2 range) or a full-bleed colour swap (+0.1 on section, possible +0.05 overall)
 
----
-
-## Cycle 9 Top-3 Priorities (Ranked)
-
-### P1 — Contact form real endpoint
-**What:** Replace the mailto fallback with an actual form submission endpoint (Formspree, Netlify Forms, or equivalent static-site form service). The current behavior — OS email client appears on submit — is the single biggest UX rupture on the site. An in-page "Your message is on its way" confirmation is what the submit choreography (spinner → checkmark) was built to deliver; currently the choreography never fires because the mailto intercepts before JS handles the submit event.
-**Acceptance criteria:** Form submission sends without opening the email client. Page shows the spinner → checkmark → success-reveal sequence. No page navigation. Playwright confirms `.contact__success` visible after submit.
-**Why P1:** The terminal conversion action is broken for a real buyer. Every other section now routes correctly. This is the last broken interaction.
-
-### P2 — About image slot honest placeholder
-**What:** Replace the empty image slot in the About section right column with an intentional navy panel — MacKai West monogram, gold hairline border, italic "Photography coming soon" caption in small Playfair italic. This signals pre-launch intentionality rather than forgotten layout element.
-**Acceptance criteria:** About right column at 1440px does not read as a layout gap. No stock photography. No fabricated people or locations.
-**Why P2:** The most visible "draft site" signal remaining. Every other section has a defined identity.
-
-### P3 — Candidates section editorial identity
-**What:** Give the Candidates section a visual anchor equivalent to Employers' navy copper panel. Options: a fullscreen-width cream-to-navy diagonal wash behind the section, or an oversized italic Playfair pull-quote ("Your next firm is already looking.") as the section opener, or a structural left/right split mirroring Employers. Replace the current cream wash — do not pile on top of it.
-**Acceptance criteria:** Candidates section reads as a distinct editorial identity, not a styled content block. Mobile collapses cleanly. No content removed.
-**Why P3:** The weakest section on the page by score (6.8). Employers is at 7.2; closing that gap is the highest design-side score lever remaining within the cap.
+Expected range when photography + testimonials + address land: **7.8–8.1**
 
 ---
 
-*Audit completed 2026-04-27. Axis: interaction completeness. Cycle 8 was a polish cycle at the cap — three minor correctness fixes, no experience delta. Score: 7.5 (plateau). Cap holds pending real photography, testimonials, and address.*
+## Cycle 10 Top-3 Priorities (Ranked)
+
+### P1 — Candidates panel contrast resolution
+**What:** The cream-2 panel against the paper background is insufficiently differentiated. Two paths: (A) deepen the panel background to a warm copper-tinted cream (#EDE3D2 or similar — perceptibly darker than paper but not full navy), or (B) invert the section entirely: paper panel LEFT on navy section background, mirroring Employers' structure at the colour level not just the layout level. Option B achieves true parity. Option A is the safer increment.
+**Acceptance criteria:** Candidates panel reads as a deliberate editorial stop at normal viewing distance on desktop 1440, not as a background colour shift. Panel must be perceptibly distinct from its surrounding paper background.
+**Why P1:** The structural work from cycle 9 is in place; contrast is the single remaining design variable blocking visual weight parity. This is resolvable in CSS without content changes.
+
+### P2 — Contact form real endpoint
+**What:** Replace mailto fallback with Formspree or Netlify Forms. The spinner → checkmark choreography was purpose-built for this; it currently never fires because mailto intercepts before JS handles submit.
+**Acceptance criteria:** Form submission sends without OS email client. `.contact__success` visible in page after submit. Playwright confirms spinner → checkmark → success-reveal sequence.
+**Why P2:** Terminal conversion action broken for real buyers. Every other interaction now routes correctly.
+
+### P3 — About image slot intentional placeholder
+**What:** Replace empty right column with a deliberately-designed navy placeholder panel: MW monogram, gold hairline border, Playfair italic "Photography coming soon" caption. Signals pre-launch intentionality rather than forgotten layout element.
+**Acceptance criteria:** About right column at 1440px does not read as a layout gap. No stock photography, no fabricated content.
+**Why P3:** Most visible "draft site" signal remaining after the Candidates fix.
+
+---
+
+*Audit completed 2026-04-27. Axis: section hierarchy and visual weight distribution. Cycle 9 Candidates refresh closes structural gap but not visual weight gap — cream-on-cream contrast is insufficient. Score: 7.5 (plateau at cap). Cap holds pending real photography, testimonials, and address.*

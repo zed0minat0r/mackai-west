@@ -6,3 +6,4 @@ cycle 5: 7.3 (Δ +0.2) — stat count-up defect resolved, services double-headli
 cycle 6: 7.4 (Δ +0.1) — sticky mobile CTA verified working (48px targets, IntersectionObserver-driven), process step fade-up with soft-spring ease lands; label font regression partially unresolved and process stagger too compressed to perceive at desktop
 cycle 7: 7.5 (Δ +0.1) — all cycle 6 defects closed (label floor, sticky CTA anchor, process stagger), contact trust badge lands; site reaches 7.5 cap for first time, cap holds pending real photography/testimonials/address
 2026-04-27 04:14 7.5 interaction completeness
+cycle 9: 7.5 (Δ 0.0) — candidates panel structure correct, visual weight gap persists (cream-on-cream contrast insufficient vs Employers navy anchor)
