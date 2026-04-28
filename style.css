@@ -36,7 +36,10 @@
 html { overflow-x: clip; scroll-behavior: smooth; }
 
 body {
-  background: var(--paper);
+  /* Initial bg is navy because the hero (first visible section) is navy.
+     Avoids the white-to-navy FOUC flash on page load before the JS section
+     observer fires. */
+  background: var(--navy);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 16px;
@@ -1835,6 +1838,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 /* Copy block on paper bg */
 .candidates__copy {
   padding: clamp(80px, 10vw, 140px) clamp(32px, 5vw, 72px);
+}
+
+/* Center the Submit a Resume CTA at the end of the copy column */
+.candidates__copy > .btn,
+.candidates__copy > .btn--primary {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 /* Full-navy editorial panel — gold type on navy, color-twin of Employers but mirrored column position */
