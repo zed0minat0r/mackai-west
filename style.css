@@ -1158,12 +1158,21 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   height: 480vh;
 }
 
-/* Sticky viewport: pinned at top for the full runway scroll */
+/* Sticky viewport: pinned at top for the full runway scroll.
+   Height uses 100svh (small viewport height) so on iOS Safari the panel
+   matches the always-visible viewport height — not the full 100vh that
+   includes the URL bar zone. Avoids the "empty cream below content" bug
+   where content centers in a panel taller than the visible area. */
 .services-sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
+  min-height: 100vh; /* fallback for browsers without svh */
+  height: 100svh;
   overflow: hidden;
+}
+@supports not (height: 100svh) {
+  .services-sticky { height: 100vh; }
 }
 
 /* Track: horizontal flex row, animated via JS translate3d */
@@ -1184,7 +1193,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(60px, 8vw, 120px) clamp(40px, 8vw, 120px);
+  padding: clamp(40px, 6vw, 100px) clamp(40px, 8vw, 120px);
   background: var(--cream-2);
 }
 
