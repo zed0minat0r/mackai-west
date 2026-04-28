@@ -176,10 +176,28 @@
     /* Fill line: dashoffset interpolates smoothly via CSS transition */
     fillLine.style.strokeDashoffset = String(LINE_LEN - LINE_LEN * progress);
 
-    /* Activate markers based on progress crossing each threshold.
-       B3: also sync .is-active to matching .process-step card. */
+    /* Activate markers based on which step is at the user's reading position.
+       The reading line sits 40% down the viewport — wherever the eye
+       naturally lands. Find the step whose bounding box contains the line
+       (the one being read) AND any step that has scrolled past it. The
+       last activated index = the marker that should be currently "lit." */
+    var readingY = window.innerHeight * 0.4;
+    var activeIdx = 0;
+    stepCards.forEach(function (s, i) {
+      var r = s.getBoundingClientRect();
+      if (r.top <= readingY && r.bottom >= readingY) {
+        activeIdx = i;
+      } else if (r.bottom < readingY) {
+        activeIdx = Math.max(activeIdx, i);
+      }
+    });
+    /* If we haven't entered the section yet (all steps below reading line),
+       no marker should be active. Detect this and skip activation. */
+    var firstRect = stepCards[0] && stepCards[0].getBoundingClientRect();
+    var entered = firstRect && firstRect.top <= readingY;
+
     markers.forEach(function (m, i) {
-      var active = progress >= MARKER_THRESHOLDS[i];
+      var active = entered && i <= activeIdx;
       m.classList.toggle('is-active', active);
       if (stepCards[i]) {
         stepCards[i].classList.toggle('is-active', active);
