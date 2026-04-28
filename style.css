@@ -1406,7 +1406,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%);
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -1414,13 +1414,18 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   box-shadow: 0 0 0 0 rgba(201, 169, 97, 0);
   transition:
     background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Active state: grow via explicit width/height (not scale) so the
+   translate(-50%, -50%) keeps recentering on the new size. Avoids the
+   subtle pixel offset that compounds when scale + translate overlap. */
 .services-dot.is-active::after {
   background: var(--gold);
-  transform: translate(-50%, -50%) scale(2);
+  width: 16px;
+  height: 16px;
   box-shadow:
     0 0 0 4px rgba(201, 169, 97, 0.18),
     0 0 12px 2px rgba(201, 169, 97, 0.5);
@@ -2747,7 +2752,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     height: 6px;
   }
   .services-dot.is-active::after {
-    transform: translate(-50%, -50%) scale(1.8);
+    width: 11px;
+    height: 11px;
     box-shadow:
       0 0 0 3px rgba(201, 169, 97, 0.18),
       0 0 8px 1px rgba(201, 169, 97, 0.45);
