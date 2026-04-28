@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="style.min.css?v=cycle3-hero-clean" />
+  <link rel="stylesheet" href="style.min.css?v=cycle4-3d" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1B2D'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23C9A961' font-family='Georgia,serif' font-size='18' font-weight='600'%3EM%3C/text%3E%3C/svg%3E" />
 </head>
@@ -55,6 +55,37 @@
   <section class="hero" id="home" aria-label="MacKai West — recruitment built around niche expertise">
     <div class="hero__bg" aria-hidden="true"></div>
     <div class="hero__horizon" aria-hidden="true"></div>
+
+    <!-- 3D wireframe geometric mark — CSS 3D + SVG, editorial restraint -->
+    <div class="hero__mesh" aria-hidden="true">
+      <svg class="hero__mesh-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <!-- Octahedron wireframe: 6 vertices, 12 edges, drawn as path segments -->
+        <!-- Vertices: top(100,20) bot(100,180) left(20,100) right(180,100) front(100,100) back(100,100) -->
+        <!-- We render a flat projection of 3D octahedron edges — CSS 3D rotation gives depth -->
+        <!-- Top vertex to equatorial ring -->
+        <line x1="100" y1="20"  x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line x1="100" y1="20"  x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line x1="100" y1="20"  x2="100" y2="88"  stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line x1="100" y1="20"  x2="100" y2="112" stroke="rgba(201,169,97,0.3)"  stroke-width="0.8"/>
+        <!-- Bottom vertex to equatorial ring -->
+        <line x1="100" y1="180" x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line x1="100" y1="180" x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line x1="100" y1="180" x2="100" y2="112" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line x1="100" y1="180" x2="100" y2="88"  stroke="rgba(201,169,97,0.3)"  stroke-width="0.8"/>
+        <!-- Equatorial diamond -->
+        <line x1="20"  y1="100" x2="100" y2="88"  stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line x1="100" y1="88"  x2="180" y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line x1="180" y1="100" x2="100" y2="112" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <line x1="100" y1="112" x2="20"  y2="100" stroke="rgba(201,169,97,0.55)" stroke-width="0.8"/>
+        <!-- Vertices as small dots -->
+        <circle cx="100" cy="20"  r="1.8" fill="rgba(201,169,97,0.7)"/>
+        <circle cx="100" cy="180" r="1.8" fill="rgba(201,169,97,0.7)"/>
+        <circle cx="20"  cy="100" r="1.8" fill="rgba(201,169,97,0.7)"/>
+        <circle cx="180" cy="100" r="1.8" fill="rgba(201,169,97,0.7)"/>
+        <circle cx="100" cy="88"  r="1.8" fill="rgba(201,169,97,0.55)"/>
+        <circle cx="100" cy="112" r="1.8" fill="rgba(201,169,97,0.55)"/>
+      </svg>
+    </div>
 
     <div class="hero__inner">
       <p class="hero__eyebrow">Tax · Finance · Accounting</p>
@@ -237,75 +268,93 @@
     </div>
 
     <div class="industries__grid">
-      <article class="industry" aria-expanded="false">
-        <span class="industry__num" aria-hidden="true">01</span>
-        <h3 class="industry__title">Construction</h3>
-        <p class="industry__desc">
-          Finance leadership for general contractors, specialty trades, and developers. We understand percentage-of-completion accounting and the cash-cycle stress of long-tail projects.
-        </p>
-        <p class="industry__roles">CFO · Controller · Project Accounting · Tax Director</p>
-        <button class="industry__toggle" aria-label="Show roles we place in Construction" tabindex="0">
-          <svg class="industry__chevron" aria-hidden="true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <div class="industry__expand" aria-hidden="true">
-          <p class="industry__expand-eyebrow">Roles we place</p>
-          <ul class="industry__expand-list">
-            <li>Tax Director</li>
-            <li>Plant Controller</li>
-            <li>VP Finance</li>
-            <li>Project Accounting Lead</li>
-            <li>Director of FP&amp;A</li>
-          </ul>
+      <article class="industry">
+        <div class="industry__inner">
+          <!-- Front face -->
+          <div class="industry__face industry__face--front">
+            <span class="industry__num" aria-hidden="true">01</span>
+            <h3 class="industry__title">Construction</h3>
+            <p class="industry__desc">
+              Finance leadership for general contractors, specialty trades, and developers. We understand percentage-of-completion accounting and the cash-cycle stress of long-tail projects.
+            </p>
+            <p class="industry__roles">CFO · Controller · Project Accounting · Tax Director</p>
+            <button class="industry__toggle" aria-label="Show roles we place in Construction" tabindex="0">
+              <svg class="industry__chevron" aria-hidden="true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <!-- Back face -->
+          <div class="industry__face industry__face--back" aria-hidden="true">
+            <p class="industry__expand-eyebrow">Roles we place</p>
+            <ul class="industry__expand-list">
+              <li>Tax Director</li>
+              <li>Plant Controller</li>
+              <li>VP Finance</li>
+              <li>Project Accounting Lead</li>
+              <li>Director of FP&amp;A</li>
+            </ul>
+          </div>
         </div>
       </article>
 
-      <article class="industry" aria-expanded="false">
-        <span class="industry__num" aria-hidden="true">02</span>
-        <h3 class="industry__title">Real Estate</h3>
-        <p class="industry__desc">
-          Operators, developers, REITs, and private real estate funds. Partnership-tax fluency, fund accounting, and the right finance leaders for portfolios at scale.
-        </p>
-        <p class="industry__roles">VP Finance · Fund Controller · Partnership Tax · FP&amp;A</p>
-        <button class="industry__toggle" aria-label="Show roles we place in Real Estate" tabindex="0">
-          <svg class="industry__chevron" aria-hidden="true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <div class="industry__expand" aria-hidden="true">
-          <p class="industry__expand-eyebrow">Roles we place</p>
-          <ul class="industry__expand-list">
-            <li>Fund Controller</li>
-            <li>Partnership Tax Manager</li>
-            <li>VP Finance</li>
-            <li>Director of Acquisitions Finance</li>
-            <li>Tax Senior Manager</li>
-          </ul>
+      <article class="industry">
+        <div class="industry__inner">
+          <!-- Front face -->
+          <div class="industry__face industry__face--front">
+            <span class="industry__num" aria-hidden="true">02</span>
+            <h3 class="industry__title">Real Estate</h3>
+            <p class="industry__desc">
+              Operators, developers, REITs, and private real estate funds. Partnership-tax fluency, fund accounting, and the right finance leaders for portfolios at scale.
+            </p>
+            <p class="industry__roles">VP Finance · Fund Controller · Partnership Tax · FP&amp;A</p>
+            <button class="industry__toggle" aria-label="Show roles we place in Real Estate" tabindex="0">
+              <svg class="industry__chevron" aria-hidden="true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <!-- Back face -->
+          <div class="industry__face industry__face--back" aria-hidden="true">
+            <p class="industry__expand-eyebrow">Roles we place</p>
+            <ul class="industry__expand-list">
+              <li>Fund Controller</li>
+              <li>Partnership Tax Manager</li>
+              <li>VP Finance</li>
+              <li>Director of Acquisitions Finance</li>
+              <li>Tax Senior Manager</li>
+            </ul>
+          </div>
         </div>
       </article>
 
-      <article class="industry" aria-expanded="false">
-        <span class="industry__num" aria-hidden="true">03</span>
-        <h3 class="industry__title">Manufacturing</h3>
-        <p class="industry__desc">
-          Finance and accounting leaders for manufacturers — cost accounting depth, plant-level controllership, and operational finance executives who can sit with the floor.
-        </p>
-        <p class="industry__roles">Plant Controller · Cost Accounting · Director of Finance · CFO</p>
-        <button class="industry__toggle" aria-label="Show roles we place in Manufacturing" tabindex="0">
-          <svg class="industry__chevron" aria-hidden="true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <div class="industry__expand" aria-hidden="true">
-          <p class="industry__expand-eyebrow">Roles we place</p>
-          <ul class="industry__expand-list">
-            <li>Plant Controller</li>
-            <li>Cost Accounting Manager</li>
-            <li>Director of Finance</li>
-            <li>Internal Audit Lead</li>
-            <li>CFO</li>
-          </ul>
+      <article class="industry">
+        <div class="industry__inner">
+          <!-- Front face -->
+          <div class="industry__face industry__face--front">
+            <span class="industry__num" aria-hidden="true">03</span>
+            <h3 class="industry__title">Manufacturing</h3>
+            <p class="industry__desc">
+              Finance and accounting leaders for manufacturers — cost accounting depth, plant-level controllership, and operational finance executives who can sit with the floor.
+            </p>
+            <p class="industry__roles">Plant Controller · Cost Accounting · Director of Finance · CFO</p>
+            <button class="industry__toggle" aria-label="Show roles we place in Manufacturing" tabindex="0">
+              <svg class="industry__chevron" aria-hidden="true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <!-- Back face -->
+          <div class="industry__face industry__face--back" aria-hidden="true">
+            <p class="industry__expand-eyebrow">Roles we place</p>
+            <ul class="industry__expand-list">
+              <li>Plant Controller</li>
+              <li>Cost Accounting Manager</li>
+              <li>Director of Finance</li>
+              <li>Internal Audit Lead</li>
+              <li>CFO</li>
+            </ul>
+          </div>
         </div>
       </article>
     </div>

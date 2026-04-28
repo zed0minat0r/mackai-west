@@ -307,7 +307,7 @@
   });
 })();
 
-/* ---- Industries: mobile tap-to-reveal expand panels ---- */
+/* ---- Industries: 3D card flip — desktop hover via CSS, mobile tap via JS ---- */
 (function () {
   var cards = document.querySelectorAll('.industry');
   if (!cards.length) return;
@@ -321,28 +321,37 @@
   function collapseAll(except) {
     cards.forEach(function (card) {
       if (card === except) return;
-      card.classList.remove('is-expanded');
-      card.setAttribute('aria-expanded', 'false');
-      var panel = card.querySelector('.industry__expand');
+      var inner  = card.querySelector('.industry__inner');
+      var back   = card.querySelector('.industry__face--back');
       var toggle = card.querySelector('.industry__toggle');
-      if (panel) panel.setAttribute('aria-hidden', 'true');
-      if (toggle) toggle.setAttribute('aria-label', toggle.getAttribute('aria-label').replace('Close', 'Show'));
+      if (inner)  inner.classList.remove('is-flipped');
+      if (back)   back.setAttribute('aria-hidden', 'true');
+      if (toggle) {
+        var lbl = toggle.getAttribute('aria-label') || '';
+        toggle.setAttribute('aria-label', lbl.replace('Close', 'Show'));
+      }
     });
   }
 
   function toggleCard(card) {
-    var isOpen = card.classList.contains('is-expanded');
+    var inner  = card.querySelector('.industry__inner');
+    var back   = card.querySelector('.industry__face--back');
+    var toggle = card.querySelector('.industry__toggle');
+    if (!inner) return;
+
+    var isFlipped = inner.classList.contains('is-flipped');
     collapseAll(card);
-    if (isOpen) {
-      card.classList.remove('is-expanded');
-      card.setAttribute('aria-expanded', 'false');
-      var panel = card.querySelector('.industry__expand');
-      if (panel) panel.setAttribute('aria-hidden', 'true');
+
+    if (isFlipped) {
+      inner.classList.remove('is-flipped');
+      if (back)   back.setAttribute('aria-hidden', 'true');
     } else {
-      card.classList.add('is-expanded');
-      card.setAttribute('aria-expanded', 'true');
-      var panel = card.querySelector('.industry__expand');
-      if (panel) panel.setAttribute('aria-hidden', 'false');
+      inner.classList.add('is-flipped');
+      if (back)   back.setAttribute('aria-hidden', 'false');
+      if (toggle) {
+        var lbl = toggle.getAttribute('aria-label') || '';
+        toggle.setAttribute('aria-label', lbl.replace('Show', 'Close'));
+      }
     }
   }
 
@@ -350,13 +359,13 @@
     var toggle = card.querySelector('.industry__toggle');
     if (!toggle) return;
 
-    // Tap / click on toggle button
+    // Tap / click on toggle button — only meaningful on touch (desktop uses CSS hover)
     toggle.addEventListener('click', function (e) {
       e.stopPropagation();
       toggleCard(card);
     });
 
-    // Keyboard: Enter / Space on focused card or toggle
+    // Keyboard: Enter / Space on toggle
     toggle.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -367,25 +376,80 @@
     // On touch devices: tapping the card body (not just the button) also toggles
     if (isTouch) {
       card.addEventListener('click', function (e) {
-        // Only fire if the click wasn't on the toggle itself (toggle handles its own event)
         if (e.target.closest('.industry__toggle')) return;
         toggleCard(card);
       });
     }
   });
 
-  // Collapse all when clicking outside any card
+  // Un-flip all when clicking outside any card
   document.addEventListener('click', function (e) {
     if (!e.target.closest('.industry')) {
       collapseAll(null);
     }
   });
 
-  // Escape key collapses all
+  // Escape key un-flips all
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
       collapseAll(null);
     }
+  });
+})();
+
+/* ---- Service panels: 3D mouse-follow tilt (desktop only, touch bail) ---- */
+(function () {
+  // Touch devices: skip entirely — static is the correct fallback
+  if ('ontouchstart' in window) return;
+
+  var panels = document.querySelectorAll('.service-fp');
+  if (!panels.length) return;
+
+  panels.forEach(function (panel) {
+    var inner = panel.querySelector('.service-fp__inner');
+    if (!inner) return;
+
+    var pendingRaf = null;
+    var lastRotX   = 0;
+    var lastRotY   = 0;
+
+    function applyTilt(rotX, rotY) {
+      inner.style.transform = 'perspective(1200px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
+    }
+
+    panel.addEventListener('mousemove', function (e) {
+      if (pendingRaf) return; // rAF gate — don't queue multiple frames
+      var rect    = panel.getBoundingClientRect();
+      var centerX = rect.left + rect.width  / 2;
+      var centerY = rect.top  + rect.height / 2;
+
+      // Normalise to -1 → +1
+      var normX = (e.clientX - centerX) / (rect.width  / 2);
+      var normY = (e.clientY - centerY) / (rect.height / 2);
+
+      // Clamp and scale to max ±6deg
+      var rotY =  Math.max(-6, Math.min(6, normX * 6));
+      var rotX = -Math.max(-6, Math.min(6, normY * 6));
+
+      lastRotX = rotX;
+      lastRotY = rotY;
+
+      pendingRaf = window.requestAnimationFrame(function () {
+        pendingRaf = null;
+        applyTilt(lastRotX, lastRotY);
+        inner.classList.add('is-tilting');
+      });
+    });
+
+    panel.addEventListener('mouseleave', function () {
+      if (pendingRaf) {
+        window.cancelAnimationFrame(pendingRaf);
+        pendingRaf = null;
+      }
+      // CSS transition handles the smooth return to flat
+      inner.style.transform = '';
+      inner.classList.remove('is-tilting');
+    });
   });
 })();
 

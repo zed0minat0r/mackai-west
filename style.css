@@ -403,6 +403,57 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 
 /* ============================================
+   HERO MESH — 3D rotating geometric wireframe
+   Editorial: slow rotation, gold strokes, opacity-layered
+   behind text, above gradient. No Three.js.
+   ============================================ */
+.hero__mesh {
+  position: absolute;
+  top: clamp(80px, 12vh, 140px);
+  right: clamp(40px, 6vw, 120px);
+  width: clamp(200px, 22vw, 360px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  opacity: 0.48;
+  z-index: 0;
+  /* CSS 3D scene wrapper */
+  perspective: 800px;
+}
+
+.hero__mesh-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform-origin: center center;
+  animation: mesh-rotate 28s linear infinite;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+@keyframes mesh-rotate {
+  0%   { transform: rotateY(0deg)   rotateX(12deg); }
+  50%  { transform: rotateY(180deg) rotateX(-6deg); }
+  100% { transform: rotateY(360deg) rotateX(12deg); }
+}
+
+/* Reduced motion: pause, lock at static orientation */
+@media (prefers-reduced-motion: reduce) {
+  .hero__mesh-svg {
+    animation-play-state: paused;
+  }
+}
+
+/* Mobile: scale down, reposition */
+@media (max-width: 600px) {
+  .hero__mesh {
+    width: clamp(140px, 35vw, 200px);
+    top: clamp(40px, 6vh, 80px);
+    right: clamp(20px, 5vw, 32px);
+    opacity: 0.35;
+  }
+}
+
+/* ============================================
    STAT BAND
    ============================================ */
 .stat {
@@ -906,6 +957,32 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   align-self: flex-start;
 }
 
+/* ============================================
+   SERVICES — 3D tilt on hover (desktop only)
+   Touch devices: bail via JS ontouchstart check
+   Max tilt: ±6deg on both axes
+   ============================================ */
+.service-fp {
+  perspective: 1200px;
+}
+
+/* The inner content block receives the tilt transform */
+.service-fp__inner {
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 6px;
+}
+
+/* Gold-edge glow on hover — applied by JS via class or inline style */
+.service-fp__inner.is-tilting {
+  box-shadow: 0 30px 60px -20px rgba(201, 169, 97, 0.18);
+}
+
+/* On mouseleave — transition back to flat */
+.service-fp__inner {
+  will-change: transform;
+}
+
 .service-fp--navy .link-arrow {
   color: var(--cream);
 }
@@ -983,34 +1060,16 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 
 .industry {
-  background: var(--cream-2);
-  padding: clamp(32px, 3.5vw, 48px) clamp(28px, 3vw, 40px);
+  /* Visual styling lives on .industry__face--front/back now */
   border-radius: 4px;
-  border: 1px solid var(--hairline);
-  border-top: none;
   position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s;
+  /* overflow: visible is required for 3D perspective transforms to escape clip */
+  overflow: visible;
+  /* Ensure the grid item has a base height for absolutely-positioned faces */
+  min-height: 340px;
+  /* perspective applied in the 3D flip section below */
 }
-/* Gold top rule — partial width, extends to full on hover */
-.industry::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  height: 2px;
-  width: 100%;
-  background: var(--gold);
-  transform-origin: left;
-  transform: scaleX(0.28);
-  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-/* Full-width reveal on hover — replaces lift-and-shadow */
-.industry:hover::before {
-  transform: scaleX(1);
-}
-.industry:hover {
-  border-color: rgba(201, 169, 97, 0.22);
-}
+/* No ::before gold rule here — it lives on .industry__face--front::before now */
 /* Playfair ordinal numerals — replace generic SVG icons */
 .industry__num {
   display: block;
@@ -1046,12 +1105,87 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 
 /* ============================================
-   INDUSTRIES — hover-reveal expand panel
-   Frame B: slide-up foreground panel, editorial restraint
-   Ref: Korn Ferry / Heidrick editorial card flip pattern
+   INDUSTRIES — 3D card flip
+   Ref: Korn Ferry / Heidrick editorial card flip
+   Editorial restraint: slow, considered, not flashy
    ============================================ */
 
-/* Toggle button — bottom right of card */
+/* Flip container — perspective applied here */
+.industry {
+  perspective: 1200px;
+  /* overflow: hidden removed — 3D needs to escape bounds */
+  overflow: visible;
+}
+
+/* Inner wrapper: the element that actually rotates */
+.industry__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Flip on hover (desktop) */
+.industry:hover .industry__inner {
+  transform: rotateY(180deg);
+}
+
+/* Flip via JS class (mobile tap) */
+.industry__inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* Both faces: shared */
+.industry__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 4px;
+  padding: clamp(32px, 3.5vw, 48px) clamp(28px, 3vw, 40px);
+}
+
+/* Front face: cream-2 bg, navy text — carries the original card visual */
+.industry__face--front {
+  background: var(--cream-2);
+  border: 1px solid var(--hairline);
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Back face: navy bg, cream text — flipped 180deg */
+.industry__face--back {
+  background: var(--navy);
+  transform: rotateY(180deg);
+  border-top: 2px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Gold top rule on front face — matches the card's original partial gold rule */
+.industry__face--front::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--gold);
+  transform-origin: left;
+  transform: scaleX(0.28);
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 4px 4px 0 0;
+}
+.industry:hover .industry__face--front::before {
+  transform: scaleX(1);
+}
+
+/* Toggle button — bottom right of front face */
 .industry__toggle {
   position: absolute;
   bottom: clamp(20px, 2.5vw, 28px);
@@ -1067,8 +1201,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   background: transparent;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.3s ease;
+  transition: opacity 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   padding: 0;
+  z-index: 2;
 }
 .industry__chevron {
   width: 16px;
@@ -1077,61 +1212,22 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   transition: transform 0.3s ease;
 }
 
-/* Show toggle on hover (desktop) / always visible on touch */
+/* Show toggle on hover (desktop) */
 .industry:hover .industry__toggle {
   opacity: 1;
 }
+
 /* Touch devices: always show the toggle */
 .is-touch-device .industry__toggle {
   opacity: 1;
 }
 
-/* Arrow rotates when open */
-.industry[aria-expanded="true"] .industry__chevron {
+/* Chevron rotates when flipped */
+.industry__inner.is-flipped .industry__chevron {
   transform: rotate(180deg);
 }
-.industry[aria-expanded="true"] .industry__toggle {
-  opacity: 1;
-  border-color: var(--gold);
-  color: var(--gold);
-}
 
-/* The expand panel — positioned absolute, slides up from below card */
-.industry__expand {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--navy);
-  padding: clamp(28px, 3.5vw, 44px) clamp(28px, 3vw, 40px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transform: translateY(100%);
-  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  pointer-events: none;
-  will-change: transform;
-  /* gold top rule matches the card's visible gold rule */
-  border-top: 2px solid var(--gold);
-}
-
-/* Desktop: slide up on card hover */
-.industry:hover .industry__expand {
-  transform: translateY(0%);
-  pointer-events: auto;
-}
-
-/* Mobile/touch: slide up via .is-expanded class */
-.industry.is-expanded .industry__expand {
-  transform: translateY(0%);
-  pointer-events: auto;
-}
-.industry.is-expanded .industry__expand[aria-hidden="true"] {
-  /* JS manages aria-hidden; CSS follows */
-}
-
-/* Expand panel eyebrow */
+/* Expand panel eyebrow (back face) */
 .industry__expand-eyebrow {
   font-family: var(--font-display);
   font-style: italic;
@@ -1143,7 +1239,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   opacity: 0.85;
 }
 
-/* Role archetype list */
+/* Role archetype list (back face) */
 .industry__expand-list {
   list-style: none;
   margin: 0;
@@ -1161,17 +1257,6 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 .industry__expand-list li:first-child {
   border-top: none;
-}
-
-/* Mobile (touch): don't hover; only .is-expanded triggers panel */
-/* Ensure the card has position: relative (already set above) */
-/* Make toggle reachable — it already sits above the expand panel in DOM,
-   so z-index layering: toggle must sit above expand panel */
-.industry__toggle {
-  z-index: 2;
-}
-.industry__expand {
-  z-index: 1;
 }
 
 /* ============================================
@@ -1732,8 +1817,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   .services__grid { grid-template-columns: 1fr; }
   .industries__grid { grid-template-columns: 1fr; }
-  /* On tablets, ensure cards are tall enough for the expand panel */
-  .industry { min-height: 320px; }
+  /* On tablets, ensure cards are tall enough for the flip panel */
+  .industry__inner { min-height: 320px; }
   .process__steps { grid-template-columns: repeat(2, 1fr); }
   .contact__inner { grid-template-columns: 1fr; }
   .footer__inner { grid-template-columns: 1fr; gap: 32px; }
@@ -1885,4 +1970,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   /* stat__plus visible immediately when reduced motion is preferred */
   .stat__plus { opacity: 1; }
   html { scroll-behavior: auto; }
+  /* Mesh: locked static */
+  .hero__mesh-svg { animation-play-state: paused; }
+  /* Industry flip: no transition, stays static */
+  .industry__inner { transition: none; }
 }
