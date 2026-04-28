@@ -785,80 +785,87 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   flex-direction: column;
 }
 
-/* Large italic numeral */
+/* Large italic numeral — refined: tighter bottom margin, slightly more visible */
 .service-fp__num {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(4rem, 8vw, 7rem);
+  font-size: clamp(3.2rem, 6vw, 5.5rem);
   line-height: 1;
   color: var(--gold-deep);
   letter-spacing: -0.03em;
-  margin-bottom: 16px;
-  opacity: 0.5;
+  margin-bottom: 10px;
+  opacity: 0.45;
 }
 
 .service-fp--navy .service-fp__num {
   color: var(--gold);
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
+/* Practice title — tighter leading for display size */
 .service-fp__title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.06;
   color: var(--navy);
-  letter-spacing: -0.015em;
-  margin-bottom: 6px;
+  letter-spacing: -0.018em;
+  margin-bottom: 4px;
 }
 
 .service-fp--navy .service-fp__title {
   color: var(--cream);
 }
 
+/* Sub-label: slightly looser tracking for legibility */
 .service-fp__sub {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--gold-deep);
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--hairline);
 }
 
 .service-fp--navy .service-fp__sub {
   color: var(--gold-soft);
+  border-bottom-color: rgba(201, 169, 97, 0.2);
 }
 
+/* Lede: comfortable measure, slightly tighter leading */
 .service-fp__lede {
-  font-size: clamp(0.98rem, 1.4vw, 1.08rem);
-  line-height: 1.75;
+  font-size: clamp(0.98rem, 1.35vw, 1.06rem);
+  line-height: 1.72;
   color: var(--navy);
-  margin-bottom: 24px;
-  max-width: 580px;
+  margin-bottom: 20px;
+  max-width: 560px;
 }
 
 .service-fp--navy .service-fp__lede {
-  color: rgba(245, 240, 230, 0.82);
+  color: rgba(245, 240, 230, 0.84);
 }
 
+/* Role list — breathing room between items */
 .service-fp__list {
   list-style: none;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 
 .service-fp__list li {
   position: relative;
-  padding: 10px 0 10px 24px;
-  font-size: 0.96rem;
-  line-height: 1.55;
+  padding: 11px 0 11px 26px;
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: var(--slate);
   border-top: 1px solid var(--hairline);
 }
 
 .service-fp--navy .service-fp__list li {
-  color: rgba(245, 240, 230, 0.72);
-  border-top-color: rgba(245, 240, 230, 0.1);
+  color: rgba(245, 240, 230, 0.74);
+  border-top-color: rgba(201, 169, 97, 0.14);
 }
 
 .service-fp__list li:first-child { border-top: none; }
@@ -867,14 +874,16 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   content: '';
   position: absolute;
   left: 0;
-  top: 19px;
-  width: 12px;
+  top: 21px;
+  width: 14px;
   height: 1px;
   background: var(--gold);
+  opacity: 0.8;
 }
 
 .service-fp--navy .service-fp__list li::before {
   background: var(--gold-soft);
+  opacity: 0.75;
 }
 
 /* CTA: inherit from shared link-arrow */
@@ -1019,6 +1028,135 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   color: var(--gold-deep);
   padding-top: 18px;
   border-top: 1px solid var(--hairline);
+}
+
+/* ============================================
+   INDUSTRIES — hover-reveal expand panel
+   Frame B: slide-up foreground panel, editorial restraint
+   Ref: Korn Ferry / Heidrick editorial card flip pattern
+   ============================================ */
+
+/* Toggle button — bottom right of card */
+.industry__toggle {
+  position: absolute;
+  bottom: clamp(20px, 2.5vw, 28px);
+  right: clamp(20px, 2.5vw, 28px);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(201, 169, 97, 0.3);
+  border-radius: 50%;
+  color: var(--gold-deep);
+  background: transparent;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.3s ease;
+  padding: 0;
+}
+.industry__chevron {
+  width: 16px;
+  height: 16px;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Show toggle on hover (desktop) / always visible on touch */
+.industry:hover .industry__toggle {
+  opacity: 1;
+}
+/* Touch devices: always show the toggle */
+.is-touch-device .industry__toggle {
+  opacity: 1;
+}
+
+/* Arrow rotates when open */
+.industry[aria-expanded="true"] .industry__chevron {
+  transform: rotate(180deg);
+}
+.industry[aria-expanded="true"] .industry__toggle {
+  opacity: 1;
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* The expand panel — positioned absolute, slides up from below card */
+.industry__expand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--navy);
+  padding: clamp(28px, 3.5vw, 44px) clamp(28px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+  will-change: transform;
+  /* gold top rule matches the card's visible gold rule */
+  border-top: 2px solid var(--gold);
+}
+
+/* Desktop: slide up on card hover */
+.industry:hover .industry__expand {
+  transform: translateY(0%);
+  pointer-events: auto;
+}
+
+/* Mobile/touch: slide up via .is-expanded class */
+.industry.is-expanded .industry__expand {
+  transform: translateY(0%);
+  pointer-events: auto;
+}
+.industry.is-expanded .industry__expand[aria-hidden="true"] {
+  /* JS manages aria-hidden; CSS follows */
+}
+
+/* Expand panel eyebrow */
+.industry__expand-eyebrow {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  color: var(--gold-soft);
+  margin-bottom: 18px;
+  opacity: 0.85;
+}
+
+/* Role archetype list */
+.industry__expand-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.industry__expand-list li {
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(245, 240, 230, 0.88);
+  padding: 10px 0;
+  border-top: 1px solid rgba(201, 169, 97, 0.15);
+  letter-spacing: 0.01em;
+}
+.industry__expand-list li:first-child {
+  border-top: none;
+}
+
+/* Mobile (touch): don't hover; only .is-expanded triggers panel */
+/* Ensure the card has position: relative (already set above) */
+/* Make toggle reachable — it already sits above the expand panel in DOM,
+   so z-index layering: toggle must sit above expand panel */
+.industry__toggle {
+  z-index: 2;
+}
+.industry__expand {
+  z-index: 1;
 }
 
 /* ============================================
@@ -1579,6 +1717,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   .services__grid { grid-template-columns: 1fr; }
   .industries__grid { grid-template-columns: 1fr; }
+  /* On tablets, ensure cards are tall enough for the expand panel */
+  .industry { min-height: 320px; }
   .process__steps { grid-template-columns: repeat(2, 1fr); }
   .contact__inner { grid-template-columns: 1fr; }
   .footer__inner { grid-template-columns: 1fr; gap: 32px; }
@@ -1649,14 +1789,20 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     align-items: flex-start;
   }
   .service-fp__num {
-    font-size: clamp(3rem, 15vw, 5rem);
-    margin-bottom: 10px;
+    font-size: clamp(2.4rem, 12vw, 4rem);
+    margin-bottom: 8px;
   }
   .service-fp__title {
     font-size: clamp(1.7rem, 7vw, 2.4rem);
   }
+  .service-fp__sub {
+    font-size: 0.72rem;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+  }
   .service-fp__lede { font-size: 0.93rem; }
-  .service-fp__list li { font-size: 0.88rem; }
+  .service-fp__list li { font-size: 0.88rem; padding-left: 22px; }
+  .service-fp__list li::before { width: 12px; top: 18px; }
 
   /* ── Employers panel: restore column stacking on mobile ── */
   /* At 960px the mark switches to flex-direction:row (horizontal), which reads

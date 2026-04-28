@@ -316,6 +316,88 @@
   });
 })();
 
+/* ---- Industries: mobile tap-to-reveal expand panels ---- */
+(function () {
+  var cards = document.querySelectorAll('.industry');
+  if (!cards.length) return;
+
+  // Mark touch devices — CSS shows toggle buttons permanently on touch
+  var isTouch = ('ontouchstart' in window);
+  if (isTouch) {
+    document.body.classList.add('is-touch-device');
+  }
+
+  function collapseAll(except) {
+    cards.forEach(function (card) {
+      if (card === except) return;
+      card.classList.remove('is-expanded');
+      card.setAttribute('aria-expanded', 'false');
+      var panel = card.querySelector('.industry__expand');
+      var toggle = card.querySelector('.industry__toggle');
+      if (panel) panel.setAttribute('aria-hidden', 'true');
+      if (toggle) toggle.setAttribute('aria-label', toggle.getAttribute('aria-label').replace('Close', 'Show'));
+    });
+  }
+
+  function toggleCard(card) {
+    var isOpen = card.classList.contains('is-expanded');
+    collapseAll(card);
+    if (isOpen) {
+      card.classList.remove('is-expanded');
+      card.setAttribute('aria-expanded', 'false');
+      var panel = card.querySelector('.industry__expand');
+      if (panel) panel.setAttribute('aria-hidden', 'true');
+    } else {
+      card.classList.add('is-expanded');
+      card.setAttribute('aria-expanded', 'true');
+      var panel = card.querySelector('.industry__expand');
+      if (panel) panel.setAttribute('aria-hidden', 'false');
+    }
+  }
+
+  cards.forEach(function (card) {
+    var toggle = card.querySelector('.industry__toggle');
+    if (!toggle) return;
+
+    // Tap / click on toggle button
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleCard(card);
+    });
+
+    // Keyboard: Enter / Space on focused card or toggle
+    toggle.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleCard(card);
+      }
+    });
+
+    // On touch devices: tapping the card body (not just the button) also toggles
+    if (isTouch) {
+      card.addEventListener('click', function (e) {
+        // Only fire if the click wasn't on the toggle itself (toggle handles its own event)
+        if (e.target.closest('.industry__toggle')) return;
+        toggleCard(card);
+      });
+    }
+  });
+
+  // Collapse all when clicking outside any card
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.industry')) {
+      collapseAll(null);
+    }
+  });
+
+  // Escape key collapses all
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      collapseAll(null);
+    }
+  });
+})();
+
 /* ---- Contact form: validation + mailto fallback ---- */
 (function () {
   var form    = document.getElementById('contact-form');

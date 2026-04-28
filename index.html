@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="style.min.css?v=cycle3-b" />
+  <link rel="stylesheet" href="style.min.css?v=cycle3-s" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1B2D'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23C9A961' font-family='Georgia,serif' font-size='18' font-weight='600'%3EM%3C/text%3E%3C/svg%3E" />
 </head>
@@ -311,31 +311,76 @@
     </div>
 
     <div class="industries__grid">
-      <article class="industry">
+      <article class="industry" aria-expanded="false">
         <span class="industry__num" aria-hidden="true">01</span>
         <h3 class="industry__title">Construction</h3>
         <p class="industry__desc">
           Finance leadership for general contractors, specialty trades, and developers. We understand percentage-of-completion accounting and the cash-cycle stress of long-tail projects.
         </p>
         <p class="industry__roles">CFO · Controller · Project Accounting · Tax Director</p>
+        <button class="industry__toggle" aria-label="Show roles we place in Construction" tabindex="0">
+          <svg class="industry__chevron" aria-hidden="true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="industry__expand" aria-hidden="true">
+          <p class="industry__expand-eyebrow">Roles we place</p>
+          <ul class="industry__expand-list">
+            <li>Tax Director</li>
+            <li>Plant Controller</li>
+            <li>VP Finance</li>
+            <li>Project Accounting Lead</li>
+            <li>Director of FP&amp;A</li>
+          </ul>
+        </div>
       </article>
 
-      <article class="industry">
+      <article class="industry" aria-expanded="false">
         <span class="industry__num" aria-hidden="true">02</span>
         <h3 class="industry__title">Real Estate</h3>
         <p class="industry__desc">
           Operators, developers, REITs, and private real estate funds. Partnership-tax fluency, fund accounting, and the right finance leaders for portfolios at scale.
         </p>
         <p class="industry__roles">VP Finance · Fund Controller · Partnership Tax · FP&amp;A</p>
+        <button class="industry__toggle" aria-label="Show roles we place in Real Estate" tabindex="0">
+          <svg class="industry__chevron" aria-hidden="true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="industry__expand" aria-hidden="true">
+          <p class="industry__expand-eyebrow">Roles we place</p>
+          <ul class="industry__expand-list">
+            <li>Fund Controller</li>
+            <li>Partnership Tax Manager</li>
+            <li>VP Finance</li>
+            <li>Director of Acquisitions Finance</li>
+            <li>Tax Senior Manager</li>
+          </ul>
+        </div>
       </article>
 
-      <article class="industry">
+      <article class="industry" aria-expanded="false">
         <span class="industry__num" aria-hidden="true">03</span>
         <h3 class="industry__title">Manufacturing</h3>
         <p class="industry__desc">
           Finance and accounting leaders for manufacturers — cost accounting depth, plant-level controllership, and operational finance executives who can sit with the floor.
         </p>
         <p class="industry__roles">Plant Controller · Cost Accounting · Director of Finance · CFO</p>
+        <button class="industry__toggle" aria-label="Show roles we place in Manufacturing" tabindex="0">
+          <svg class="industry__chevron" aria-hidden="true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="industry__expand" aria-hidden="true">
+          <p class="industry__expand-eyebrow">Roles we place</p>
+          <ul class="industry__expand-list">
+            <li>Plant Controller</li>
+            <li>Cost Accounting Manager</li>
+            <li>Director of Finance</li>
+            <li>Internal Audit Lead</li>
+            <li>CFO</li>
+          </ul>
+        </div>
       </article>
     </div>
   </section>
