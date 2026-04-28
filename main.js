@@ -518,3 +518,55 @@
     btn.disabled = true;
   });
 })();
+
+/* ---- Footer: wordmark letter stagger reveal (IntersectionObserver, single-fire) ---- */
+(function () {
+  var wordmark = document.querySelector('.footer__wordmark');
+  if (!wordmark) return;
+
+  // prefers-reduced-motion: letters are shown immediately via CSS, nothing to animate
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    wordmark.classList.add('is-revealed');
+    return;
+  }
+
+  var fired = false;
+  var observer = new IntersectionObserver(function (entries) {
+    if (fired) return;
+    if (!entries[0].isIntersecting) return;
+    fired = true;
+    observer.disconnect();
+    wordmark.classList.add('is-revealed');
+  }, { threshold: 0.3 });
+
+  observer.observe(wordmark);
+})();
+
+/* ---- Footer: scroll-driven gold progress rule (rAF-throttled) ---- */
+(function () {
+  var progressEl = document.querySelector('.footer__progress');
+  if (!progressEl) return;
+
+  var ticking = false;
+
+  function updateProgress() {
+    ticking = false;
+    var scrollY  = window.scrollY;
+    var winH     = window.innerHeight;
+    var docH     = document.documentElement.scrollHeight;
+    var progress = (scrollY + winH) / docH;
+    if (progress > 1) progress = 1;
+    if (progress < 0) progress = 0;
+    progressEl.style.transform = 'scaleX(' + progress + ')';
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateProgress);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  updateProgress();
+})();

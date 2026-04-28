@@ -1351,8 +1351,22 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
    ============================================ */
 .candidates {
   padding: var(--section-pad) 0;
-  background: var(--paper);
+  background: linear-gradient(135deg, var(--cream-2) 0%, var(--paper) 50%, var(--cream-2) 100%);
   overflow: hidden;
+  position: relative;
+}
+
+/* Copper left-edge accent — 3px vertical rule at section left */
+.candidates::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--gold);
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .candidates__inner {
@@ -1494,6 +1508,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   color: var(--slate);
   position: relative;
   padding-left: 22px;
+}
+.candidates__points li {
+  font-weight: 500;
 }
 .candidates__points li::before, .employers__points li::before {
   content: '';
@@ -1695,6 +1712,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   background: var(--ink);
   color: rgba(245, 240, 230, 0.82);
   padding: 64px 0 28px;
+  position: relative;
 }
 .footer__inner {
   max-width: var(--max-w);
@@ -1765,6 +1783,58 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-size: 0.78rem;
   color: rgba(245, 240, 230, 0.4);
   letter-spacing: 0.04em;
+}
+
+/* ============================================
+   FOOTER SIGNATURE FEATURES
+   ============================================ */
+
+/* Scroll-driven gold progress rule at top of footer */
+.footer__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(201, 169, 97, 0.5);
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* Wordmark letter stagger reveal */
+@keyframes letterReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer__letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.footer__wordmark.is-revealed .footer__letter {
+  animation: letterReveal 0.4s ease-out forwards;
+  animation-delay: calc(var(--i) * 60ms);
+}
+
+/* Reduced motion: show wordmark immediately, skip stagger */
+@media (prefers-reduced-motion: reduce) {
+  .footer__letter {
+    opacity: 1;
+    transform: translateY(0);
+    animation: none !important;
+  }
+  .footer__wordmark.is-revealed .footer__letter {
+    animation: none !important;
+  }
 }
 
 /* ============================================
