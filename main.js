@@ -453,7 +453,7 @@
   });
 })();
 
-/* ---- Contact form: validation + mailto fallback ---- */
+/* ---- Contact form: validation + mailto fallback + button choreography ---- */
 (function () {
   var form    = document.getElementById('contact-form');
   var btn     = document.getElementById('submit-btn');
@@ -463,6 +463,35 @@
   if (window.location.search.includes('submitted=1')) {
     success.hidden = false;
     form.hidden = true;
+  }
+
+  /* Select: mark as having a value so the floating label stays up */
+  var selectEl = form.querySelector('#f-type');
+  if (selectEl) {
+    selectEl.addEventListener('change', function () {
+      if (selectEl.value) {
+        selectEl.classList.add('has-value');
+      } else {
+        selectEl.classList.remove('has-value');
+      }
+    });
+  }
+
+  function runButtonChoreography(callback) {
+    /* Phase 1: submitting — show spinner */
+    btn.classList.add('is-submitting');
+    btn.disabled = true;
+
+    /* Phase 2: success — swap spinner for check + ring pulse */
+    setTimeout(function () {
+      btn.classList.remove('is-submitting');
+      btn.classList.add('is-success');
+
+      /* Phase 3: reveal form-success block after check lands */
+      setTimeout(function () {
+        if (callback) callback();
+      }, 350);
+    }, 650);
   }
 
   form.addEventListener('submit', function (e) {
@@ -504,19 +533,42 @@
       ].join('\n');
       var mailto = 'mailto:hello@mackaiwest.com?subject=' + subject + '&body=' + encodeURIComponent(body);
 
-      btn.classList.add('is-loading');
-      btn.disabled = true;
-
-      success.hidden = false;
-      form.hidden = true;
-
-      window.open(mailto, '_blank');
+      runButtonChoreography(function () {
+        success.hidden = false;
+        form.hidden = true;
+        window.open(mailto, '_blank');
+      });
       return;
     }
 
-    btn.classList.add('is-loading');
-    btn.disabled = true;
+    runButtonChoreography(function () {
+      btn.classList.add('is-loading');
+      btn.disabled = true;
+    });
   });
+})();
+
+/* ---- About pillars: stagger reveal on scroll-into-view ---- */
+(function () {
+  var pillarList = document.querySelector('.about__pillar-list');
+  if (!pillarList) return;
+
+  /* Reduced motion: show immediately */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    pillarList.classList.add('is-pillared');
+    return;
+  }
+
+  var fired = false;
+  var observer = new IntersectionObserver(function (entries) {
+    if (fired) return;
+    if (!entries[0].isIntersecting) return;
+    fired = true;
+    observer.disconnect();
+    pillarList.classList.add('is-pillared');
+  }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+
+  observer.observe(pillarList);
 })();
 
 /* ---- Footer: wordmark letter stagger reveal (IntersectionObserver, single-fire) ---- */

@@ -142,6 +142,81 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .btn.is-loading .btn__label { display: none; }
 .btn.is-loading .btn__loading { display: inline; }
 
+/* ---- Submit button choreography: spinner + check + ring ---- */
+.btn__spinner,
+.btn__check {
+  display: none;
+}
+
+/* Arrow inside label */
+.btn__arrow {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+.btn:hover .btn__arrow {
+  transform: translateX(3px);
+}
+
+/* Spinner: CSS-animated rotating arc */
+.btn__spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(15, 27, 45, 0.25);
+  border-top-color: var(--navy);
+  border-radius: 50%;
+  animation: btn-spin 0.65s linear infinite;
+}
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Check mark */
+.btn__check {
+  font-size: 1.1rem;
+  line-height: 1;
+  animation: btn-check-in 0.3s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@keyframes btn-check-in {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* State: submitting — show spinner */
+.btn.is-submitting .btn__label  { display: none; }
+.btn.is-submitting .btn__loading { display: none; }
+.btn.is-submitting .btn__spinner { display: inline-block; }
+.btn.is-submitting .btn__check  { display: none; }
+
+/* State: success — show check */
+.btn.is-success .btn__label   { display: none; }
+.btn.is-success .btn__loading { display: none; }
+.btn.is-success .btn__spinner { display: none; }
+.btn.is-success .btn__check   { display: inline-block; }
+
+/* Gold ring pulse expanding from button center */
+.btn--primary {
+  position: relative;
+  overflow: visible;
+}
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 2px solid var(--gold);
+  border-radius: calc(var(--radius) + 3px);
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+}
+.btn.is-success::after {
+  animation: btn-ring-pulse 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.1s both;
+}
+@keyframes btn-ring-pulse {
+  0%   { opacity: 0.9; transform: scale(0.95); }
+  60%  { opacity: 0.4; transform: scale(1.08); }
+  100% { opacity: 0;   transform: scale(1.14); }
+}
+
 .link-arrow {
   display: inline-flex;
   align-items: center;
@@ -701,6 +776,33 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   line-height: 1.65;
   color: var(--slate);
   margin: 0;
+}
+
+/* ---- About pillars: stagger reveal on scroll-into-view (Frame B polish) ----
+   Each pillar starts at opacity 0 + translateY(16px).
+   When .about__pillar-list gets .is-pillared, each child animates in
+   with a stagger driven by --i (0, 1, 2). Single-fire via IntersectionObserver.
+   prefers-reduced-motion: items shown immediately, no animation. */
+.about__pillar-list li {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.about__pillar-list.is-pillared li {
+  animation: pillar-in 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 120ms);
+}
+@keyframes pillar-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about__pillar-list li {
+    opacity: 1;
+    transform: none;
+  }
+  .about__pillar-list.is-pillared li {
+    animation: none;
+  }
 }
 
 /* ============================================
@@ -1637,6 +1739,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   gap: 20px;
   margin-bottom: 18px;
 }
+/* ---- Standard form-group (non-floating) ---- */
 .form-group { display: flex; flex-direction: column; margin-bottom: 18px; }
 .form-row .form-group { margin-bottom: 0; }
 .form-group label {
@@ -1674,6 +1777,147 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
 }
 .form-group textarea { resize: vertical; min-height: 120px; }
+
+/* ---- Floating-label form groups ---- */
+/* Input sits in a relative container; label floats inside as a faux-placeholder,
+   animates up+scales down on focus or when content is present.
+   Uses input:focus ~ label and input:not(:placeholder-shown) ~ label.
+   placeholder=" " (single space) is set on inputs so the selector fires correctly. */
+.form-group--float {
+  position: relative;
+  margin-bottom: 18px;
+}
+.form-row .form-group--float { margin-bottom: 0; }
+
+.form-group--float input,
+.form-group--float textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 22px 14px 8px;
+  border: 1px solid var(--hairline-2);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  /* Appearance resets */
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-group--float textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+.form-group--float input:focus,
+.form-group--float textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
+}
+
+/* Label: initially sits INSIDE the field (like placeholder text) */
+.form-group--float label {
+  position: absolute;
+  left: 14px;
+  top: 15px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--slate);
+  pointer-events: none;
+  transform-origin: left top;
+  transition: top 0.2s ease, font-size 0.2s ease, font-weight 0.2s ease,
+              letter-spacing 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  margin-bottom: 0;
+}
+
+/* Floated state — on focus OR when field has content */
+.form-group--float input:focus ~ label,
+.form-group--float input:not(:placeholder-shown) ~ label,
+.form-group--float textarea:focus ~ label,
+.form-group--float textarea:not(:placeholder-shown) ~ label {
+  top: 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+/* Focus color: gold-deep */
+.form-group--float input:focus ~ label,
+.form-group--float textarea:focus ~ label {
+  color: var(--gold-deep);
+}
+
+/* Optional span inside floating label */
+.form-group--float label .optional {
+  text-transform: none;
+  color: var(--slate-2);
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-left: 3px;
+}
+
+/* ---- Select with pseudo-floating label ---- */
+/* Select doesn't support :placeholder-shown cleanly, so we use a sibling
+   approach with JS-added .has-value class, or simply keep the label as
+   a static label above — rendered as a subtle refinement of the float style. */
+.form-group--select {
+  position: relative;
+  margin-bottom: 18px;
+}
+.form-row .form-group--select { margin-bottom: 0; }
+
+.form-group--select select {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 22px 36px 8px 14px;
+  border: 1px solid var(--hairline-2);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.form-group--select select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
+}
+/* Custom chevron */
+.form-group--select::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--slate);
+  pointer-events: none;
+}
+.form-group--select label {
+  position: absolute;
+  left: 14px;
+  top: 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  pointer-events: none;
+  margin-bottom: 0;
+}
+.form-group--select select:focus ~ label {
+  color: var(--gold-deep);
+}
 
 .form-footer {
   display: flex;
@@ -1907,6 +2151,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   .form-row { grid-template-columns: 1fr; gap: 0; }
   .form-row .form-group { margin-bottom: 18px; }
+  .form-row .form-group--float { margin-bottom: 18px; }
+  .form-row .form-group--select { margin-bottom: 18px; }
   .form-footer { flex-direction: column; align-items: stretch; }
   .form-note { max-width: none; }
 
@@ -1934,8 +2180,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   /* Contact detail labels */
   .contact__label { font-size: 0.8125rem; }
 
-  /* Form labels (bare label element inside .form-group) */
-  .form-group label { font-size: 0.8125rem; }
+  /* Form labels (bare label element inside .form-group — non-floating) */
+  .form-group:not(.form-group--float):not(.form-group--select) label { font-size: 0.8125rem; }
 
   /* Footer copyright — intentionally small but must clear 13px floor */
   .footer__small { font-size: 0.8125rem; }

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="style.min.css?v=cycle4-b" />
+  <link rel="stylesheet" href="style.min.css?v=cycle4-s" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1B2D'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23C9A961' font-family='Georgia,serif' font-size='18' font-weight='600'%3EM%3C/text%3E%3C/svg%3E" />
 </head>
@@ -174,17 +174,17 @@
       <aside class="about__pillars" aria-label="What we focus on">
         <p class="about__pillar-eyebrow">The practice</p>
         <ul class="about__pillar-list">
-          <li>
+          <li style="--i:0">
             <span class="about__pillar-mark" aria-hidden="true">I</span>
             <p class="about__pillar-title">Tax recruitment, public accounting</p>
             <p class="about__pillar-desc">Senior tax placements into Big 4, national, and regional firms — the practice we&rsquo;re known for.</p>
           </li>
-          <li>
+          <li style="--i:1">
             <span class="about__pillar-mark" aria-hidden="true">II</span>
             <p class="about__pillar-title">Finance &amp; accounting, industry</p>
             <p class="about__pillar-desc">Finance leadership and senior accounting talent placed into Construction, Real Estate, and Manufacturing operators.</p>
           </li>
-          <li>
+          <li style="--i:2">
             <span class="about__pillar-mark" aria-hidden="true">III</span>
             <p class="about__pillar-title">Senior, retained &amp; contingent</p>
             <p class="about__pillar-desc">Manager and above in tax. Senior Accountant and above in F&amp;A. The searches that don&rsquo;t close themselves.</p>
@@ -478,40 +478,42 @@
 
       <form class="contact__form" id="contact-form" action="#" method="post" novalidate>
         <div class="form-row">
-          <div class="form-group">
+          <div class="form-group form-group--float">
+            <input id="f-name" name="name" type="text" autocomplete="name" required placeholder=" " />
             <label for="f-name">Full name</label>
-            <input id="f-name" name="name" type="text" autocomplete="name" required />
           </div>
-          <div class="form-group">
+          <div class="form-group form-group--float">
+            <input id="f-email" name="email" type="email" autocomplete="email" required placeholder=" " />
             <label for="f-email">Email</label>
-            <input id="f-email" name="email" type="email" autocomplete="email" required />
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
+          <div class="form-group form-group--float">
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder=" " />
             <label for="f-phone">Phone <span class="optional">(optional)</span></label>
-            <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
           </div>
-          <div class="form-group">
-            <label for="f-type">I am a&hellip;</label>
+          <div class="form-group form-group--select">
             <select id="f-type" name="type" required>
-              <option value="" disabled selected>Select one</option>
+              <option value="" disabled selected></option>
               <option value="employer">Hiring leader (employer)</option>
               <option value="candidate">Candidate</option>
               <option value="other">Other</option>
             </select>
+            <label for="f-type">I am a&hellip;</label>
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group form-group--float form-group--textarea">
+          <textarea id="f-message" name="message" rows="5" required placeholder=" "></textarea>
           <label for="f-message">A few details about the search or your background</label>
-          <textarea id="f-message" name="message" rows="5" required></textarea>
         </div>
 
         <div class="form-footer">
           <button type="submit" class="btn btn--primary" id="submit-btn">
-            <span class="btn__label">Send</span>
+            <span class="btn__label">Send <span class="btn__arrow" aria-hidden="true">→</span></span>
+            <span class="btn__spinner" aria-hidden="true"></span>
+            <span class="btn__check" aria-hidden="true">&#10003;</span>
             <span class="btn__loading" aria-hidden="true">Sending&hellip;</span>
           </button>
           <p class="form-note">Confidential. We don&rsquo;t share your details until you sign off.</p>
