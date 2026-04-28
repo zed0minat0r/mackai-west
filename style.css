@@ -2798,8 +2798,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   mix-blend-mode: soft-light;
 }
 
-/* Ensure all hero children sit above grain */
-.hero > * { position: relative; z-index: 3; }
+/* Ensure hero content (the in-flow scroll-exit wrapper) sits above grain.
+   Do NOT use .hero > * — that rule overrides position:absolute on all the
+   absolute-positioned hero children (bg, pattern, horizon, mesh) and forces
+   them into flex flow, which squeezes the scroll-exit wrapper off-center. */
+.hero__scroll-exit { position: relative; z-index: 3; }
+.hero__bg, .hero__pattern, .hero__horizon, .hero__mesh { z-index: 2; }
+.hero__mesh--secondary { z-index: 2; }
 
 /* Process children above grain */
 .process__intro,
