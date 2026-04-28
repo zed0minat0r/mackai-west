@@ -1,4 +1,40 @@
-# PLAN — Cycle 11.5 Hero Refresh (Interrupt)
+# PLAN — Scout Top 3 (grain overlay + hero exit + section bg shift)
+
+## Goal
+Ship 3 features from SCOUT-REPORT.md in one commit. Per Scout priority order:
+1. FEATURE 3 (grain noise overlay) — 8 CSS lines, 0 JS
+2. FEATURE 4 (hero-exit scroll transform) — 30 JS lines, 5 CSS
+3. FEATURE 1 (section bg color shift) — 30 CSS + 15 JS
+
+## Files changing
+- `index.html`: add inline `<svg>` noise filter before `</body>`, wrap `.hero__inner` in `.hero__scroll-exit`, add `data-section-bg` attrs to sections, bump cache-buster to `?v=scout-top3`
+- `style.css`: grain ::after on .hero + navy sections, hero-exit CSS, body transition + data-bg color map
+- `style.min.css`: regenerate
+- `main.js`: hero-exit IIFE + section-bg-shift IIFE appended at end
+
+## Conflict resolution (cursor parallax vs scroll exit)
+Cursor parallax IIFE targets `.hero__inner` (rotateX/Y). Scroll-exit targets new `.hero__scroll-exit` wrapper ABOVE `.hero__inner`. No conflict.
+
+## Color map
+- hero → navy (body default)
+- stat → navy
+- about → cream (#F5F0E6)
+- services → navy
+- industries → cream-2 (#EDE8D8)
+- process → navy
+- candidates → cream (#F5F0E6)
+- employers → navy
+- contact → cream-2 (#EDE8D8)
+- footer: has own dark bg, no data-section-bg needed
+
+## Success criteria
+- Grain ::after visible on .hero, opacity ~0.04
+- Hero exit at 50% scroll: scale ~0.96, blur ~4px
+- Body bg-color changes per section confirmed in Playwright
+
+## Cache buster: scout-top3
+
+# PLAN — Cycle 11.5 Hero Refresh (Interrupt) [archived]
 
 ## Files touched
 - `index.html` — hero__pattern SVG + eyebrow ticker spans + second mesh + cache-buster bump
