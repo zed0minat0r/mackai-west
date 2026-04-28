@@ -1999,6 +1999,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   padding: clamp(80px, 10vw, 140px) clamp(32px, 5vw, 72px);
 }
 
+/* Center the Open a Search CTA at the end of the copy column — match Candidates */
+.employers__copy > .btn,
+.employers__copy > .btn--primary {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+}
+
 /* ============================================
    SHARED bullet list styles
    ============================================ */
