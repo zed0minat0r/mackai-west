@@ -1181,29 +1181,30 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 /* Inner content block */
 .service-fp__inner {
-  max-width: 760px;
+  max-width: 600px;
   width: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  padding-top: 8px;
 }
 
-/* Large italic numeral — refined: tighter bottom margin, slightly more visible */
+/* Eyebrow numeral — small, clear, no top clip */
 .service-fp__num {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(3.2rem, 6vw, 5.5rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   line-height: 1;
   color: var(--gold-deep);
-  letter-spacing: -0.03em;
-  margin-bottom: 10px;
-  opacity: 0.45;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  opacity: 0.7;
 }
 
 .service-fp--navy .service-fp__num {
   color: var(--gold);
-  opacity: 0.55;
+  opacity: 0.75;
 }
 
 /* Practice title — tighter leading for display size */
@@ -1241,27 +1242,28 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 /* Lede: comfortable measure, slightly tighter leading */
 .service-fp__lede {
   font-size: clamp(0.98rem, 1.35vw, 1.06rem);
-  line-height: 1.72;
+  line-height: 1.65;
   color: var(--navy);
-  margin-bottom: 20px;
-  max-width: 560px;
+  margin-bottom: 16px;
+  max-width: 480px;
 }
 
 .service-fp--navy .service-fp__lede {
   color: rgba(245, 240, 230, 0.84);
 }
 
-/* Role list — breathing room between items */
+/* Role list — tighter spacing so list fits within panel */
 .service-fp__list {
   list-style: none;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
+  max-width: 480px;
 }
 
 .service-fp__list li {
   position: relative;
-  padding: 11px 0 11px 26px;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  padding: 8px 0 8px 26px;
+  font-size: 0.93rem;
+  line-height: 1.4;
   color: var(--slate);
   border-top: 1px solid var(--hairline);
 }
@@ -2571,24 +2573,28 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
      Only reduce typography to fit narrow viewports. */
   .services-runway { height: 600vh; }
   .service-fp {
-    padding: clamp(80px, 12vw, 120px) clamp(20px, 5vw, 40px) clamp(50px, 8vw, 80px);
+    padding: clamp(52px, 10vw, 80px) clamp(20px, 5vw, 40px) clamp(40px, 6vw, 60px);
     align-items: flex-start;
   }
+  .service-fp__inner {
+    padding-top: 4px;
+  }
   .service-fp__num {
-    font-size: clamp(2.4rem, 12vw, 4rem);
-    margin-bottom: 8px;
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    margin-bottom: 10px;
   }
   .service-fp__title {
     font-size: clamp(1.7rem, 7vw, 2.4rem);
   }
   .service-fp__sub {
     font-size: 0.8125rem; /* 13px floor — was 0.72rem */
-    margin-bottom: 20px;
-    padding-bottom: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
   }
-  .service-fp__lede { font-size: 0.93rem; }
-  .service-fp__list li { font-size: 0.88rem; padding-left: 22px; }
-  .service-fp__list li::before { width: 12px; top: 18px; }
+  .service-fp__lede { font-size: 0.88rem; line-height: 1.6; margin-bottom: 12px; }
+  .service-fp__list { margin-bottom: 18px; }
+  .service-fp__list li { font-size: 0.84rem; padding: 6px 0 6px 20px; line-height: 1.35; }
+  .service-fp__list li::before { width: 10px; top: 14px; }
 
   /* ── Employers panel: restore column stacking on mobile ── */
   /* At 960px the mark switches to flex-direction:row (horizontal), which reads
