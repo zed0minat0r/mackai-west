@@ -1,95 +1,111 @@
-# MacKai West — Nigel Audit, Cycle 14
+# MacKai West — Nigel Audit, Cycle 15
 
-**Score: 8.2 (Delta +0.1 from 8.1)**  
-**Axis: information architecture**  
+**Score: 8.2 (Delta 0.0 from cycle 14 — ceiling holds)**  
+**Axis: conversion micro-copy and mobile section rhythm**  
 **Cap: 8.2 (design ceiling). Content ceiling at 8.5–8.7 requires real photography, real testimonials, real address — none shipped this cycle.**
 
 ---
 
 **Date:** 2026-04-28  
-**Live URL:** https://zed0minat0r.github.io/mackai-west/?v=cycle14-p  
+**Live URL:** https://zed0minat0r.github.io/mackai-west/?v=cycle15-b  
 **Viewports tested:** iPhone SE 375, iPhone 13 390, iPhone 14 Plus 414, Desktop 1440  
-**Scroll positions:** 5 per viewport (5% / 25% / 50% / 75% / 95%) + 5 positions within Process section per viewport
+**Scroll positions:** 5 per viewport (5% / 25% / 50% / 75% / 95%) — verified live on Playwright  
+**Commits audited:** Builder `ee8cda7`, Pixel `7347334`
 
 ---
 
-## What Landed Cleanly
+## CONVERGENCE
 
-### Process section — 2x2 grid (Builder `3990a98`)
-The cycle 13 dead-space defect is closed. At 1440px desktop the `.process__steps` grid renders at 496px x 496px per column (1036px total) — four steps filling the container with balanced weight. Previously the content hugged ~350px of 1280px inner width; now it uses the full horizontal real estate. This is a material improvement: the section now reads as a considered chapter rather than an afterthought. Single-column stack on mobile (375/390) is correct; `.process__steps` at `@media (max-width: 600px)` collapses to `1fr` (style.css line 2738).
+**This site has reached its design ceiling at 8.2. No further design moves are available without content unlock.**
 
-### Ring halo and step card sync (Builder `3990a98`, Spark `ad7d444`)
-Playwright confirmed marker-to-step sync fires correctly: at 75% through the Process section, 2 active markers and 2 active step cards; at 95%, 3 active markers and 3 active step cards. The ring halo progression works. Gold top border and left accent on active `.process-step` (style.css lines 1748–1750) give the cards a discernible visual state change. Spark's cream hairline on inactive cards (rgba 245,240,230 at 0.15) creates the right contrast so active gold reads with full authority.
+Cycle 15 was explicitly surgical — three targeted fixes, two of which closed already-identified defects. The cumulative polish across 15 cycles has brought this site to the top tier of the executive search category for scroll vocabulary, visual identity, and mobile craft. Further loop iterations without real content will not move the score.
 
-### Gradient fill stroke (Spark `ad7d444`)
-Inline `linearGradient id="journey-fill-grad"` (gold-deep to gold-soft top-to-bottom) present in SVG source. Gives the drawn line vertical depth without adding visual noise.
+**The customer-blocked items are:**
+1. Formspree endpoint (or equivalent form handler) — contact form currently submits to `action="#"` with mailto fallback; this is the terminal conversion action and it is broken for real buyers
+2. Real testimonials — even two or three short pull-quotes from genuine clients would enable a testimonial band that could push the score materially
+3. Real photography — the about placeholder resolves the layout gap honestly but it will never score as well as a genuine brand image
+4. Published office address or city — the "United States · 2026" line is honest but carries no trust weight with a candidate evaluating a firm
 
-### Font floor fixes (Pixel `aaceb30`)
-`.btn--sm` lifted from 0.78rem to 0.8125rem (style.css line 124). `.about__placeholder-location` lifted from 0.72rem to 0.8125rem (style.css line 1061). Both confirmed at 13px floor on mobile — no regression.
+**Recommendation:** Pause the automated loop. Resume only when the Formspree URL and one of the above content items is available.
 
 ---
 
-## Section Scores (Cycle 14)
+## What Landed Cleanly This Cycle
+
+### P2 — Process mobile row-gap clamp (Builder `ee8cda7`)
+Verified across all three mobile viewports. At iPhone SE 375, iPhone 13 390, and iPhone 14 Plus 414, `.process__steps` now shows `rowGap: 28px` (Playwright computed style confirmed). The ~180px navy void below step 03 on iPhone 13 that was called out in the cycle 14 audit is closed. Step heights are compact and even (215–268px per card across viewports), with no dead space between rows. Desktop is unaffected: `rowGap: 57.6px` in the 2x2 grid is correct and proportionate.
+
+### P3 — Stat band micro-label (Builder `ee8cda7`)
+`stat__label-aux` element is present and correct on all four viewports:
+- Text: "Senior roles only. Manager and above."
+- Font size: 13px (floor holds)
+- Text transform: uppercase
+- Letter spacing: 2.34px
+- Color: rgba(245, 240, 230, 0.55) — cream at 55% opacity, correctly subordinate to the primary label
+- Margin top: 8px — properly separated from "Average placement fee"
+
+This is honest copy that reframes the $40K stat for both audiences. It does not alienate candidates by implying cost; it signals the firm's seniority threshold, which is relevant to senior candidates as a quality signal. No fabricated data introduced.
+
+### P1 — Nav Employers link (Builder `ee8cda7` note)
+Correctly identified as already-present. Playwright confirmed the nav contains both Candidates and Employers links at all viewports. No unnecessary edit was made. Correct call by Builder.
+
+### Pixel Verification (`7347334`)
+All 10 gates PASS per Pixel's log. The Playwright run here independently confirms: zero horizontal overflow on all four viewports (hScrollMax = 0, docScrollWidth = innerWidth at all viewports), all tap targets functional, no font-floor regressions.
+
+---
+
+## Section Scores (Cycle 15 — unchanged from cycle 14 except stat band)
 
 | Section | Score | Notes |
 |---|---|---|
 | Hero | 8.5 | Blueprint mesh + cursor parallax + ticker eyebrow + hero-exit transform — genuine personality |
-| Stat band | 7.8 | Count-up fires correctly at threshold 0.6; $40K lands clean on desktop |
-| About | 7.6 | MW wordmark placeholder is honest; right-col flex-grow fills correctly at desktop; mobile hides placeholder |
-| Services | 8.3 | 5-panel horizontal scroll-lock with cream/navy alternation is the site's strongest scroll moment |
-| Industries | 8.0 | 3D card flip + 8 roles per back-face; tap-to-reveal functional |
-| Process | 8.1 | 2x2 grid closes the dead-space; sync working; minor mobile rhythm gap at mid-scroll (step 03 card has empty base on iPhone 13) |
+| Stat band | 8.0 | +0.2 from cycle 14. P3 micro-label closes the dual-audience gap; $40K lands for employers, seniority signal lands for candidates |
+| About | 7.6 | MW wordmark placeholder is honest; desktop flex-grow fills correctly; mobile hides placeholder appropriately |
+| Services | 8.3 | 5-panel horizontal scroll-lock with cream/navy alternation remains the site's strongest scroll moment |
+| Industries | 8.0 | 3D card flip + 8 roles per back-face; tap-to-reveal functional on mobile |
+| Process | 8.2 | 2x2 grid at desktop, single-col mobile with tightened row-gap; sync and halo working; material improvement from cycle 13 |
 | Candidates | 7.8 | Navy panel inversion matches Employers; For/Candidates italic mark lands editorially |
 | Employers | 7.8 | Parity with Candidates confirmed |
 | Contact | 7.2 | Floating labels, trust badge, honest reach copy all clean; mailto fallback is the outstanding conversion blocker |
-| Footer | 7.9 | Letter-stagger wordmark + scroll progress rule both visible |
+| Footer | 7.9 | Letter-stagger wordmark + scroll progress rule both visible; mobile stagger 40ms confirmed |
 
 ---
 
-## Information Architecture Assessment
+## Score Justification — Why 8.2 Holds (Not 8.3)
 
-The site's IA is coherent for a specialist B2B firm targeting senior candidates and employers. Navigation order (About, Services, Industries, Process, Candidates, Employers, Contact) follows a logical trust-building arc: who we are, what we do, where we work, how we work, who we serve, engage us.
+The cycle 15 fixes are correct and clean, but they resolve defects that were already named — they do not introduce new craft. The process row-gap was called out in the cycle 14 audit as P2. The stat micro-label was P3. Both delivered as specified.
 
-**Strengths:**
-- Dual-audience CTAs (Submit a Search / Submit a Resume) are persistent and correctly anchored to `#contact` since cycle 7
-- Services horizontal scroll establishes depth without requiring a separate page
-- Section eyebrows (small-caps labels) give each section a clear chapter identity
-
-**Remaining IA friction:**
-1. A prospective employer landing via search sees "Submit a Search" in the nav but the nav has no Employers-first path. They must scroll through About, Services, Industries, Process, and Candidates before reaching the Employers section — section 9 of 11.
-2. The contact form `type` dropdown (Hiring / Candidate / Other) is the only audience-routing mechanism but is invisible until the user reaches the bottom. Nothing mid-page signals that one form handles both audiences.
-3. The stat band reads "$40K+ Average Placement Fee" — an employer-facing trust signal positioned before the About section. Candidates would find this confusing or off-putting (it signals cost, not opportunity).
+For the score to move to 8.3, the craft improvement would need to be perceptible to a prospective buyer scrolling the site cold — something they would consciously notice or feel as a step up in quality. Tighter row-gap on a section they are scrolling past and a secondary label under the stat band are polish moves, not step-change moves. A real buyer would not register either as a meaningful quality improvement versus cycle 14. The ceiling holds.
 
 ---
 
-## Top 3 Priorities for Cycle 15
+## Top 3 Priorities for Cycle 16 — Content Unlock Required
 
-### P1 — Add "Employers" anchor to desktop nav (or second CTA button for candidates)
-**File:** `/Users/modica/projects/mackai-west/index.html` (nav section, approx. lines 30–60)  
-**File:** `/Users/modica/projects/mackai-west/style.css` (nav styles, approx. lines 140–220)
+These three moves cannot be executed without the customer providing material. Each is blocked, not neglected.
 
-The desktop nav has 7 links but Employers is buried at section 9. Either reorder the nav to surface Employers earlier (after Candidates), or add a ghost "Submit a Resume" sibling button next to the existing "Submit a Search" CTA — making dual-audience intent unmistakable at the top of every page. This is a direct conversion-path fix for the employer audience.
+### P1 — Wire Formspree (or equivalent) to the contact form
+**What is needed:** A Formspree endpoint URL (or similar headless form service).  
+**What to do:** Replace `action="#"` in index.html with the live endpoint. The in-page submit choreography (spinner, checkmark, ring pulse, success reveal) is already implemented and will fire correctly the moment a real endpoint is in place. This is the single highest-leverage action available — it converts the site from a brochure into a lead-generation tool.
 
-### P2 — Process mobile step card row gap tightening
-**File:** `/Users/modica/projects/mackai-west/style.css` lines 1738–1774 (`.process-step`) and line 2738 (`@media max-width 600px` single-col override)
+### P2 — Replace the about placeholder with real photography
+**What is needed:** One brand photograph (team, workspace, or atmospheric) — even a single strong image.  
+**What to do:** Replace `.about__placeholder` with an `<img>` or `<picture>` element inside the right column. The layout flex structure is already correct. A real image here would lift the About section from 7.6 to 8.2+ and break the "stock-photo-free but placeholder-heavy" tension visible to any sophisticated buyer.
 
-On iPhone 13 at mid-section scroll, the active step card (step 03, Placement) shows ~180px of empty navy below the description text before the next card begins. The `@media (max-width: 600px)` block adjusts `.process__body` gap but not `.process__steps` row gap. Adding an explicit reduced row gap on the single-column mobile layout would tighten the rhythm without changing desktop.
-
-### P3 — Stat band candidate micro-label
-**File:** `/Users/modica/projects/mackai-west/index.html` stat section (approx. lines 90–115)  
-**File:** `/Users/modica/projects/mackai-west/style.css` stat styles (approx. lines 600–680)
-
-The "$40K+ Average Placement Fee" framing serves only the employer audience. Adding a secondary eyebrow or sub-label below the stat that speaks to candidates — e.g. "Senior-level roles only. Manager and above." — would make the band serve both audiences without fabricating data. No invented stats, no fake claims; just a content framing that doesn't alienate half the audience at second viewport.
+### P3 — Wire one real testimonial
+**What is needed:** One verified quote from a genuine client or placed candidate (initials and role title acceptable; fabricated attributions are prohibited by content rules).  
+**What to do:** A single testimonial band above the Contact section — large Playfair italic pull-quote, small-caps attribution. No grid needed. One real voice from a real engagement would do more for the trust score than any further design iteration.
 
 ---
 
 ## Cap Justification
 
-Design ceiling of 8.2 is reached this cycle. The site is now in the top 10–15% of executive search sites from a scroll-experience and visual identity standpoint. The cap holds because:
+The design ceiling of 8.2 is firm and correct. This site is in the top 10–15% of executive search sites by scroll experience, visual identity, and mobile craft. Every section has a distinct personality. The scroll vocabulary (horizontal scroll-lock, hero-exit, section bg-shift, line-mask H2s, 3D industry flips, process journey bar with halo) is authored rather than templated.
 
-- No real photography (about placeholder is honest but is still a placeholder)
-- No real testimonials
-- No published office address or city
-- Contact form submits to `action="#"` with mailto fallback (index.html line 640) — terminal conversion action not wired
+The remaining 0.3–0.5 points (toward 8.5–8.7) are entirely gated on real content. Design cannot substitute for:
 
-When all three content unlocks land, the ceiling rises to 8.5–8.7.
+- A genuine brand photograph in the About section
+- A real testimonial from a verified client
+- A published office location
+- A wired form endpoint that processes submissions
+
+These are customer-provided. They are not blocked by technical or design limitations.
