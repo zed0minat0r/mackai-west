@@ -111,10 +111,12 @@
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Marker thresholds: each step lights up when fill reaches its position.
-     Steps are at 0/0.33/0.66/0.96 vertical positions (set in sizeBar).
-     Threshold = step position so the marker activates as fill arrives. */
-  var MARKER_THRESHOLDS = [0.0, 0.30, 0.60, 0.90];
+  /* Marker thresholds: with single-column vertical timeline, each step
+     takes 25% of scroll progress. Markers light as their step enters the
+     reading position (just after the previous step scrolls past).
+     Step 1 lights immediately on entry, then each subsequent at 25%
+     intervals. */
+  var MARKER_THRESHOLDS = [0.0, 0.25, 0.50, 0.75];
 
   var LINE_LEN = 800;
   var PIN_TOP  = 80; /* px from viewport top to pin bar */
@@ -135,8 +137,11 @@
     LINE_LEN = barH;
     fillLine.style.strokeDasharray = barH;
 
-    /* Markers evenly distributed along bar height */
-    var positions = [0.0, 0.33, 0.66, 0.96];
+    /* Markers evenly distributed along bar height — match thresholds so the
+       visual position of each marker matches the scroll-progress at which
+       it activates (i.e., the gold fill reaches the marker exactly when
+       its step starts being read). */
+    var positions = [0.0, 0.30, 0.60, 0.92];
     markers.forEach(function (m, i) {
       m.style.top = Math.round(positions[i] * barH) + 'px';
     });

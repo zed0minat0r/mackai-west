@@ -1733,53 +1733,119 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .process .section-title { color: var(--cream); }
 .process .section-title em { color: var(--gold); }
 
+/* Vertical timeline — single column. Each step is a head/content split:
+   left side carries the numeral + title + week-range eyebrow; right side
+   carries the description + 3-point detail list. On mobile the head/content
+   stack vertically. */
 .process__steps {
   list-style: none;
   display: grid;
-  /* B1: 2x2 grid on desktop — steps 01+02 top row, 03+04 bottom row */
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(40px, 4vw, 64px) clamp(32px, 3vw, 48px);
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 5vw, 72px);
   counter-reset: step;
   padding: 0;
   margin: 0;
-  /* flex: 1 and min-width: 0 set in journey-bar block below */
 }
 .process-step {
   position: relative;
-  padding: 32px 0 0;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 2fr;
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(28px, 3vw, 36px) 0 0;
   border-top: 1px solid rgba(245, 240, 230, 0.15);
   border-left: 3px solid transparent;
-  padding-left: clamp(16px, 2vw, 24px);
+  padding-left: clamp(20px, 2.5vw, 32px);
   transition: border-top-color 0.4s ease, border-left-color 0.4s ease;
 }
 
-/* B3: Active step card — gold top + left accent when marker activates */
+/* Active step — gold top + left accent when its marker activates */
 .process-step.is-active {
   border-top-color: var(--gold);
   border-left-color: var(--gold-soft);
 }
+.process-step.is-active .process-step__num {
+  color: var(--gold);
+  opacity: 1;
+}
+.process-step.is-active .process-step__eyebrow {
+  color: var(--gold-soft);
+}
+
+.process-step__head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 .process-step__num {
-  display: block;
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+  font-size: clamp(3rem, 5.5vw, 4.6rem);
   font-weight: 400;
   font-style: italic;
   letter-spacing: -0.02em;
-  color: var(--gold);
-  margin-bottom: 12px;
+  color: var(--gold-soft);
+  opacity: 0.7;
   line-height: 1;
+  transition: color 0.4s ease, opacity 0.4s ease;
 }
 .process-step__title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
   font-weight: 500;
   color: var(--cream);
-  margin-bottom: 12px;
+  margin: 4px 0 0;
+}
+.process-step__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(201, 169, 97, 0.55);
+  margin-top: 8px;
+  transition: color 0.4s ease;
+}
+
+.process-step__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 1.6vw, 20px);
 }
 .process-step__desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(245, 240, 230, 0.78);
+  margin: 0;
+}
+.process-step__points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vw, 14px);
+}
+.process-step__points li {
+  position: relative;
   font-size: 0.95rem;
-  line-height: 1.75;
-  color: rgba(245, 240, 230, 0.7);
+  line-height: 1.6;
+  color: rgba(245, 240, 230, 0.65);
+  padding-left: 22px;
+}
+.process-step__points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 12px;
+  height: 1px;
+  background: rgba(201, 169, 97, 0.55);
+}
+.process-step__points li strong {
+  color: var(--cream);
+  font-weight: 600;
+}
+.process-step.is-active .process-step__points li::before {
+  background: var(--gold);
 }
 
 /* ---- Process: vertical journey bar ---- */
@@ -2720,7 +2786,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .industries__grid { grid-template-columns: 1fr; }
   /* On tablets, ensure cards are tall enough for the flip panel */
   .industry__inner { min-height: 320px; }
-  .process__steps { grid-template-columns: repeat(2, 1fr); }
+  /* Process steps stay single column at tablet — vertical timeline */
+  .process-step { grid-template-columns: 1fr; gap: clamp(20px, 3vw, 32px); }
   .process__journey-bar { width: 36px; }
   .contact__inner { grid-template-columns: 1fr; }
   .footer__inner { grid-template-columns: 1fr; gap: 32px; }
@@ -3031,8 +3098,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .process-step {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: calc(var(--i, 0) * 300ms);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    border-top-color 0.4s ease,
+    border-left-color 0.4s ease;
+  transition-delay: calc(var(--i, 0) * 300ms), calc(var(--i, 0) * 300ms), 0s, 0s;
 }
 
 .process-step.is-revealed {
