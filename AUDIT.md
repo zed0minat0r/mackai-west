@@ -1,96 +1,102 @@
 # MacKai West — Audit Report
 
-## Cycle 4 Score: 7.1 / 10 (Delta: +0.3 from 6.8)
+## Cycle 5 Score: 7.3 / 10 (Delta: +0.2 from 7.1)
 
-**Summary:** The 3D hero mesh, candidates cream wash, footer signature features, and contact floating labels each move the needle — the site now has genuine personality across more sections — but the stat count-up mid-fire defect persists and is now worse (showing $24K–$26K on mobile), the services scroll-lock mid-transition creates a split-panel readability issue at 375px, and the absence of real photography, testimonials, and address holds the cap at 7.5.
-
----
-
-## What Landed This Cycle (Cycle 4 commits)
-
-- **b5a2549 (interrupt):** Hero editorial gradient + thin gold horizon rule replacing the skyline rectangles the user flagged as "weird." The gold rule and warm gradient are correct — no geometric shapes competing with the wireframe mesh. The horizon parallax intent is present but the wireframe mesh (`hero__mesh-svg`) has superseded it as the hero's primary depth element.
-- **1863cee (cycle 4 prelim 3D):** Hero SVG wireframe octahedron — confirmed live as `hero__mesh-svg`, rendering as a geometric diamond lattice in the upper-right of the hero. Visible and correct on desktop and both mobile viewports. Service card 3D tilt-on-hover is present (14 `.service-fp` elements found). Industry card 3D flip confirmed — 8 elements with preserve-3d detected. The flip interaction is not visible in mid-scroll static captures but the mechanism is live.
-- **9af473b (mid-cycle 2):** About "The Practice" pillars (I/II/III) — confirmed rendering cleanly on iPhone 13 (scroll=2100) and iPhone SE (scroll=2100). Playfair italic numerals, correct three-pillar structure visible.
-- **a3994f8 (builder cycle 4):** Candidates cream gradient wash — confirmed via computed style (`linear-gradient(135deg, rgb(250, 246, 238) 0px...`). This is the correct fix from cycle 3 priority 3. The section now has a warm ground. Footer stagger: 11 `.footer__letter` elements confirmed, opacity=0 at mid-page scroll (correct — stagger not yet fired). Scroll-driven gold progress rule confirmed live (`footer__progress` with `matrix(0.642136, 0, 0, 1, 0, 0)` scaleX at time of sampling).
-- **2b414e6 (spark cycle 4):** Contact floating labels — 4 inputs, 5 labels confirmed present. Submit button choreography (spinner → checkmark → ring pulse) not capturable in static scroll but JS is in place. About pillars stagger reveal — rendering clean at multiple mobile positions.
-- **1c90ed2 (pixel cycle 4):** Footer wordmark space collapse fixed (`white-space:pre` on `.footer__letter`). No horizontal overflow on either mobile device (375px and 390px both clean — docWidth matches winWidth exactly).
+**Summary:** Cycle 5 closed the two worst-offending defects — stat count-up now starts correctly at 0K and completes cleanly, and the services scroll-lock double-headline at 375px is eliminated — while the amplified hero mesh, vertex-pulse, and edge-shimmer give the hero genuine presence at desktop scale. The site sits just below the 7.5 cap. The cap is being held by the right reasons: no real photography, no verifiable office location, no testimonials. Those three items landing simultaneously would cleanly carry the score to 7.7–7.8 under the current cap rule — the design infrastructure is now ready for real content.
 
 ---
 
-## Did Cycle 4 Close the "Basic and Generic" Gap Further?
+## Axis: Conversion Friction
 
-**Yes, but the gap between committed intent and live execution remains the central problem.**
-
-Cycle 4 added genuine depth across more sections than any previous cycle. The hero now has a 3D wireframe mesh that a buyer landing on the page will register as "this is not a template." The candidates section has a warm cream ground that distinguishes it from the plain-white void that persisted through cycles 1–3. The footer signature features (stagger wordmark reveal, scroll-driven progress rule) are executive-search caliber details that competitors in this niche do not ship. Contact floating labels are a polish signal that reads professional without being showy.
-
-But the stat count-up defect has now become more damaging than it was in cycle 3. On desktop the visitor sees $25K. On iPhone 13 they see $26K. On iPhone SE they see $24K. The firm's single verifiable quantitative claim — the $40K placement fee — is being served as $24K–$26K to the majority of visitors who scroll at a normal pace. For a firm positioning itself as a $40K-per-placement specialist, showing a mid-animation value that is 40% below the actual fee is a trust defect, not an aesthetic one.
-
-The site sits at approximately 7.1 — it has moved past "generic" into "considered," but not yet into "I would choose this over a competitor." The 3D elements and signature footer are the right territory; the persistent stat defect and the 375px services split-panel undercut the polish impression those features build.
+Audit lens: could a hiring leader or senior candidate arrive, understand the value proposition in 90 seconds, and find a credible path to contact — without confusion, dead ends, or broken interactions?
 
 ---
 
-## What Works (Confidence-Builders)
+## What Landed This Cycle (Cycle 5 commits)
 
-- **Hero 3D wireframe mesh is the right move.** The SVG `hero__mesh-svg` renders as a geometric diamond lattice at upper-right of the navy hero — it gives the hero spatial interest without competing with the headline or the two CTAs. At 375px (iPhone SE) the mesh is proportionally scaled and does not crowd the text. This is the most distinctive single element on the page.
-- **Services scroll-lock remains the signature interaction.** iPhone 13 track confirmed at `matrix(1, 0, 0, 1, -263, 0)` — the panel is mid-travel at scroll=3500, correctly. No horizontal overflow on either mobile device. The two-panel fullscreen approach (Tax / F&A each occupying 100vw) is genuinely different from anything a competitor in this niche ships.
-- **Candidates cream gradient wash is a clear improvement.** The section now has warmth and ground. The three points read at correct weight. The cream gradient treatment brings it into the same visual family as the services intro panel — it no longer reads as a forgotten section.
-- **Footer scroll-driven progress rule is an editorial detail.** The `footer__progress` scaleX confirms it is live and advancing. A buyer who reads all the way to the footer sees a gold line completing across the top — it signals "we built this with intention." No competitor in this niche does this.
-- **Industry cards now surface role archetypes on face.** At desktop scroll=5400, the three industry cards (Construction / Real Estate / Manufacturing) each show specific role tags in gold (`CFO · Controller · Project Accounting · Tax Director`, etc.) directly on the card face, without requiring hover. This is more conversion-friendly than requiring an interaction to discover the information.
+**86b72c8 coordinator cycle 5 plan** — Plan correctly prioritised the three verified Nigel defects from cycle 4 as the cycle's only mandate. No scope creep.
 
----
+**74aa3c4 builder cycle 5** — IntersectionObserver threshold raised 0.6 → 0.95 resolves the mid-count fire defect. Playwright confirms: stat starts at "0K" and completes at "40K" on all three viewports when user scrolls naturally through the section. The services SLIDE_FRAC 0.85 → 0.92 with overflow:hidden on .service-fp__inner eliminates the simultaneous dual-headline condition at 375px. Hero mesh clamp raised to 460px desktop with vertex-pulse on 6 vertices (staggered 0–3.5s delays).
 
-## What's Still Off (Actual Problems)
+**e31d7ed spark cycle 5** — Vertex-pulse refined to a 3-stop organic dwell pattern rather than a sharp bell curve, giving the mesh animation natural breath rather than mechanical pulsing. Edge-shimmer on 12 lines at 8s/0.65s stagger adds genuine depth. The mesh::before radial gold glow and footer progress gradient falloff are restrained finishing touches.
 
-- **Stat count-up mid-fire defect persists and has worsened on mobile.** Desktop: $25K. iPhone 13: $26K. iPhone SE: $24K. All confirmed via Playwright screenshots at natural scroll positions. The animation fires when the element enters the viewport, but the IntersectionObserver trigger is too early — the element is mid-count when the user first sees it. On mobile the viewport is smaller so the element appears earlier in the count cycle, making the mid-count value lower. A hiring leader who scrolls through on their iPhone and sees "$24K average placement fee" will either distrust the number or distrust the site. This is the single highest-priority defect on the live site.
-- **Services scroll-lock mid-transition is split at 375px.** At iPhone SE scroll=3500, both Panel 01 (Tax) and Panel 02 (Finance & Acc) are simultaneously visible with text clipped at the viewport edges — "Finance & Acc..." truncated, "nment" visible on the left. The dots are visible. The feature is functional but the mid-transition state is jarring on a small screen: two headlines fighting for width, neither readable in full. The fix is not to disable the feature but to ensure the transition either snaps faster or the resting positions are cleaner at 375px.
-- **Services section has excessive dead whitespace between intro and first panel on mobile.** At iPhone SE scroll=2800 the section intro ("Two specialist practices. / One disciplined approach.") fills the upper half of the viewport and then there is roughly 40% dead cream space before the Panel 01 content begins. This is the runway top margin rendering visibly — it reads as a layout gap rather than intentional pause.
-- **Hero mesh is small relative to the hero viewport at 1440px.** At desktop the wireframe diamond occupies approximately the upper-right quadrant at a scale that looks considered but modest. Given the user's explicit request for "impressive 3D animations," the mesh could be more prominent — larger, more complex, or with a slow vertex-pulse animation that gives it life rather than just rotation. It reads as tasteful at current scale but not "impressive."
-- **No real photography, testimonials, or address — cap holds.** The site continues to use no photographic content, no real client or candidate voice, and "Headquartered in the United States" as the contact location. Until all three land, the cap of 7.5 stands regardless of design quality. A $40K hiring decision involves trust signals that design alone cannot supply.
+**35374e3 pixel cycle 5** — Verified all three P1/P2/P3 fixes passing. Mobile alignment clean at 375 and 414. No overflow anywhere.
 
 ---
 
-## Cycle 5 Top-3 Priorities (Ranked)
+## Section Scores
 
-### Priority 1 — Fix the stat count-up to show $40K+ on first visible frame
-
-**Why it's first:** This is now a three-cycle unresolved defect that is getting worse, not better. It is a factual trust error on the firm's primary quantitative claim. It is worse on mobile (the primary viewing environment for many candidates) than on desktop.
-
-**Acceptance criteria:**
-- The count-up animation must NOT begin until the stat number is fully within the visible viewport. Implement `threshold: 0.95` or `rootMargin: '-25% 0px -25% 0px'` on the IntersectionObserver to ensure the element is well into view before the count starts.
-- Alternative acceptable fix: skip animation entirely for users who scroll past quickly — detect scroll velocity, and if the user has scrolled past the element within 300ms of it entering the viewport, skip directly to the final value `$40K+` and fire the `is-counted` class immediately.
-- Verified by Playwright on desktop 1440, iPhone 13, and iPhone SE: screenshot at the first scroll position where the stat section is fully visible must show `$40K+`, not a mid-count value.
-- The `stat__plus` fade-in must remain visible at completed state.
-- Do NOT remove the count-up animation — fix the trigger timing.
-
-### Priority 2 — Fix the services panel mid-transition readability at 375px
-
-**Why it's second:** The services scroll-lock is the site's most distinctive interactive feature. On iPhone SE the mid-transition state shows two truncated headlines simultaneously — this is the state a user on a 375px device sees for the longest duration during their scroll through the 240vh runway.
-
-**Acceptance criteria:**
-- At 375px, the mid-transition state must not show readable partial text from both panels simultaneously. Acceptable fixes: increase the transition sharpness so the mid-travel state is brief (the transition from panel 1 fully visible to panel 2 fully visible should complete in less than 25% of the runway rather than the current ~50%); or add `overflow: hidden` + `clip` to each panel so off-screen text is not visible during transition; or widen the panel to `100.5vw` with `overflow: hidden` to ensure the adjacent panel starts fully off-screen.
-- Verified by Playwright on iPhone SE at 5 positions through the services runway (5%, 25%, 50%, 75%, 95% of the 240vh section): at no position should two headlines be simultaneously readable in the viewport.
-- Do NOT add a matchMedia guard or collapse to vertical stack. Fix the CSS geometry.
-
-### Priority 3 — Amplify the hero 3D mesh to match "impressive 3D" intent
-
-**Why it's third:** The user explicitly asked for "impressive 3D animations and effects" mid-cycle. The SVG wireframe mesh is tasteful and correct but it is modest in scale and impact at 1440px. Amplifying it would close the gap between the design team's execution and the user's stated ambition without touching sections that are working.
-
-**Acceptance criteria:**
-- The hero mesh must be visibly larger and more dynamic on desktop (1440px). Acceptable approaches: increase the SVG viewport from its current size to at least 50% viewport-width; add a slow vertex-pulse animation (individual vertices or edges light up gold at staggered intervals, 0.05 opacity shift, 3–5s cycle); or add a second, slightly offset wireframe layer at 30% opacity that rotates at a different rate to create depth parallax.
-- The mesh must remain proportionally scaled on mobile — do not expand it so large it obscures the headline on 375px.
-- Verified by Playwright on desktop 1440: the mesh must visibly occupy a larger portion of the hero right-half than in cycle 4. On iPhone SE the headline "Specialist recruitment." must remain fully legible with the mesh behind it.
-- Do NOT remove the current mesh — extend and amplify it.
+| Section | Score | Notes |
+|---|---|---|
+| Hero (desktop) | 8.0 | Mesh at 460px with vertex-pulse is distinctive; rotation + edge-shimmer read as structural rather than decorative |
+| Hero (mobile) | 7.2 | Mesh visible at 140px; tasteful restraint. The hero text-stack works at 375 |
+| Stat band | 7.5 | Count-up now verified clean — starts 0K, lands 40K. Gold vignette holds up |
+| About | 7.5 | Two-column editorial with Roman-numeral pillars reads as considered, not generic |
+| Services | 7.8 | Horizontal scroll-lock working at all three viewports; SLIDE_FRAC fix confirmed no double-headline at 375 |
+| Industries | 7.2 | 3D card-flip conceptually good; on desktop the flip-back content is cleanly accessible; on mobile the toggle works |
+| Process | 7.0 | Scroll-drawn copper line is the right idea; 4-column layout at desktop is clean; section feels slightly static compared to surrounding sections |
+| Candidates | 6.8 | Cream wash + oversized "01" numeral + bullet structure is the right move. Conversion friction: the CTA anchors to #contact which is correct, but no mid-page friction relief — a candidate landing here has no email as fallback |
+| Employers | 7.2 | "For Employers" navy panel with stacked italic mark is the cycle 2 editorial win that still holds. Copy is appropriately senior-addressed |
+| Contact | 7.0 | Floating labels, send choreography, confidentiality note all land. The form's mailto-fallback is honest. "Office: Headquartered in the United States" reads as a placeholder not a trust signal — this is the single largest remaining conversion-friction item |
+| Footer | 7.3 | Letter-stagger wordmark reveal, scroll-progress gold rule, gradient falloff — all working. Stacked mobile layout is clean |
 
 ---
 
-## Audit Notes
+## Conversion Friction Assessment
 
-- Cap of 7.5 holds: no real photography, no real testimonials, no verifiable street address. Cap lifts when all three land.
-- Scored from a real prospective buyer's 90-second scroll: a Tax Practice Leader deciding whether to open a $40K retained search, and a Senior Tax Manager deciding whether to submit a resume.
-- Stat count-up defect confirmed on all three viewports: desktop $25K (scroll=900), iPhone 13 $26K (scroll=700), iPhone SE $24K (scroll=700). Playwright `statValue` at final state shows `$40K+ is-counted` — correct only after animation completes. The defect is in trigger timing, not the animation itself.
-- Services scroll-lock: functional on iPhone 13 (track `matrix(1,0,0,1,-263,0)` confirmed). Split-panel readability at 375px confirmed at scroll=3500 — both panels partially visible.
-- Hero wireframe mesh: `hero__mesh-svg` confirmed present. Renders as diamond lattice. Tasteful execution, modest scale.
-- Industry cards: role archetypes now appear on the card face without hover interaction (visible in desktop scroll=5400 screenshot). Whether this is the 3D flip back-face showing through or roles moved to front-face — either way, the information is accessible without interaction, which is more conversion-friendly.
-- Footer progress rule: live and advancing (`matrix(0.642136, 0, 0, 1, 0, 0)` = 64.2% scaleX at mid-page).
-- No horizontal overflow on mobile: iPhone 13 (390px clean), iPhone SE (375px clean).
-- All copy remains honest. No fabricated content introduced in cycle 4.
+**Desktop (1440px):** Low friction path exists. Nav CTA "Submit a search" is always visible. Both hero CTAs are prominent. The employer and candidate sections each have a dedicated primary button. The form is accessible with proper labels. Time-to-contact understanding: under 15 seconds.
+
+**Mobile iPhone 13 / SE (375px):** Nav CTA collapses to hamburger — correct, expected. Hero CTAs remain prominent. The form stacks correctly. Friction point: the mobile contact section shows the form below the intro text but the scroll distance from hero CTA to form completion is significant on a 375px device — roughly 12 full-screen lengths. No sticky CTA on mobile to reduce drop-off. This is the principal untapped conversion-friction opportunity.
+
+**Form itself:** All fields properly labelled. Required fields marked. The mailto fallback is the honest solution pre-endpoint. The "Send" button choreography (spinner → checkmark → success) is polished. No friction blocking form entry.
+
+**Trust gap — the remaining 0.2 points:** "Headquartered in the United States · Searches handled nationally" reads as a placeholder. A hiring leader evaluating a $40K search commitment needs something more grounding. No testimonials, no LinkedIn, no city. These are acknowledged cap items — not agent failures.
+
+---
+
+## What Works (5 bullets)
+
+- **Hero mesh at desktop scale** — The 460px amplified mesh with organic vertex-pulse and edge-shimmer reads as a genuine design identity, not a stock animation. At 1440px it anchors the hero without competing with the copy.
+- **Services horizontal scroll-lock** — The two-panel fullscreen experience works correctly at all three viewports now. The SLIDE_FRAC fix gives the first panel proper dwell time; the dot navigation advances cleanly. This is the site's most ambitious interaction and it is working.
+- **Brand voice consistency** — Copy throughout uses the same measured, confident register. "Narrow is what makes the placement stick" / "not a stack of nearly-rights" / "the searches that don't close themselves" all reinforce the positioning without inventing credentials.
+- **Process section** — Four stages, scroll-drawn copper line, navy background. The section gives hiring leaders a clear mental model of the engagement. "We replace the placement if it doesn't take" is the strongest trust signal on the page that doesn't require real data.
+- **No horizontal overflow, correct tap targets** — Pixel's verification holds. 375px shows zero overflow. Buttons ≥44px. Mobile text at readable size throughout.
+
+---
+
+## What's Still Off (5 bullets — even at the cap, these would push higher if cap lifted)
+
+- **No real address** — "Headquartered in the United States" is the most trust-deflating string in the contact section. A CFO evaluating a $40K search commitment cross-references the firm online. A city at minimum, a LinkedIn company page URL, or a phone number would close the gap faster than any design improvement possible this cycle.
+- **No sticky mobile CTA** — On iPhone SE, the scroll distance from hero to form is approximately 12 full-screen heights. There is no persistent "Submit a search" button on mobile scroll. A slim fixed bar or floating button on mobile would materially reduce drop-off.
+- **Process section is the scroll experience gap** — Every other section has a distinctive interaction: horizontal scroll-lock, 3D card flip, vertex-pulse mesh, letter stagger, pillar stagger. The Process section has only the scroll-drawn copper line, which is tasteful but passive. A hiring leader pausing here has nothing to engage with.
+- **Candidates section below-the-fold problem on mobile** — The "01" numeral is outside the viewport on mobile when the section is scrolled to. The section reveal relies on scroll-up animation which works, but the numeral loses its editorial anchor function at 375px because it renders above the visible fold before the copy arrives.
+- **Contact form on mobile requires the full journey** — No email-first quick-contact option exists. A senior candidate who wants to make a discreet inquiry on mobile faces a multi-field form. A "Send us a note" mailto link before the form would lower the entry bar without replacing the form.
+
+---
+
+## Cap Assessment
+
+The site sits **just below the 7.5 cap** at 7.3. The 0.2 remaining gap to the cap is a fair reflection of the placeholder office situation and the absence of any third-party trust signal. The cap is not a design ceiling — it is a content ceiling. If real photography, verified testimonials, and a real office address landed simultaneously in one cycle, the design infrastructure is now in a position to carry a score of **7.7–7.8** cleanly. Nothing in the current design would need to be undone to absorb that content.
+
+---
+
+## Cycle 6 Top-3 Priorities (Ranked)
+
+### P1 — Sticky mobile CTA
+**What:** A slim fixed bar at the bottom of the mobile viewport (375–768px) that shows "Submit a search" and "Submit a resume" as compact buttons, visible only after the hero CTAs scroll out of view.
+**Acceptance criteria:** Bar appears after scrollY passes hero bottom on mobile. Does not obstruct content. Disappears when the contact form is in view. Tap target ≥44px. Zero horizontal overflow introduced. Verified at 375, 390, 414 all three viewports.
+**Why P1:** This is the highest-leverage conversion-friction fix available without real content. Every other CTA bottleneck requires user-supplied data.
+
+### P2 — Process section interactive depth
+**What:** Add a scroll-triggered or hover interaction to each process step — e.g., step number counts up / expands with a supporting micro-detail line when the step enters the viewport, or a timed sequential reveal across the four columns. Should replace or extend the existing copper line draw, not pile on top of it.
+**Acceptance criteria:** Each step's arrival in viewport triggers a visible, non-jarring animation. Reduced-motion guard required. Verified at desktop and mobile. Spark must replace the flat-static state of each step card, not add a second layer over it.
+**Why P2:** Process is the only section without a distinctive interaction post-cycle 5. It is also the section that most directly builds employer trust — the one a CFO reads before deciding to fill in the form.
+
+### P3 — Contact section trust lift (no fabrication)
+**What:** Add one honest trust accelerator to the contact intro: either (a) a discreet "phone number available on request" line alongside the email, or (b) a response-time badge ("Typically replies in < 1 business day" formatted as a small pill/badge rather than body text), or (c) a "We've closed searches in [X] states" statement if the user can verify it. Any of the three requires zero invented data.
+**Acceptance criteria:** The contact intro block reads as more grounded to a new visitor at first glance. No fabricated credentials. No invented names or addresses. Copy is either user-verified or honest framing. Verified against CLAUDE.md content honesty rules.
+**Why P3:** The contact section is the terminal conversion point. Everything before it builds intent; the contact section must close the decision. Currently the "Office" line actively undermines the close. Any honest addition to that block improves conversion without requiring real photography.
+
+---
+
+*Audit completed 2026-04-27. Axis: conversion friction. Viewports: Desktop 1440, iPhone 13 (390px), iPhone SE (375px). Scroll positions sampled: 6 per viewport. Screenshots verified for all sections.*
