@@ -110,8 +110,10 @@
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Marker thresholds as fraction of section scroll progress */
-  var MARKER_THRESHOLDS = [0.0, 0.28, 0.55, 0.80];
+  /* Marker thresholds: each step lights up when fill reaches its position.
+     Steps are at 0/0.33/0.66/0.96 vertical positions (set in sizeBar).
+     Threshold = step position so the marker activates as fill arrives. */
+  var MARKER_THRESHOLDS = [0.0, 0.30, 0.60, 0.90];
 
   var LINE_LEN = 800;
   var PIN_TOP  = 80; /* px from viewport top to pin bar */
@@ -146,32 +148,36 @@
     }
   }
 
+  var rafPending = false;
+
   function update() {
+    rafPending = false;
     if (reducedMotion) return;
+
+    var stepsRect = stepsEl.getBoundingClientRect();
+    var winH      = window.innerHeight;
+    var stepsH    = stepsEl.offsetHeight;
     var sectionRect = section.getBoundingClientRect();
-    var winH        = window.innerHeight;
     var sectionH    = section.offsetHeight;
 
-    /* Scroll progress through section: 0 when top reaches viewport bottom, 1 when bottom exits top */
-    var progress = (winH - sectionRect.top) / (winH + sectionH);
-    progress     = Math.max(0, Math.min(1, progress));
+    /* Progress = how far the steps grid has been scrolled past the bar's pin point.
+       0 when stepsEl.top is at PIN_TOP (steps just arrived at the bar's pinned position).
+       1 when stepsEl.bottom is at PIN_TOP (last step has just scrolled past the bar).
+       Range: PIN_TOP to PIN_TOP - stepsH = -stepsH px of stepsEl.top travel. */
+    var progress = (PIN_TOP - stepsRect.top) / stepsH;
+    progress = Math.max(0, Math.min(1, progress));
 
-    /* translateY to pin bar at PIN_TOP from viewport top while inside section.
-       bar.offsetTop (= barNaturalTop) is relative to .process__body.
-       sectionRect.top = px from viewport top to section top.
-       bar natural viewport position = sectionRect.top + barNaturalTop.
-       To bring bar to PIN_TOP: translate = PIN_TOP - (sectionRect.top + barNaturalTop)
-       Clamp: min 0 (never above natural position), max sectionH - bar.offsetHeight (never below section) */
+    /* translateY pins the bar at PIN_TOP while inside the section */
     var barNatVP  = sectionRect.top + barNaturalTop;
     var rawTY     = PIN_TOP - barNatVP;
-    var maxTY     = sectionH - barNaturalTop - (stepsEl ? stepsEl.offsetHeight : 400);
+    var maxTY     = sectionH - barNaturalTop - stepsH;
     var translate = Math.max(0, Math.min(Math.max(maxTY, 0), rawTY));
     bar.style.transform = 'translateY(' + translate + 'px)';
 
-    /* Fill line */
+    /* Fill line: dashoffset interpolates smoothly via CSS transition */
     fillLine.style.strokeDashoffset = String(LINE_LEN - LINE_LEN * progress);
 
-    /* Activate markers */
+    /* Activate markers based on direct progress comparison */
     markers.forEach(function (m, i) {
       if (progress >= MARKER_THRESHOLDS[i]) {
         m.classList.add('is-active');
@@ -179,6 +185,13 @@
         m.classList.remove('is-active');
       }
     });
+  }
+
+  function onScroll() {
+    if (!rafPending) {
+      rafPending = true;
+      window.requestAnimationFrame(update);
+    }
   }
 
   sizeBar();
@@ -189,7 +202,7 @@
     resizeTimer = setTimeout(sizeBar, 60);
   }, { passive: true });
 
-  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('scroll', onScroll, { passive: true });
 })();
 
 /* ---- Services section: horizontal scroll-lock ---- */

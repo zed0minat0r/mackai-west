@@ -1778,12 +1778,16 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .process__journey-fill {
   stroke: var(--gold);
   stroke-opacity: 1;
-  stroke-width: 2px;
+  stroke-width: 2.5px;
   fill: none;
+  stroke-linecap: round;
   /* dasharray / dashoffset set dynamically by JS */
   stroke-dasharray: 800;
   stroke-dashoffset: 800;
-  transition: stroke-dashoffset 0.08s linear;
+  /* Smoothing transition: catches up to JS-set value over 280ms with
+     ease-out so the fill flows rather than steps. */
+  transition: stroke-dashoffset 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 0 4px rgba(201, 169, 97, 0.35));
 }
 
 /* Marker numerals — positioned absolutely along bar height by JS */
