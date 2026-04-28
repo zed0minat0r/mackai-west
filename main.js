@@ -745,3 +745,78 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   updateProgress();
 })();
+
+/* ============================================
+   HERO-EXIT SCROLL TRANSFORM
+   As hero scrolls away: scale 1→0.92, blur 0→8px, opacity 1→0
+   Applied to .hero__scroll-exit wrapper (one level above .hero__inner
+   so cursor-parallax IIFE on .hero__inner has no conflict).
+   prefers-reduced-motion: skip entirely.
+   ============================================ */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var hero    = document.querySelector('.hero');
+  var exitEl  = document.querySelector('.hero__scroll-exit');
+  if (!hero || !exitEl) return;
+
+  var ticking = false;
+
+  function updateHeroExit() {
+    ticking = false;
+    var scrollY  = window.scrollY;
+    var heroH    = hero.offsetHeight;
+    // progress: 0 at top, 1 when hero is fully scrolled past
+    var progress = Math.min(Math.max(scrollY / heroH, 0), 1);
+
+    if (progress > 0) {
+      var scale   = 1 - (progress * 0.08);          // 1.0 → 0.92
+      var blur    = progress * 8;                    // 0px → 8px
+      var opacity = Math.max(1 - (progress * 1.2), 0); // 1 → 0 (slightly faster)
+      exitEl.style.transform = 'scale(' + scale + ')';
+      exitEl.style.filter    = 'blur(' + blur + 'px)';
+      exitEl.style.opacity   = opacity;
+    } else {
+      exitEl.style.transform = '';
+      exitEl.style.filter    = '';
+      exitEl.style.opacity   = '';
+    }
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeroExit);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  updateHeroExit();
+})();
+
+/* ============================================
+   SECTION BG COLOR SHIFT ON SCROLL
+   IntersectionObserver fires when each section
+   crosses viewport center (rootMargin -45%).
+   body[data-bg] drives CSS color transition.
+   prefers-reduced-motion: CSS handles instant
+   (body transition: none in reduced-motion block).
+   ============================================ */
+(function () {
+  var sections = document.querySelectorAll('[data-section-bg]');
+  if (!sections.length) return;
+
+  // Set initial bg from hero (default navy)
+  document.body.dataset.bg = 'navy';
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var bg = entry.target.getAttribute('data-section-bg');
+        if (bg) document.body.dataset.bg = bg;
+      }
+    });
+  }, { rootMargin: '-45% 0% -45% 0%' });
+
+  sections.forEach(function (s) { observer.observe(s); });
+})();

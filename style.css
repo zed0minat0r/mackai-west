@@ -2758,4 +2758,101 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .process-step { opacity: 1; transform: none; transition: none; }
   /* Sticky CTA: skip slide transition */
   .sticky-cta { transition: none; }
+  /* Section bg shift: instant, no animation */
+  body { transition: none !important; }
 }
+
+/* ============================================
+   FEATURE: SVG GRAIN NOISE OVERLAY
+   feTurbulence grain on hero + navy sections
+   gives printed/analog premium feel.
+   Opacity 0.04 — perceived not decorative.
+   mix-blend-mode:soft-light preserves color.
+   ============================================ */
+/* Hero grain — hero::after is not used elsewhere */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.04;
+  filter: url(#noise-filter);
+  background: white;
+  mix-blend-mode: soft-light;
+}
+
+/* Process grain — process::after is not used elsewhere */
+.process {
+  position: relative;
+}
+.process::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+  filter: url(#noise-filter);
+  background: white;
+  mix-blend-mode: soft-light;
+}
+
+/* Ensure all hero children sit above grain */
+.hero > * { position: relative; z-index: 3; }
+
+/* Process children above grain */
+.process__intro,
+.process__line,
+.process__steps { position: relative; z-index: 1; }
+
+/* Candidate + Employer panels: grain overlay (::after is free on these elements) */
+.candidates__panel,
+.employers__panel {
+  position: relative;
+  overflow: hidden;
+}
+.candidates__panel::after,
+.employers__panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.045;
+  filter: url(#noise-filter);
+  background: white;
+  mix-blend-mode: soft-light;
+}
+/* Panel mark content above grain */
+.candidates__panel-mark,
+.employers__panel-mark { position: relative; z-index: 1; }
+
+/* ============================================
+   FEATURE: HERO-EXIT SCROLL TRANSFORM
+   .hero__scroll-exit wrapper receives JS-driven
+   scale + blur + opacity as hero scrolls away.
+   JS drives this, no CSS transition on the
+   transform/filter/opacity (would fight rAF).
+   ============================================ */
+.hero__scroll-exit {
+  width: 100%;
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+}
+
+/* ============================================
+   FEATURE: SECTION BG COLOR SHIFT
+   body[data-bg] attribute changes per section.
+   700ms cubic-bezier transition — the entire page
+   feels designed as a sequence.
+   prefers-reduced-motion: handled above (instant).
+   ============================================ */
+body {
+  transition: background-color 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-bg="navy"]   { background-color: #0F1B2D; }
+body[data-bg="cream"]  { background-color: #F5F0E6; }
+body[data-bg="cream-2"] { background-color: #EDE8D8; }
+body[data-bg="ink"]    { background-color: #0A1220; }

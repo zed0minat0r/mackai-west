@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="style.min.css?v=cycle11-hero-refresh" />
+  <link rel="stylesheet" href="style.min.css?v=scout-top3" />
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1B2D'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23C9A961' font-family='Georgia,serif' font-size='18' font-weight='600'%3EM%3C/text%3E%3C/svg%3E" />
 </head>
@@ -52,7 +52,7 @@
   <!-- ================================================
        HERO
        ================================================ -->
-  <section class="hero" id="home" aria-label="MacKai West — recruitment built around niche expertise">
+  <section class="hero" id="home" data-section-bg="navy" aria-label="MacKai West — recruitment built around niche expertise">
     <div class="hero__bg" aria-hidden="true"></div>
 
     <!-- Architectural SVG pattern — blueprint draw animation, behind content -->
@@ -131,6 +131,7 @@
       </svg>
     </div>
 
+    <div class="hero__scroll-exit">
     <div class="hero__inner">
       <p class="hero__eyebrow" aria-label="Tax, Public Accounting, Finance and Accounting, Construction, Real Estate, Manufacturing — $40K average fee">
         <span class="hero__eyebrow-word" style="--i:0">Tax</span>
@@ -155,12 +156,13 @@
       <div class="hero__rule" aria-hidden="true"></div>
       <p class="hero__trust">Headhunting senior Tax &amp; Finance &amp; Accounting professionals across the United States.</p>
     </div>
+    </div><!-- /.hero__scroll-exit -->
   </section>
 
   <!-- ================================================
        STAT BAND
        ================================================ -->
-  <section class="stat" aria-label="What we&rsquo;re known for">
+  <section class="stat" data-section-bg="navy" aria-label="What we&rsquo;re known for">
     <div class="stat__inner">
       <p class="stat__eyebrow">Where we lead</p>
       <span class="stat__rule" aria-hidden="true"></span>
@@ -209,7 +211,7 @@
   <!-- ================================================
        ABOUT
        ================================================ -->
-  <section class="about" id="about" aria-label="About MacKai West">
+  <section class="about" id="about" data-section-bg="cream" aria-label="About MacKai West">
     <div class="about__inner">
       <div class="about__copy">
         <p class="section-eyebrow">About the firm</p>
@@ -254,7 +256,7 @@
   <!-- ================================================
        SERVICES — horizontal scroll-lock, two practice panels
        ================================================ -->
-  <section class="services" id="services" aria-label="Our specialist practices">
+  <section class="services" id="services" data-section-bg="navy" aria-label="Our specialist practices">
     <div class="services__intro">
       <p class="section-eyebrow">Practices</p>
       <h2 class="section-title">Two specialist practices.<br /><em>One disciplined approach.</em></h2>
@@ -317,7 +319,7 @@
   <!-- ================================================
        INDUSTRIES
        ================================================ -->
-  <section class="industries" id="industries" aria-label="Industries served">
+  <section class="industries" id="industries" data-section-bg="cream-2" aria-label="Industries served">
     <div class="industries__intro">
       <p class="section-eyebrow">Where we work</p>
       <h2 class="section-title">Three industries we know cold.</h2>
@@ -420,7 +422,7 @@
   <!-- ================================================
        PROCESS
        ================================================ -->
-  <section class="process" id="process" aria-label="How we work">
+  <section class="process" id="process" data-section-bg="navy" aria-label="How we work">
     <div class="process__intro">
       <p class="section-eyebrow">How we work</p>
       <h2 class="section-title">Four stages. <em>No surprises.</em></h2>
@@ -460,7 +462,7 @@
   <!-- ================================================
        CANDIDATES
        ================================================ -->
-  <section class="candidates" id="candidates" aria-label="For candidates">
+  <section class="candidates" id="candidates" data-section-bg="cream" aria-label="For candidates">
     <div class="candidates__inner">
       <div class="candidates__copy reveal-up">
         <p class="section-eyebrow">For candidates</p>
@@ -492,7 +494,7 @@
   <!-- ================================================
        EMPLOYERS
        ================================================ -->
-  <section class="employers" id="employers" aria-label="For employers">
+  <section class="employers" id="employers" data-section-bg="navy" aria-label="For employers">
     <div class="employers__inner">
       <div class="employers__panel" aria-hidden="true">
         <div class="employers__panel-mark">
@@ -524,7 +526,7 @@
   <!-- ================================================
        CONTACT
        ================================================ -->
-  <section class="contact" id="contact" aria-label="Contact MacKai West">
+  <section class="contact" id="contact" data-section-bg="cream-2" aria-label="Contact MacKai West">
     <div class="contact__inner">
       <div class="contact__intro">
         <p class="section-eyebrow">Get in touch</p>
@@ -634,6 +636,14 @@
       <p>&copy; <span id="year">2026</span> MacKai West. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- SVG grain noise filter — referenced by CSS ::after pseudo-elements for premium analog texture -->
+  <svg class="noise-svg" xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <filter id="noise-filter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="4" stitchTiles="stitch" result="noiseOut"/>
+      <feColorMatrix type="saturate" values="0" in="noiseOut"/>
+    </filter>
+  </svg>
 
   <script src="main.js" defer></script>
 </body>
