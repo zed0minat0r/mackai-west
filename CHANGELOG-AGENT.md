@@ -94,3 +94,4 @@
 
 2026-04-28 19:15 pixel — cycle 15: all 10 gates PASS; no fixes needed; P2 row-gap 28px confirmed at 375/390/414, P3 stat__label-aux 13px/centered/rgba(245,240,230,0.55) confirmed all viewports, desktop 2x2 grid intact, markers 14px inactive/22px active+glow, active step gold border synced, sticky barPos=sticky confirmed, inactive hairline rgba(0.15) PASS, gradient gold-deep→gold-soft present, no overflow/tap/font regressions
 2026-04-28 19:45 nigel — focus axis: conversion micro-copy and mobile section rhythm, top issue: design ceiling at 8.2 confirmed — no further moves without Formspree endpoint + real photography + real testimonial (CONVERGENCE declared)
+2026-04-28 20:15 qa — process section 1440+iPhone13+SE; 3 critical bugs found (IO reveal delay ~1s, anchor link/fast-scroll leaves cards invisible permanently, heading reveals before cards creating blank-section flash)
