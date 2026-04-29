@@ -1604,7 +1604,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   transform: rotateY(180deg);
 }
 
-/* Both faces: shared. */
+/* Both faces: shared.
+   Hybrid approach: 3D rotation provides the visual flip animation,
+   AND opacity swaps which face is visible mid-rotation. This way the
+   iOS Safari backface-visibility bug (where the un-rotated back face
+   bleeds through the front) can't manifest — the opposite face is
+   literally invisible. Opacity swap is timed for the rotation midpoint. */
 .industry__face {
   position: absolute;
   inset: 0;
@@ -1612,6 +1617,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   padding: clamp(32px, 3.5vw, 48px) clamp(28px, 3vw, 40px);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  /* Step opacity at 0.35s (the rotation midpoint of 0.7s) so both faces
+     are perpendicular-to-camera at the swap moment — change is invisible. */
+  transition: opacity 0s linear 0.35s;
 }
 
 /* Front face: cream-2 bg, navy text — carries the original card visual */
@@ -1622,6 +1630,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  opacity: 1;
+}
+.industry__inner.is-flipped .industry__face--front {
+  opacity: 0;
 }
 
 /* Back face: navy bg, cream text — pre-rotated 180deg. */
@@ -1629,6 +1641,21 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   background: var(--navy);
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
+  opacity: 0;
+}
+.industry__inner.is-flipped .industry__face--back {
+  opacity: 1;
+}
+
+/* Hover-driven opacity swap — same gates as the hover rotation rule. */
+@media (hover: hover) and (pointer: fine) {
+  body:not(.is-touch-device) .industry:hover .industry__face--front {
+    opacity: 0;
+  }
+  body:not(.is-touch-device) .industry:hover .industry__face--back {
+    opacity: 1;
+  }
+}
   border-top: 2px solid var(--gold);
   display: flex;
   flex-direction: column;
