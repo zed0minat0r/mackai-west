@@ -2322,7 +2322,11 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   gap: clamp(48px, 6vw, 88px);
   align-items: start;
 }
-.contact__intro { max-width: 460px; }
+.contact__intro {
+  max-width: 460px;
+  text-align: center;
+  margin: 0 auto;
+}
 .contact__lede {
   font-size: 1.04rem;
   line-height: 1.75;
@@ -2336,11 +2340,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .contact__details li {
   padding: 18px 0;
   border-bottom: 1px solid var(--hairline);
-  display: grid;
-  grid-template-columns: 88px 1fr;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
   font-size: 0.96rem;
   color: var(--navy);
+  text-align: center;
 }
 .contact__details a { color: var(--navy); border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s; }
 .contact__details a:hover { color: var(--gold-deep); border-bottom-color: var(--gold-deep); }
@@ -2366,8 +2372,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   letter-spacing: 0.03em;
   font-style: italic;
   font-family: var(--font-display);
-  margin-bottom: 28px;
-  width: fit-content;
+  margin: 0 auto 28px;
 }
 .contact__badge-dot {
   width: 8px;
