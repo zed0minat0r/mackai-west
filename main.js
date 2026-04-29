@@ -129,8 +129,8 @@
     rafPending = false;
 
     /* Activate as soon as the card's top edge enters the lower 25% of the
-       viewport — feels like "the card lit up when I started seeing it"
-       instead of "after I'd already read half of it." */
+       viewport. Cards 0..activeIdx are .is-revealed (expanded); only
+       activeIdx itself is .is-active (glow + sweep). */
     var readingY = window.innerHeight * 0.75;
     var activeIdx = -1;
     for (var i = 0; i < stepCards.length; i++) {
@@ -143,7 +143,8 @@
     lastActiveIdx = activeIdx;
 
     for (var j = 0; j < stepCards.length; j++) {
-      stepCards[j].classList.toggle('is-active', j <= activeIdx);
+      stepCards[j].classList.toggle('is-revealed', j <= activeIdx);
+      stepCards[j].classList.toggle('is-active', j === activeIdx);
     }
   }
 

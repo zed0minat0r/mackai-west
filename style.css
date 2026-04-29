@@ -1733,15 +1733,15 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .process .section-title { color: var(--cream); }
 .process .section-title em { color: var(--gold); }
 
-/* Editorial stacked cards. Four numbered cards stack top-to-bottom.
-   Each card: subtle gold-edge panel with a huge italic numeral at top,
-   title + week eyebrow, description, three bullets. No rail, no markers —
-   the numerals carry the journey on their own. */
+/* Editorial stacked cards. Four numbered cards stack top-to-bottom. They
+   start small (numeral + title + week eyebrow only — no description, no
+   bullets) and auto-expand when the user reaches them. The active card
+   carries a gold glow that pulses; once expanded a card stays expanded. */
 .process__steps {
   list-style: none;
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(20px, 2.5vw, 32px);
+  gap: clamp(16px, 2vw, 24px);
   counter-reset: step;
   padding: 0;
   margin: 0;
@@ -1749,28 +1749,110 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   margin-left: auto;
   margin-right: auto;
 }
+
+/* COLLAPSED — default state. Small card, head only, no content. */
 .process-step {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(180px, auto) 1fr;
-  gap: clamp(28px, 4vw, 56px);
-  padding: clamp(32px, 4vw, 48px) clamp(28px, 4vw, 48px);
+  grid-template-columns: minmax(140px, auto) 1fr;
+  gap: clamp(20px, 3vw, 36px);
+  padding: clamp(18px, 2.2vw, 24px) clamp(22px, 3vw, 32px);
   border: 1px solid rgba(245, 240, 230, 0.10);
   border-radius: 2px;
-  transition: border-color 0.3s ease;
+  transition: padding 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.5s ease,
+              box-shadow 0.5s ease;
+}
+.process-step__content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.4s ease;
+}
+.process-step__head {
+  border-right-color: transparent;
+  padding-right: 0;
+  transition: border-right-color 0.5s ease, padding-right 0.5s ease;
+}
+.process-step__num {
+  font-size: clamp(2.6rem, 4.5vw, 3.6rem);
+  transition: font-size 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.5s ease,
+              opacity 0.5s ease,
+              text-shadow 0.5s ease;
 }
 
-/* Active step — only border-color warms; no bg paint, no transitions on
-   children to keep scroll cheap. */
+/* EXPANDED — once a card has been reached (current or past) */
+.process-step.is-revealed {
+  padding: clamp(30px, 4vw, 44px) clamp(28px, 4vw, 44px);
+}
+.process-step.is-revealed .process-step__content {
+  max-height: 600px;
+  opacity: 1;
+}
+.process-step.is-revealed .process-step__head {
+  border-right-color: rgba(245, 240, 230, 0.10);
+  padding-right: clamp(20px, 3vw, 36px);
+}
+.process-step.is-revealed .process-step__num {
+  font-size: clamp(3.6rem, 6.5vw, 5.6rem);
+}
+
+/* ACTIVE — current card. Gold border, pulsing gold halo, lit numeral,
+   gradient sweep on the border once on activation. */
 .process-step.is-active {
-  border-color: rgba(201, 169, 97, 0.45);
+  border-color: rgba(201, 169, 97, 0.5);
+  animation: card-halo-pulse 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 .process-step.is-active .process-step__num {
   color: var(--gold);
   opacity: 1;
+  text-shadow: 0 0 18px rgba(201, 169, 97, 0.45);
 }
 .process-step.is-active .process-step__eyebrow {
   color: var(--gold-soft);
+}
+
+@keyframes card-halo-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(201, 169, 97, 0.18),
+      0 0 26px rgba(201, 169, 97, 0.16),
+      0 0 52px rgba(201, 169, 97, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(201, 169, 97, 0.34),
+      0 0 38px rgba(201, 169, 97, 0.32),
+      0 0 70px rgba(201, 169, 97, 0.18);
+  }
+}
+
+/* Gold gradient sweep across the border, fires once on activation */
+.process-step.is-active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  padding: 1px;
+  background: linear-gradient(110deg,
+    transparent 30%,
+    rgba(201, 169, 97, 0.85) 50%,
+    transparent 70%);
+  background-size: 220% 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: card-border-sweep 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.05s 1;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes card-border-sweep {
+  0%   { background-position: 110% 0; opacity: 0; }
+  18%  { opacity: 1; }
+  82%  { opacity: 1; }
+  100% { background-position: -110% 0; opacity: 0; }
 }
 
 .process-step__head {
@@ -3030,8 +3112,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .hp-stroke { animation-play-state: paused; stroke-dashoffset: 0; opacity: 1; }
   /* Industry flip: no transition, stays static */
   .industry__inner { transition: none; }
-  /* Process step active-state: skip transition under reduced motion */
-  .process-step { transition: none; }
+  /* Process step active-state + expand: instant, no animation */
+  .process-step { transition: none; animation: none; }
+  .process-step__content { transition: none; max-height: none; opacity: 1; }
+  .process-step__head { transition: none; }
+  .process-step__num { transition: none; }
+  .process-step.is-active { animation: none; }
+  .process-step.is-active::after { animation: none; display: none; }
   /* Sticky CTA: skip slide transition */
   .sticky-cta { transition: none; }
   /* Section bg shift: instant, no animation */
