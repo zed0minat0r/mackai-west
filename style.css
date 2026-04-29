@@ -1653,42 +1653,39 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 
 /* Toggle button — bottom right of front face */
-/* Subtle text-link affordance — no heavy pill, no pulse halo. Sits at
-   the bottom of the front face with a small chevron and underline-on-hover.
-   Reads as "this is interactive" without dominating the card. */
+/* Visible "TAP TO FLIP" pill — clear affordance so users immediately
+   see the card is interactive. Magenta-bordered chip, magenta text,
+   small all-caps. Not pulsing (the pulse was distracting), but always
+   visible at full opacity so it can't be missed. */
 .industry__toggle {
   position: absolute;
   bottom: clamp(20px, 2.5vw, 28px);
   right: clamp(20px, 2.5vw, 28px);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 0;
-  border: 0;
-  background: transparent;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--gold);
+  border-radius: 999px;
+  background: var(--cream);
   color: var(--gold);
   font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
   z-index: 3;
+  box-shadow: 0 4px 12px rgba(204, 51, 98, 0.12);
 }
-.industry__toggle::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 2px;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.35;
-  transition: opacity 0.2s ease;
+.industry__toggle:hover,
+.industry__toggle:focus-visible {
+  background: var(--gold);
+  color: var(--cream);
 }
-.industry__toggle:hover::after,
-.industry__toggle:focus-visible::after {
-  opacity: 1;
+.industry__toggle:active {
+  transform: scale(0.96);
 }
 
 .industry__toggle-label {
@@ -1696,8 +1693,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   line-height: 1;
 }
 .industry__chevron {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   display: block;
   transition: transform 0.3s ease;
 }
