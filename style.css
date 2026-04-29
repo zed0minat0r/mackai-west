@@ -2645,7 +2645,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .footer {
   background: var(--ink);
   color: rgba(245, 240, 230, 0.82);
-  padding: 64px 0 28px;
+  padding: 64px 0 12px; /* tightened bottom: 28 → 12 */
   position: relative;
 }
 .footer__inner {
@@ -2722,11 +2722,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .footer__small {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 24px clamp(24px, 5vw, 60px) 0;
+  padding: 16px clamp(24px, 5vw, 60px) 0; /* tightened top: 24 → 16 */
   font-size: 0.78rem;
   color: rgba(245, 240, 230, 0.4);
   letter-spacing: 0.04em;
+  text-align: center; /* center the © line per customer */
 }
+.footer__small p { margin: 0; }
 
 /* ============================================
    FOOTER SIGNATURE FEATURES
