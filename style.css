@@ -2028,9 +2028,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   min-height: 520px;
 }
 
-/* Copy block on paper bg */
+/* Copy block on paper bg — fully centered text per customer request */
 .candidates__copy {
   padding: clamp(80px, 10vw, 140px) clamp(32px, 5vw, 72px);
+  text-align: center;
 }
 
 /* Center the Submit a Resume CTA at the end of the copy column */
@@ -2192,6 +2193,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 /* Employers copy sits on cream-2 */
 .employers__copy {
   padding: clamp(80px, 10vw, 140px) clamp(32px, 5vw, 72px);
+  text-align: center;
 }
 
 /* Center the Open a Search CTA at the end of the copy column — match Candidates */
@@ -2209,12 +2211,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-size: clamp(1.04rem, 1.5vw, 1.16rem);
   line-height: 1.75;
   color: var(--navy);
-  margin-bottom: 28px;
+  margin: 0 auto 28px;
+  max-width: 540px;
 }
 
 .candidates__points, .employers__points {
   list-style: none;
-  margin-bottom: 36px;
+  margin: 0 auto 36px;
+  max-width: 540px; /* keep centered text comfortably readable */
 }
 .candidates__points li, .employers__points li {
   padding: 18px 0;
@@ -2222,20 +2226,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-size: 1rem;
   line-height: 1.65;
   color: var(--slate);
-  position: relative;
-  padding-left: 22px;
+  text-align: center;
 }
 .candidates__points li {
   font-weight: 500;
 }
-.candidates__points li::before, .employers__points li::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 28px;
-  width: 12px;
-  height: 1px;
-  background: var(--gold);
-}
+/* Removed left-anchored gold dash — incompatible with centered text. */
 .candidates__points li strong, .employers__points li strong {
   color: var(--navy);
   font-weight: 600;
