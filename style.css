@@ -2943,7 +2943,23 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     padding-bottom: 18px;
   }
   .contact__inner { grid-template-columns: 1fr; }
-  .footer__inner { grid-template-columns: 1fr; gap: 32px; }
+  /* Footer mobile: stack but tighter, center everything, lay nav links
+     horizontally so they don't take 6 rows of vertical space. */
+  .footer__inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+    justify-items: center;
+  }
+  .footer__brand { display: flex; flex-direction: column; align-items: center; }
+  .footer__tagline { margin: 0 auto; }
+  .footer__nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 18px;
+  }
+  .footer__contact { justify-content: center; }
 }
 
 @media (max-width: 600px) {
@@ -3033,16 +3049,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     padding-bottom: 10px;
   }
 
-  /* ── Footer nav link tap targets ≥44px ── */
-  .footer__nav {
-    gap: 0;
-  }
+  /* Footer nav link tap targets ≥44px wide while staying inline horizontal */
   .footer__nav a {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     min-height: 44px;
-    padding-top: 9px;
-    padding-bottom: 9px;
+    padding: 8px 4px;
   }
 
   /* ── Link-arrow CTA tap targets ≥44px on mobile ── */
