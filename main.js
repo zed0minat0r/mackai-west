@@ -756,10 +756,11 @@
   contactObserver.observe(contactSec);
 })();
 
-/* ---- Process step reveal: fade-up on scroll entry (single-fire) ---- */
+/* ---- Process step reveal: all 4 cards fade up together on section entry ---- */
 (function () {
-  var steps = document.querySelectorAll('.process-step');
-  if (!steps.length) return;
+  var section = document.querySelector('.process');
+  var steps   = document.querySelectorAll('.process-step');
+  if (!section || !steps.length) return;
 
   /* Reduced motion: reveal all immediately */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -770,13 +771,13 @@
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
-        entry.target.classList.add('is-revealed');
+        steps.forEach(function (el) { el.classList.add('is-revealed'); });
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
 
-  steps.forEach(function (el) { observer.observe(el); });
+  observer.observe(section);
 })();
 
 /* ---- Footer: scroll-driven gold progress rule (rAF-throttled) ---- */
