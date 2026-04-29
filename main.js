@@ -774,7 +774,7 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
 
   steps.forEach(function (el) { observer.observe(el); });
 })();

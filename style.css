@@ -3010,13 +3010,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 .process-step {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(20px);
   transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    border-top-color 0.4s ease,
-    border-left-color 0.4s ease;
-  transition-delay: calc(var(--i, 0) * 300ms), calc(var(--i, 0) * 300ms), 0s, 0s;
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease,
+    background 0.4s ease;
 }
 
 .process-step.is-revealed {
