@@ -1583,40 +1583,41 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   width: 100%;
   height: 100%;
   min-height: 340px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
-/* Reveal back face on hover — desktop only. Gated TWICE for robustness
-   against iOS sticky :hover state. */
+/* 3D flip on hover — desktop only. Gated TWICE for robustness against
+   iOS sticky :hover state (the JS .is-flipped class is the touch path). */
 @media (hover: hover) and (pointer: fine) {
-  body:not(.is-touch-device) .industry:hover .industry__face--front {
-    opacity: 0;
-    visibility: hidden;
-  }
-  body:not(.is-touch-device) .industry:hover .industry__face--back {
-    opacity: 1;
-    visibility: visible;
+  body:not(.is-touch-device) .industry:hover .industry__inner {
+    transform: rotateY(180deg);
   }
 }
 
-/* JS-driven flip (mobile tap) — same effect via .is-flipped class */
-.industry__inner.is-flipped .industry__face--front {
-  opacity: 0;
-  visibility: hidden;
-}
-.industry__inner.is-flipped .industry__face--back {
-  opacity: 1;
-  visibility: visible;
+/* JS-driven flip (touch tap) */
+.industry__inner.is-flipped {
+  transform: rotateY(180deg);
 }
 
-/* Both faces: shared layout — opacity crossfade replaces the 3D flip
-   which had iOS-specific backface rendering issues (mirrored text). */
+/* Both faces: shared.
+   The iOS Safari "mirrored text" bug comes from backface-visibility not
+   triggering its own GPU compositing layer. Forcing a layer per face via
+   translateZ + isolation:isolate makes the backface-hide reliable on iOS. */
 .industry__face {
   position: absolute;
   inset: 0;
   border-radius: 4px;
   padding: clamp(32px, 3.5vw, 48px) clamp(28px, 3vw, 40px);
-  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-              visibility 0.45s;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Force GPU compositing layer per face so backface-visibility actually
+     applies on iOS Safari (the real fix for the mirrored-text bug). */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  isolation: isolate;
 }
 
 /* Front face: cream-2 bg, navy text — carries the original card visual */
@@ -1627,17 +1628,16 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  opacity: 1;
-  visibility: visible;
-  z-index: 2;
 }
 
-/* Back face: navy bg, cream text — hidden by default, fades in on flip */
+/* Back face: navy bg, cream text. Pre-rotated 180deg so when the inner
+   flips 180deg, the back face composes to 0deg (un-mirrored). The
+   translate3d on .industry__face above is *appended* to this rotation
+   in the matrix order — both layers force GPU compositing. */
 .industry__face--back {
   background: var(--navy);
-  opacity: 0;
-  visibility: hidden;
-  z-index: 1;
+  transform: rotateY(180deg) translate3d(0, 0, 1px);
+  -webkit-transform: rotateY(180deg) translate3d(0, 0, 1px);
   border-top: 2px solid var(--gold);
   display: flex;
   flex-direction: column;
