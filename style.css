@@ -9,9 +9,12 @@
   --navy-2:      #1A2840;
   --navy-3:      #233553;
   --ink:         #06090F;
-  --gold:        #C9A961;
-  --gold-soft:   #DDB976;
-  --gold-deep:   #A88B45;
+  /* Brand: magenta from the customer's logo (#CC3362). Variable names
+     keep --gold-* for diff-locality with prior cycles, but the values
+     are the magenta-cerise palette derived from the logo. */
+  --gold:        #CC3362;  /* primary brand magenta */
+  --gold-soft:   #E26B8C;  /* softer / hover */
+  --gold-deep:   #A82850;  /* pressed / deep accent */
   --cream:       #F5F0E6;
   --cream-2:     #FAF6EE;
   --paper:       #FFFFFF;
@@ -256,7 +259,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .nav.scrolled {
   background: rgba(15, 27, 45, 0.96);
   backdrop-filter: blur(8px);
-  border-bottom-color: rgba(201, 169, 97, 0.18);
+  border-bottom-color: rgba(204, 51, 98, 0.18);
   box-shadow: 0 6px 24px rgba(6, 9, 15, 0.18);
 }
 
@@ -369,7 +372,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 75% 28%, rgba(201, 169, 97, 0.14), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 75% 28%, rgba(204, 51, 98, 0.14), transparent 55%),
     radial-gradient(ellipse 70% 70% at 22% 82%, rgba(35, 53, 83, 0.55), transparent 60%),
     linear-gradient(180deg, var(--navy) 0%, var(--navy) 55%, var(--ink) 100%);
 }
@@ -441,14 +444,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   transform: translateX(-50%);
   width: clamp(160px, 28vw, 360px);
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201, 169, 97, 0.55) 25%, rgba(201, 169, 97, 0.55) 75%, transparent);
+  background: linear-gradient(to right, transparent, rgba(204, 51, 98, 0.55) 25%, rgba(204, 51, 98, 0.55) 75%, transparent);
 }
 .hero__horizon::after {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 40% 70% at 50% 100%, rgba(201, 169, 97, 0.06), transparent 70%);
+    radial-gradient(ellipse 40% 70% at 50% 100%, rgba(204, 51, 98, 0.06), transparent 70%);
 }
 
 .hero__inner {
@@ -584,7 +587,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   content: '';
   position: absolute;
   inset: -20%;
-  background: radial-gradient(circle, rgba(201, 169, 97, 0.08), transparent 60%);
+  background: radial-gradient(circle, rgba(204, 51, 98, 0.08), transparent 60%);
   pointer-events: none;
   z-index: -1;
 }
@@ -598,13 +601,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   transform-style: preserve-3d;
   will-change: transform;
   /* Stronger glow on amplified mesh */
-  filter: drop-shadow(0 0 8px rgba(201, 169, 97, 0.5));
+  filter: drop-shadow(0 0 8px rgba(204, 51, 98, 0.5));
 }
 
 /* Secondary mesh SVG — slower 40s rotation, different phase start */
 .hero__mesh-svg--secondary {
   animation: mesh-rotate-secondary 40s linear infinite;
-  filter: drop-shadow(0 0 6px rgba(201, 169, 97, 0.35));
+  filter: drop-shadow(0 0 6px rgba(204, 51, 98, 0.35));
 }
 
 @keyframes mesh-rotate-secondary {
@@ -716,7 +719,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: block;
   width: 100%;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201, 169, 97, 0.4) 40%, rgba(201, 169, 97, 0.4) 60%, transparent);
+  background: linear-gradient(to right, transparent, rgba(204, 51, 98, 0.4) 40%, rgba(204, 51, 98, 0.4) 60%, transparent);
   position: absolute;
   top: 0; left: 0;
 }
@@ -810,8 +813,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
    ============================================ */
 .marquee-tape {
   background: var(--navy);
-  border-top: 1px solid rgba(201, 169, 97, 0.35);
-  border-bottom: 1px solid rgba(201, 169, 97, 0.35);
+  border-top: 1px solid rgba(204, 51, 98, 0.35);
+  border-bottom: 1px solid rgba(204, 51, 98, 0.35);
   padding: 18px 0;
   overflow: hidden;
   position: relative;
@@ -839,7 +842,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-size: clamp(0.82rem, 1.1vw, 0.96rem);
   font-weight: 400;
   letter-spacing: 0.18em;
-  color: rgba(201, 169, 97, 0.75);
+  color: rgba(204, 51, 98, 0.75);
   white-space: nowrap;
   padding: 0 2.4em;
 }
@@ -848,7 +851,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .marquee-tape__text::after {
   content: '\00B7';
   margin-left: 2.4em;
-  color: rgba(201, 169, 97, 0.4);
+  color: rgba(204, 51, 98, 0.4);
 }
 
 @keyframes marquee-scroll {
@@ -1009,7 +1012,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 /* ── About placeholder panel (photo forthcoming) ── */
 .about__placeholder {
   background: var(--navy);
-  border: 1px solid rgba(201, 169, 97, 0.3);
+  border: 1px solid rgba(204, 51, 98, 0.3);
   border-radius: 4px;
   padding: clamp(48px, 6vw, 72px) clamp(36px, 4vw, 48px);
   display: flex;
@@ -1032,8 +1035,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-size: clamp(7rem, 14vw, 12rem);
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(201, 169, 97, 0.55);
-  text-stroke: 1px rgba(201, 169, 97, 0.55);
+  -webkit-text-stroke: 1px rgba(204, 51, 98, 0.55);
+  text-stroke: 1px rgba(204, 51, 98, 0.55);
   letter-spacing: -0.04em;
   user-select: none;
   position: relative;
@@ -1065,7 +1068,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(201, 169, 97, 0.4);
+  color: rgba(204, 51, 98, 0.4);
   text-align: center;
 }
 
@@ -1109,7 +1112,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 .practice:hover {
   transform: translateY(-4px);
-  border-color: rgba(201, 169, 97, 0.35);
+  border-color: rgba(204, 51, 98, 0.35);
   box-shadow: 0 30px 60px -30px rgba(15, 27, 45, 0.22);
 }
 .practice__head { margin-bottom: 24px; padding-bottom: 22px; border-bottom: 1px solid var(--hairline); }
@@ -1281,7 +1284,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 .service-fp--navy .service-fp__sub {
   color: var(--gold-soft);
-  border-bottom-color: rgba(201, 169, 97, 0.2);
+  border-bottom-color: rgba(204, 51, 98, 0.2);
 }
 
 /* Lede: comfortable measure, slightly tighter leading */
@@ -1315,7 +1318,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 .service-fp--navy .service-fp__list li {
   color: rgba(245, 240, 230, 0.74);
-  border-top-color: rgba(201, 169, 97, 0.14);
+  border-top-color: rgba(204, 51, 98, 0.14);
 }
 
 .service-fp__list li:first-child { border-top: none; }
@@ -1359,7 +1362,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 /* Gold-edge glow on hover — applied by JS via class or inline style */
 .service-fp__inner.is-tilting {
-  box-shadow: 0 30px 60px -20px rgba(201, 169, 97, 0.18);
+  box-shadow: 0 30px 60px -20px rgba(204, 51, 98, 0.18);
 }
 
 /* On mouseleave — transition back to flat */
@@ -1399,7 +1402,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   left: 0;
   right: 0;
   height: 1px;
-  background: rgba(201, 169, 97, 0.32);
+  background: rgba(204, 51, 98, 0.32);
   transform: translateY(-50%);
   z-index: -1;
 }
@@ -1428,8 +1431,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(201, 169, 97, 0.45);
-  box-shadow: 0 0 0 0 rgba(201, 169, 97, 0);
+  background: rgba(204, 51, 98, 0.45);
+  box-shadow: 0 0 0 0 rgba(204, 51, 98, 0);
   transition:
     background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1445,8 +1448,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   width: 16px;
   height: 16px;
   box-shadow:
-    0 0 0 4px rgba(201, 169, 97, 0.18),
-    0 0 12px 2px rgba(201, 169, 97, 0.5);
+    0 0 0 4px rgba(204, 51, 98, 0.18),
+    0 0 12px 2px rgba(204, 51, 98, 0.5);
 }
 
 /* Pulse ring around active dot — properly centered.
@@ -1464,7 +1467,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 1.5px solid rgba(201, 169, 97, 0.6);
+  border: 1.5px solid rgba(204, 51, 98, 0.6);
   transform: translate(-50%, -50%);
   animation: dot-pulse 2.4s ease-out infinite;
   pointer-events: none;
@@ -1643,7 +1646,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(201, 169, 97, 0.3);
+  border: 1px solid rgba(204, 51, 98, 0.3);
   border-radius: 50%;
   color: var(--gold-deep);
   background: transparent;
@@ -1700,7 +1703,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   line-height: 1.5;
   color: rgba(245, 240, 230, 0.88);
   padding: 10px 0;
-  border-top: 1px solid rgba(201, 169, 97, 0.15);
+  border-top: 1px solid rgba(204, 51, 98, 0.15);
   letter-spacing: 0.01em;
 }
 .industry__expand-list li:first-child {
@@ -1788,14 +1791,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
    from inert → passed → active as the user scrolls. */
 .process-step.is-revealed {
   padding: clamp(30px, 4vw, 44px) clamp(28px, 4vw, 44px);
-  border-color: rgba(201, 169, 97, 0.22);
+  border-color: rgba(204, 51, 98, 0.22);
 }
 .process-step.is-revealed .process-step__content {
   max-height: 600px;
   opacity: 1;
 }
 .process-step.is-revealed .process-step__head {
-  border-right-color: rgba(201, 169, 97, 0.16);
+  border-right-color: rgba(204, 51, 98, 0.16);
   padding-right: clamp(20px, 3vw, 36px);
 }
 .process-step.is-revealed .process-step__num {
@@ -1807,33 +1810,33 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 /* ACTIVE — current card. Full gold border, pulsing gold halo, lit
    numeral, gradient sweep on the border once on activation. */
 .process-step.is-active {
-  border-color: rgba(201, 169, 97, 0.55);
+  border-color: rgba(204, 51, 98, 0.55);
   animation: card-halo-pulse 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 .process-step.is-active .process-step__num {
   color: var(--gold);
   opacity: 1;
-  text-shadow: 0 0 18px rgba(201, 169, 97, 0.45);
+  text-shadow: 0 0 18px rgba(204, 51, 98, 0.45);
 }
 .process-step.is-active .process-step__eyebrow {
   color: var(--gold-soft);
 }
 .process-step.is-active .process-step__head {
-  border-right-color: rgba(201, 169, 97, 0.30);
+  border-right-color: rgba(204, 51, 98, 0.30);
 }
 
 @keyframes card-halo-pulse {
   0%, 100% {
     box-shadow:
-      0 0 0 1px rgba(201, 169, 97, 0.18),
-      0 0 26px rgba(201, 169, 97, 0.16),
-      0 0 52px rgba(201, 169, 97, 0.08);
+      0 0 0 1px rgba(204, 51, 98, 0.18),
+      0 0 26px rgba(204, 51, 98, 0.16),
+      0 0 52px rgba(204, 51, 98, 0.08);
   }
   50% {
     box-shadow:
-      0 0 0 1px rgba(201, 169, 97, 0.34),
-      0 0 38px rgba(201, 169, 97, 0.32),
-      0 0 70px rgba(201, 169, 97, 0.18);
+      0 0 0 1px rgba(204, 51, 98, 0.34),
+      0 0 38px rgba(204, 51, 98, 0.32),
+      0 0 70px rgba(204, 51, 98, 0.18);
   }
 }
 
@@ -1846,7 +1849,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   padding: 1px;
   background: linear-gradient(110deg,
     transparent 30%,
-    rgba(201, 169, 97, 0.85) 50%,
+    rgba(204, 51, 98, 0.85) 50%,
     transparent 70%);
   background-size: 220% 100%;
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -1896,7 +1899,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(201, 169, 97, 0.55);
+  color: rgba(204, 51, 98, 0.55);
   margin-top: 6px;
   transition: color 0.4s ease;
 }
@@ -1934,7 +1937,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   top: 0.7em;
   width: 12px;
   height: 1px;
-  background: rgba(201, 169, 97, 0.55);
+  background: rgba(204, 51, 98, 0.55);
 }
 .process-step__points li strong {
   color: var(--cream);
@@ -1990,7 +1993,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 /* Full-navy editorial panel — gold type on navy, color-twin of Employers but mirrored column position */
 .candidates__panel {
   background: var(--navy);
-  background-image: radial-gradient(circle at 30% 30%, rgba(201, 169, 97, 0.10), transparent 60%);
+  background-image: radial-gradient(circle at 30% 30%, rgba(204, 51, 98, 0.10), transparent 60%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2029,7 +2032,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   letter-spacing: -0.025em;
   display: block;
   margin-top: clamp(2px, 0.6vw, 6px);
-  text-shadow: 0 0 28px rgba(201, 169, 97, 0.22);
+  text-shadow: 0 0 28px rgba(204, 51, 98, 0.22);
 }
 
 .candidates__panel-rule {
@@ -2113,7 +2116,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   letter-spacing: -0.025em;
   display: block;
   margin-top: clamp(2px, 0.6vw, 6px);
-  text-shadow: 0 0 28px rgba(201, 169, 97, 0.25);
+  text-shadow: 0 0 28px rgba(204, 51, 98, 0.25);
 }
 
 .employers__panel-rule {
@@ -2323,9 +2326,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   align-items: center;
   gap: 10px;
   padding: 7px 14px 7px 12px;
-  border: 1px solid rgba(201, 169, 97, 0.28);
+  border: 1px solid rgba(204, 51, 98, 0.28);
   border-radius: 999px;
-  background: rgba(201, 169, 97, 0.06);
+  background: rgba(204, 51, 98, 0.06);
   font-size: 0.82rem;
   color: var(--gold-deep);
   letter-spacing: 0.03em;
@@ -2397,7 +2400,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .form-group textarea:focus {
   outline: none;
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
+  box-shadow: 0 0 0 3px rgba(204, 51, 98, 0.15);
 }
 .form-group textarea { resize: vertical; min-height: 120px; }
 
@@ -2435,7 +2438,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .form-group--float textarea:focus {
   outline: none;
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
+  box-shadow: 0 0 0 3px rgba(204, 51, 98, 0.15);
 }
 
 /* Label: initially sits INSIDE the field (like placeholder text) */
@@ -2510,7 +2513,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .form-group--select select:focus {
   outline: none;
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
+  box-shadow: 0 0 0 3px rgba(204, 51, 98, 0.15);
 }
 /* Custom chevron */
 .form-group--select::after {
@@ -2667,8 +2670,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   background: linear-gradient(
     to right,
     transparent 0%,
-    rgba(201, 169, 97, 0.55) 8%,
-    rgba(201, 169, 97, 0.5) 80%,
+    rgba(204, 51, 98, 0.55) 8%,
+    rgba(204, 51, 98, 0.5) 80%,
     transparent 100%
   );
   transform: scaleX(0);
@@ -2744,7 +2747,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     align-items: stretch;
     gap: 0;
     padding: 16px 24px 32px;
-    border-bottom: 1px solid rgba(201, 169, 97, 0.18);
+    border-bottom: 1px solid rgba(204, 51, 98, 0.18);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-12px);
@@ -2914,8 +2917,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     width: 11px;
     height: 11px;
     box-shadow:
-      0 0 0 3px rgba(201, 169, 97, 0.18),
-      0 0 8px 1px rgba(201, 169, 97, 0.45);
+      0 0 0 3px rgba(204, 51, 98, 0.18),
+      0 0 8px 1px rgba(204, 51, 98, 0.45);
   }
   /* Mobile pulse ring: smaller starting + max sizes to match the
      mobile active dot (11px) and not crowd the timeline. */
@@ -3051,7 +3054,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     background: rgba(15, 27, 45, 0.96);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    border-top: 1px solid rgba(201, 169, 97, 0.32);
+    border-top: 1px solid rgba(204, 51, 98, 0.32);
     box-shadow: 0 -1px 0 0 rgba(169, 130, 60, 0.18);
     transform: translateY(110%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -3090,7 +3093,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .sticky-cta__btn--ghost {
   background: transparent;
   color: var(--cream);
-  border-color: rgba(201, 169, 97, 0.45);
+  border-color: rgba(204, 51, 98, 0.45);
 }
 
 /* Process step reveal removed — cards are visible by default. */
