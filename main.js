@@ -756,29 +756,10 @@
   contactObserver.observe(contactSec);
 })();
 
-/* ---- Process step reveal: all 4 cards fade up together on section entry ---- */
-(function () {
-  var section = document.querySelector('.process');
-  var steps   = document.querySelectorAll('.process-step');
-  if (!section || !steps.length) return;
-
-  /* Reduced motion: reveal all immediately */
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    steps.forEach(function (el) { el.classList.add('is-revealed'); });
-    return;
-  }
-
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        steps.forEach(function (el) { el.classList.add('is-revealed'); });
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
-
-  observer.observe(section);
-})();
+/* Process step reveal removed — cards are visible immediately. The fade-up
+   reveal triggered by an IntersectionObserver was firing too late and felt
+   like the section was "populating slowly." Active-state highlighting on
+   scroll still applies. */
 
 /* ---- Footer: scroll-driven gold progress rule (rAF-throttled) ---- */
 (function () {

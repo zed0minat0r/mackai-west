@@ -1755,16 +1755,15 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   grid-template-columns: minmax(180px, auto) 1fr;
   gap: clamp(28px, 4vw, 56px);
   padding: clamp(32px, 4vw, 48px) clamp(28px, 4vw, 48px);
-  background: rgba(245, 240, 230, 0.025);
   border: 1px solid rgba(245, 240, 230, 0.10);
   border-radius: 2px;
-  transition: border-color 0.4s ease, background 0.4s ease;
+  transition: border-color 0.3s ease;
 }
 
-/* Active step — gold edge + numeral lights up */
+/* Active step — only border-color warms; no bg paint, no transitions on
+   children to keep scroll cheap. */
 .process-step.is-active {
   border-color: rgba(201, 169, 97, 0.45);
-  background: rgba(201, 169, 97, 0.04);
 }
 .process-step.is-active .process-step__num {
   color: var(--gold);
@@ -3004,24 +3003,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   border-color: rgba(201, 169, 97, 0.45);
 }
 
-/* ============================================
-   PROCESS STEP REVEAL — fade-up on scroll entry
-   ============================================ */
-
-.process-step {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.4s ease,
-    background 0.4s ease;
-}
-
-.process-step.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Process step reveal removed — cards are visible by default. */
 
 /* ============================================
    ACCESSIBILITY — reduced motion
@@ -3048,8 +3030,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .hp-stroke { animation-play-state: paused; stroke-dashoffset: 0; opacity: 1; }
   /* Industry flip: no transition, stays static */
   .industry__inner { transition: none; }
-  /* Process step reveal: appear immediately */
-  .process-step { opacity: 1; transform: none; transition: none; }
+  /* Process step active-state: skip transition under reduced motion */
+  .process-step { transition: none; }
   /* Sticky CTA: skip slide transition */
   .sticky-cta { transition: none; }
   /* Section bg shift: instant, no animation */
@@ -3076,20 +3058,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   mix-blend-mode: soft-light;
 }
 
-/* Process grain — process::after is not used elsewhere */
 .process {
   position: relative;
-}
-.process::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.04;
-  filter: url(#noise-filter);
-  background: white;
-  mix-blend-mode: soft-light;
 }
 
 /* Ensure hero content (the in-flow scroll-exit wrapper) sits above grain.
