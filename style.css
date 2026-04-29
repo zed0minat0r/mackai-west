@@ -1759,51 +1759,64 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   padding: clamp(18px, 2.2vw, 24px) clamp(22px, 3vw, 32px);
   border: 1px solid rgba(245, 240, 230, 0.10);
   border-radius: 2px;
-  transition: padding 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.5s ease,
-              box-shadow 0.5s ease;
+  /* Slower, smoother easing on all geometry/color transitions so cards
+     glide between states instead of snapping. */
+  transition: padding 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .process-step__content {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.4s ease;
+  transition: max-height 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.5s ease 0.05s;
 }
 .process-step__head {
   border-right-color: transparent;
   padding-right: 0;
-  transition: border-right-color 0.5s ease, padding-right 0.5s ease;
+  transition: border-right-color 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              padding-right 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .process-step__num {
   font-size: clamp(2.6rem, 4.5vw, 3.6rem);
-  transition: font-size 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-              color 0.5s ease,
-              opacity 0.5s ease,
-              text-shadow 0.5s ease;
+  transition: font-size 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              text-shadow 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.process-step__eyebrow {
+  transition: color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* EXPANDED — once a card has been reached (current or past) */
+/* PASSED — card has been reached but is no longer the current focus.
+   Expanded layout, soft-gold border (warmer than the collapsed cream
+   hairline so previously-active cards don't snap back to inert), no
+   pulsing halo. The "soft gold" creates a visible cascade of warmth
+   from inert → passed → active as the user scrolls. */
 .process-step.is-revealed {
   padding: clamp(30px, 4vw, 44px) clamp(28px, 4vw, 44px);
+  border-color: rgba(201, 169, 97, 0.22);
 }
 .process-step.is-revealed .process-step__content {
   max-height: 600px;
   opacity: 1;
 }
 .process-step.is-revealed .process-step__head {
-  border-right-color: rgba(245, 240, 230, 0.10);
+  border-right-color: rgba(201, 169, 97, 0.16);
   padding-right: clamp(20px, 3vw, 36px);
 }
 .process-step.is-revealed .process-step__num {
   font-size: clamp(3.6rem, 6.5vw, 5.6rem);
+  color: var(--gold-soft);
+  opacity: 0.78;
 }
 
-/* ACTIVE — current card. Gold border, pulsing gold halo, lit numeral,
-   gradient sweep on the border once on activation. */
+/* ACTIVE — current card. Full gold border, pulsing gold halo, lit
+   numeral, gradient sweep on the border once on activation. */
 .process-step.is-active {
-  border-color: rgba(201, 169, 97, 0.5);
-  animation: card-halo-pulse 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border-color: rgba(201, 169, 97, 0.55);
+  animation: card-halo-pulse 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 .process-step.is-active .process-step__num {
   color: var(--gold);
@@ -1812,6 +1825,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 .process-step.is-active .process-step__eyebrow {
   color: var(--gold-soft);
+}
+.process-step.is-active .process-step__head {
+  border-right-color: rgba(201, 169, 97, 0.30);
 }
 
 @keyframes card-halo-pulse {
