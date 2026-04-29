@@ -6,6 +6,18 @@
 
 'use strict';
 
+/* ---- Strip URL hash on direct page load so the page opens at top.
+   If a user lands here from a hash link (e.g. /#process), the browser
+   auto-scrolls to that section. We want fresh loads to always start at
+   the hero. Anchor clicks within the page still work — the smooth-scroll
+   handler below intercepts them and adds the hash on click. */
+(function () {
+  if (location.hash && location.hash !== '#') {
+    history.replaceState(null, '', location.pathname + location.search);
+    window.scrollTo(0, 0);
+  }
+})();
+
 /* ---- Nav: transparent → solid on scroll ---- */
 (function () {
   var nav = document.getElementById('nav');
@@ -111,21 +123,25 @@
 
   var rafPending = false;
 
+  var lastActiveIdx = -2;
+
   function update() {
     rafPending = false;
 
     var readingY = window.innerHeight * 0.4;
     var activeIdx = -1;
-    stepCards.forEach(function (s, i) {
-      var r = s.getBoundingClientRect();
-      if (r.top <= readingY) {
+    for (var i = 0; i < stepCards.length; i++) {
+      if (stepCards[i].getBoundingClientRect().top <= readingY) {
         activeIdx = i;
       }
-    });
+    }
 
-    stepCards.forEach(function (s, i) {
-      s.classList.toggle('is-active', i <= activeIdx);
-    });
+    if (activeIdx === lastActiveIdx) return;
+    lastActiveIdx = activeIdx;
+
+    for (var j = 0; j < stepCards.length; j++) {
+      stepCards[j].classList.toggle('is-active', j <= activeIdx);
+    }
   }
 
   function onScroll() {
