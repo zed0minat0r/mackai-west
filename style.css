@@ -2466,6 +2466,87 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(204, 51, 98, 0.15);
 }
+
+/* PDF resume upload — styled file input.
+   The native file input is visually hidden; the label acts as the
+   clickable button. Selected filename appears next to the CTA. */
+.form-group--file {
+  margin-bottom: 18px;
+}
+.form-group--file input[type="file"] {
+  /* Visually hidden but remains accessible for keyboard / SR */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.form-file-label {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1.5px dashed rgba(204, 51, 98, 0.4);
+  border-radius: 6px;
+  background: rgba(204, 51, 98, 0.03);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+  color: var(--navy) !important;
+  margin-bottom: 0 !important;
+}
+.form-file-label:hover,
+.form-group--file input[type="file"]:focus + .form-file-label,
+.form-group--file:focus-within .form-file-label {
+  border-color: var(--gold);
+  background: rgba(204, 51, 98, 0.07);
+}
+.form-file-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.form-file-icon {
+  flex-shrink: 0;
+}
+.form-file-text {
+  white-space: nowrap;
+}
+.form-file-text .optional {
+  color: var(--slate-2);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-left: 4px;
+  text-transform: none;
+}
+.form-file-name {
+  font-size: 0.86rem;
+  color: var(--slate);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.form-file-name:not(:empty)::before {
+  content: '— ';
+  color: var(--slate-2);
+}
+
 .form-group textarea { resize: vertical; min-height: 120px; }
 
 /* ---- Floating-label form groups ---- */

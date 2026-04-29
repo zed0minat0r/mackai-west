@@ -587,6 +587,22 @@
     form.hidden = true;
   }
 
+  /* PDF resume input — show selected filename next to the CTA */
+  var resumeEl  = form.querySelector('#f-resume');
+  var resumeLbl = form.querySelector('#f-resume-name');
+  if (resumeEl && resumeLbl) {
+    resumeEl.addEventListener('change', function () {
+      var f = resumeEl.files && resumeEl.files[0];
+      if (!f) {
+        resumeLbl.textContent = '';
+        return;
+      }
+      // Truncate filename if very long
+      var name = f.name.length > 36 ? f.name.slice(0, 32) + '…' + f.name.slice(-4) : f.name;
+      resumeLbl.textContent = name;
+    });
+  }
+
   /* Select: mark as having a value so the floating label stays up */
   var selectEl = form.querySelector('#f-type');
   if (selectEl) {
