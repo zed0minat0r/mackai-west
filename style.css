@@ -1587,12 +1587,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Flip on hover — desktop only. Gated by hover-capable + fine-pointer
-   so iOS Safari's sticky :hover state can't compete with the JS .is-flipped
-   toggle on tap. (The flip cards were getting stuck flipped because both
-   rules fired on touch and the hover state lingered after a second tap.) */
+/* Flip on hover — desktop only. Gated TWICE:
+   1. body:not(.is-touch-device) — JS-detected touch flag (most robust)
+   2. @media (hover: hover) and (pointer: fine) — CSS-detected cursor
+   Both gates prevent iOS Safari's sticky :hover from competing with the
+   JS .is-flipped toggle on tap (which was leaving cards stuck mid-flip). */
 @media (hover: hover) and (pointer: fine) {
-  .industry:hover .industry__inner {
+  body:not(.is-touch-device) .industry:hover .industry__inner {
     transform: rotateY(180deg);
   }
 }
