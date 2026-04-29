@@ -1733,35 +1733,38 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .process .section-title { color: var(--cream); }
 .process .section-title em { color: var(--gold); }
 
-/* Vertical timeline — single column. Each step is a head/content split:
-   left side carries the numeral + title + week-range eyebrow; right side
-   carries the description + 3-point detail list. On mobile the head/content
-   stack vertically. */
+/* Editorial stacked cards. Four numbered cards stack top-to-bottom.
+   Each card: subtle gold-edge panel with a huge italic numeral at top,
+   title + week eyebrow, description, three bullets. No rail, no markers —
+   the numerals carry the journey on their own. */
 .process__steps {
   list-style: none;
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(40px, 5vw, 72px);
+  gap: clamp(20px, 2.5vw, 32px);
   counter-reset: step;
   padding: 0;
   margin: 0;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .process-step {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) 2fr;
-  gap: clamp(24px, 4vw, 56px);
-  padding: clamp(28px, 3vw, 36px) 0 0;
-  border-top: 1px solid rgba(245, 240, 230, 0.15);
-  border-left: 3px solid transparent;
-  padding-left: clamp(20px, 2.5vw, 32px);
-  transition: border-top-color 0.4s ease, border-left-color 0.4s ease;
+  grid-template-columns: minmax(180px, auto) 1fr;
+  gap: clamp(28px, 4vw, 56px);
+  padding: clamp(32px, 4vw, 48px) clamp(28px, 4vw, 48px);
+  background: rgba(245, 240, 230, 0.025);
+  border: 1px solid rgba(245, 240, 230, 0.10);
+  border-radius: 2px;
+  transition: border-color 0.4s ease, background 0.4s ease;
 }
 
-/* Active step — gold top + left accent when its marker activates */
+/* Active step — gold edge + numeral lights up */
 .process-step.is-active {
-  border-top-color: var(--gold);
-  border-left-color: var(--gold-soft);
+  border-color: rgba(201, 169, 97, 0.45);
+  background: rgba(201, 169, 97, 0.04);
 }
 .process-step.is-active .process-step__num {
   color: var(--gold);
@@ -1774,25 +1777,29 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .process-step__head {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  border-right: 1px solid rgba(245, 240, 230, 0.10);
+  padding-right: clamp(20px, 3vw, 36px);
 }
 .process-step__num {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 5.5vw, 4.6rem);
+  font-size: clamp(3.6rem, 6.5vw, 5.6rem);
   font-weight: 400;
   font-style: italic;
   letter-spacing: -0.02em;
   color: var(--gold-soft);
-  opacity: 0.7;
-  line-height: 1;
+  opacity: 0.55;
+  line-height: 0.95;
   transition: color 0.4s ease, opacity 0.4s ease;
+  margin-bottom: 4px;
 }
 .process-step__title {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.4vw, 2rem);
   font-weight: 500;
   color: var(--cream);
-  margin: 4px 0 0;
+  margin: 0;
+  line-height: 1.15;
 }
 .process-step__eyebrow {
   font-family: var(--font-body);
@@ -1801,7 +1808,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(201, 169, 97, 0.55);
-  margin-top: 8px;
+  margin-top: 6px;
   transition: color 0.4s ease;
 }
 
@@ -1848,69 +1855,15 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   background: var(--gold);
 }
 
-/* ---- Process: continuous left-rail vertical timeline ----
-   Single editorial rule running down the left of the steps list.
-   Each step head sits beside its dot marker on the rule. As a step enters
-   the reading line, its dot lights gold + halo and its left accent fills. */
-
+/* Body wraps inner — simple max-width container, no flex */
 .process__body {
   position: relative;
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 0 clamp(24px, 5vw, 60px);
 }
-
 .process__inner {
   position: relative;
-}
-
-/* Continuous vertical rail — sits behind the markers, runs full height of
-   the steps list. The rail starts at the top of step 01 and ends at the
-   bottom of step 04. Inactive cream hairline; active step segments
-   override with gold via .process-step border-left. */
-.process__steps {
-  position: relative;
-  /* Indent steps to make room for the rail + marker dot on the left */
-  padding-left: clamp(36px, 4vw, 56px);
-}
-.process__steps::before {
-  content: '';
-  position: absolute;
-  left: clamp(8px, 1vw, 14px);
-  top: 14px; /* drop below first dot's center */
-  bottom: 14px; /* lift above last dot's center */
-  width: 1px;
-  background: rgba(245, 240, 230, 0.18);
-}
-
-/* Marker dot on the rail at each step's head — sits at the top edge of each
-   step card, vertically aligned with the start of the step content. */
-.process-step::before {
-  content: '';
-  position: absolute;
-  left: calc(clamp(36px, 4vw, 56px) * -1 + clamp(2px, 0.5vw, 8px));
-  top: 28px; /* aligns with step head numeral baseline area */
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--navy);
-  border: 1.5px solid rgba(201, 169, 97, 0.5);
-  box-sizing: border-box;
-  z-index: 1;
-  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              border-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Active step: dot grows + lights up with gold halo glow */
-.process-step.is-active::before {
-  width: 18px;
-  height: 18px;
-  top: 26px;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.22),
-              0 0 12px rgba(201, 169, 97, 0.4);
 }
 
 /* ============================================
@@ -2730,8 +2683,17 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .industries__grid { grid-template-columns: 1fr; }
   /* On tablets, ensure cards are tall enough for the flip panel */
   .industry__inner { min-height: 320px; }
-  /* Process steps stay single column at tablet — vertical timeline */
-  .process-step { grid-template-columns: 1fr; gap: clamp(20px, 3vw, 32px); }
+  /* Process step cards collapse to single-column at tablet */
+  .process-step {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .process-step__head {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid rgba(245, 240, 230, 0.10);
+    padding-bottom: 18px;
+  }
   .contact__inner { grid-template-columns: 1fr; }
   .footer__inner { grid-template-columns: 1fr; gap: 32px; }
 }
@@ -2754,24 +2716,21 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .form-footer { flex-direction: column; align-items: stretch; }
   .form-note { max-width: none; }
 
-  /* Tighten step gap + rail indent on mobile */
+  /* Tighten step gap on mobile + stack head/content vertically */
   .process__steps {
     grid-template-columns: 1fr;
-    row-gap: clamp(28px, 6vw, 48px);
-    gap: clamp(28px, 6vw, 48px);
-    padding-left: clamp(24px, 7vw, 36px);
+    gap: clamp(16px, 4vw, 24px);
   }
-  .process__steps::before { left: clamp(6px, 2vw, 10px); }
-  .process-step::before {
-    left: calc(clamp(24px, 7vw, 36px) * -1 + clamp(0px, 1vw, 4px));
-    top: 20px;
-    width: 12px;
-    height: 12px;
+  .process-step {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: clamp(24px, 5vw, 32px);
   }
-  .process-step.is-active::before {
-    width: 16px;
-    height: 16px;
-    top: 18px;
+  .process-step__head {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid rgba(245, 240, 230, 0.10);
+    padding-bottom: 18px;
   }
 
   .contact__details li { grid-template-columns: 1fr; gap: 4px; }
