@@ -285,12 +285,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   line-height: 1.6;
   padding: 12px 0;
 }
-/* Customer's actual logo mark — magenta square with white diagonal slashes */
+/* Customer's actual logo mark — magenta square with white diagonal slashes.
+   Size bumped to 48px so the mark reads as a distinct logo element rather
+   than a small badge. Sharp edges (no border-radius) match the original. */
 .nav__monogram {
   display: inline-block;
-  width: 34px;
-  height: 34px;
-  border-radius: 4px;
+  width: 48px;
+  height: 48px;
   object-fit: cover;
   flex-shrink: 0;
 }
