@@ -94,114 +94,37 @@
   items.forEach(function (el) { observer.observe(el); });
 })();
 
-/* ---- Process section: vertical journey bar (scroll-pinned via translateY) ---- */
+/* ---- Process section: continuous-rail timeline activation ----
+   As each step enters the reading line (40% down the viewport), it +
+   every step before it gets .is-active. CSS handles the dot/halo + left
+   accent transitions. No sticky bar, no SVG fill — single source of truth. */
 (function () {
-  var section  = document.querySelector('.process');
-  var bodyEl   = document.querySelector('.process__body');
-  var bar      = document.querySelector('.process__journey-bar');
-  var svg      = document.querySelector('.process__journey-svg');
-  var baseLine = document.querySelector('.process__journey-base');
-  var fillLine = document.querySelector('.process__journey-fill');
-  var markers   = document.querySelectorAll('.process__journey-marker');
   var stepCards = document.querySelectorAll('.process-step');
-  var stepsEl  = document.querySelector('.process__steps');
-  var innerEl  = document.querySelector('.process__inner');
-
-  if (!section || !bar || !svg || !fillLine || !stepsEl || !innerEl || !bodyEl) return;
+  if (!stepCards.length) return;
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Marker thresholds: with single-column vertical timeline, each step
-     takes 25% of scroll progress. Markers light as their step enters the
-     reading position (just after the previous step scrolls past).
-     Step 1 lights immediately on entry, then each subsequent at 25%
-     intervals. */
-  var MARKER_THRESHOLDS = [0.0, 0.25, 0.50, 0.75];
-
-  var LINE_LEN = 800;
-  var PIN_TOP  = 80; /* px from viewport top to pin bar */
-
-  /* barNaturalTop: bar's top offset in px from section top (set by CSS absolutely) */
-  var barNaturalTop = 0;
-
-  function sizeBar() {
-    /* Bar is now position: sticky with a fixed CSS height. SVG inside
-       sizes to the bar's rendered height. The fill animation runs over
-       the bar's height; the actual progress is computed from the steps
-       grid scroll position. */
-    var barH = bar.offsetHeight;
-
-    svg.setAttribute('viewBox', '0 0 4 ' + barH);
-    baseLine.setAttribute('y2', barH);
-    fillLine.setAttribute('y2', barH);
-    LINE_LEN = barH;
-    fillLine.style.strokeDasharray = barH;
-
-    /* Markers evenly distributed along bar height — match thresholds so the
-       visual position of each marker matches the scroll-progress at which
-       it activates (i.e., the gold fill reaches the marker exactly when
-       its step starts being read). */
-    var positions = [0.0, 0.30, 0.60, 0.92];
-    markers.forEach(function (m, i) {
-      m.style.top = Math.round(positions[i] * barH) + 'px';
-    });
-
-    if (reducedMotion) {
-      fillLine.style.strokeDashoffset = '0';
-      markers.forEach(function (m, i) {
-        m.classList.add('is-active');
-        if (stepCards[i]) { stepCards[i].classList.add('is-active'); }
-      });
-    } else {
-      update();
-    }
+  if (reducedMotion) {
+    stepCards.forEach(function (s) { s.classList.add('is-active'); });
+    return;
   }
 
   var rafPending = false;
 
   function update() {
     rafPending = false;
-    if (reducedMotion) return;
 
-    /* Progress: 0 → 1 across the steps grid scroll travel.
-       0 when stepsEl.top is at the bar's pin point (steps just arriving).
-       1 when stepsEl.bottom is at the bar's pin point (last step scrolling past).
-       The bar itself is position: sticky — browser handles pinning natively;
-       JS only updates the SVG fill + marker activation based on scroll progress. */
-    var stepsRect = stepsEl.getBoundingClientRect();
-    var stepsH    = stepsEl.offsetHeight;
-    var progress  = (PIN_TOP - stepsRect.top) / stepsH;
-    progress = Math.max(0, Math.min(1, progress));
-
-    /* Fill line: dashoffset interpolates smoothly via CSS transition */
-    fillLine.style.strokeDashoffset = String(LINE_LEN - LINE_LEN * progress);
-
-    /* Activate markers based on which step is at the user's reading position.
-       The reading line sits 40% down the viewport — wherever the eye
-       naturally lands. Find the step whose bounding box contains the line
-       (the one being read) AND any step that has scrolled past it. The
-       last activated index = the marker that should be currently "lit." */
     var readingY = window.innerHeight * 0.4;
-    var activeIdx = 0;
+    var activeIdx = -1;
     stepCards.forEach(function (s, i) {
       var r = s.getBoundingClientRect();
-      if (r.top <= readingY && r.bottom >= readingY) {
+      if (r.top <= readingY) {
         activeIdx = i;
-      } else if (r.bottom < readingY) {
-        activeIdx = Math.max(activeIdx, i);
       }
     });
-    /* If we haven't entered the section yet (all steps below reading line),
-       no marker should be active. Detect this and skip activation. */
-    var firstRect = stepCards[0] && stepCards[0].getBoundingClientRect();
-    var entered = firstRect && firstRect.top <= readingY;
 
-    markers.forEach(function (m, i) {
-      var active = entered && i <= activeIdx;
-      m.classList.toggle('is-active', active);
-      if (stepCards[i]) {
-        stepCards[i].classList.toggle('is-active', active);
-      }
+    stepCards.forEach(function (s, i) {
+      s.classList.toggle('is-active', i <= activeIdx);
     });
   }
 
@@ -212,15 +135,9 @@
     }
   }
 
-  sizeBar();
-
-  var resizeTimer;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(sizeBar, 60);
-  }, { passive: true });
-
+  update();
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 })();
 
 /* ---- Services section: horizontal scroll-lock ---- */
