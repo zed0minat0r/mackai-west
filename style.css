@@ -1583,34 +1583,40 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   width: 100%;
   height: 100%;
   min-height: 340px;
-  transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Flip on hover — desktop only. Gated TWICE:
-   1. body:not(.is-touch-device) — JS-detected touch flag (most robust)
-   2. @media (hover: hover) and (pointer: fine) — CSS-detected cursor
-   Both gates prevent iOS Safari's sticky :hover from competing with the
-   JS .is-flipped toggle on tap (which was leaving cards stuck mid-flip). */
+/* Reveal back face on hover — desktop only. Gated TWICE for robustness
+   against iOS sticky :hover state. */
 @media (hover: hover) and (pointer: fine) {
-  body:not(.is-touch-device) .industry:hover .industry__inner {
-    transform: rotateY(180deg);
+  body:not(.is-touch-device) .industry:hover .industry__face--front {
+    opacity: 0;
+    visibility: hidden;
+  }
+  body:not(.is-touch-device) .industry:hover .industry__face--back {
+    opacity: 1;
+    visibility: visible;
   }
 }
 
-/* Flip via JS class (mobile tap) */
-.industry__inner.is-flipped {
-  transform: rotateY(180deg);
+/* JS-driven flip (mobile tap) — same effect via .is-flipped class */
+.industry__inner.is-flipped .industry__face--front {
+  opacity: 0;
+  visibility: hidden;
+}
+.industry__inner.is-flipped .industry__face--back {
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Both faces: shared */
+/* Both faces: shared layout — opacity crossfade replaces the 3D flip
+   which had iOS-specific backface rendering issues (mirrored text). */
 .industry__face {
   position: absolute;
   inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   border-radius: 4px;
   padding: clamp(32px, 3.5vw, 48px) clamp(28px, 3vw, 40px);
+  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.45s;
 }
 
 /* Front face: cream-2 bg, navy text — carries the original card visual */
@@ -1620,14 +1626,18 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   border-top: none;
   display: flex;
   flex-direction: column;
-  position: relative;
   overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
 }
 
-/* Back face: navy bg, cream text — flipped 180deg */
+/* Back face: navy bg, cream text — hidden by default, fades in on flip */
 .industry__face--back {
   background: var(--navy);
-  transform: rotateY(180deg);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
   border-top: 2px solid var(--gold);
   display: flex;
   flex-direction: column;
@@ -1652,52 +1662,42 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 
 /* Toggle button — bottom right of front face */
-/* Toggle is now a clearly-labeled pill with "Tap to flip" — explicit
-   affordance so users know the card is interactive without needing
-   to discover hover state. */
+/* Subtle text-link affordance — no heavy pill, no pulse halo. Sits at
+   the bottom of the front face with a small chevron and underline-on-hover.
+   Reads as "this is interactive" without dominating the card. */
 .industry__toggle {
   position: absolute;
   bottom: clamp(20px, 2.5vw, 28px);
   right: clamp(20px, 2.5vw, 28px);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 36px;
-  padding: 0 14px 0 16px;
-  border: 1px solid var(--gold);
-  border-radius: 999px;
+  gap: 6px;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
   color: var(--gold);
-  background: rgba(204, 51, 98, 0.08);
   font-family: var(--font-body);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   cursor: pointer;
-  /* Visible by default on every device — but subdued so it doesn't fight
-     the card content. Pulses gently to suggest interactivity. */
-  opacity: 0.85;
-  transition: opacity 0.25s ease, background 0.25s ease, transform 0.2s ease;
-  z-index: 2;
-  animation: industry-pulse 2.6s ease-in-out infinite;
+  transition: color 0.2s ease;
+  z-index: 3;
 }
-.industry__toggle:hover,
-.industry__toggle:focus-visible {
+.industry__toggle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+}
+.industry__toggle:hover::after,
+.industry__toggle:focus-visible::after {
   opacity: 1;
-  background: rgba(204, 51, 98, 0.18);
-  animation: none;
-}
-.industry__toggle:active {
-  transform: scale(0.96);
-}
-
-@keyframes industry-pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(204, 51, 98, 0);
-  }
-  50% {
-    box-shadow: 0 0 0 6px rgba(204, 51, 98, 0.18);
-  }
 }
 
 .industry__toggle-label {
@@ -1705,21 +1705,15 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   line-height: 1;
 }
 .industry__chevron {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
-/* When flipped, rotate chevron (toggle is on front-face only — back-face
-   has no toggle since the back is unflipped via card-body tap on mobile or
-   mouse-leave on desktop). */
+/* When flipped, rotate chevron (toggle is on front-face only). */
 .industry__inner.is-flipped .industry__chevron {
   transform: rotate(180deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .industry__toggle { animation: none; }
 }
 
 /* Expand panel eyebrow (back face) */
