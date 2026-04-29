@@ -128,7 +128,10 @@
   function update() {
     rafPending = false;
 
-    var readingY = window.innerHeight * 0.4;
+    /* Activate as soon as the card's top edge enters the lower 25% of the
+       viewport — feels like "the card lit up when I started seeing it"
+       instead of "after I'd already read half of it." */
+    var readingY = window.innerHeight * 0.75;
     var activeIdx = -1;
     for (var i = 0; i < stepCards.length; i++) {
       if (stepCards[i].getBoundingClientRect().top <= readingY) {
