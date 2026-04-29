@@ -1587,9 +1587,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Flip on hover (desktop) */
-.industry:hover .industry__inner {
-  transform: rotateY(180deg);
+/* Flip on hover — desktop only. Gated by hover-capable + fine-pointer
+   so iOS Safari's sticky :hover state can't compete with the JS .is-flipped
+   toggle on tap. (The flip cards were getting stuck flipped because both
+   rules fired on touch and the hover state lingered after a second tap.) */
+@media (hover: hover) and (pointer: fine) {
+  .industry:hover .industry__inner {
+    transform: rotateY(180deg);
+  }
 }
 
 /* Flip via JS class (mobile tap) */
@@ -1733,6 +1738,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   margin: 0 auto clamp(48px, 5vw, 72px);
   padding: 0 clamp(24px, 5vw, 60px);
   text-align: center;
+}
+.process__intro-logo {
+  display: block;
+  width: clamp(48px, 5vw, 64px);
+  height: auto;
+  margin: 0 auto clamp(20px, 2.5vw, 28px);
+  filter: drop-shadow(0 6px 20px rgba(204, 51, 98, 0.3));
 }
 .process .section-title { color: var(--cream); }
 .process .section-title em { color: var(--gold); }
