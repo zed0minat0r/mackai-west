@@ -1858,15 +1858,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   will-change: transform;
 }
 
-/* 3D flip on hover — desktop only. Gated TWICE for robustness against
-   iOS sticky :hover state (the JS .is-flipped class is the touch path). */
-@media (hover: hover) and (pointer: fine) {
-  body:not(.is-touch-device) .industry:hover .industry__inner {
-    transform: rotateY(180deg);
-  }
-}
-
-/* JS-driven flip (touch tap) */
+/* Click-driven flip on all devices — the .is-flipped class added by JS
+   is the single source of truth. The previous desktop :hover flip
+   conflicted with the click toggle (rotation already applied on hover,
+   so the click had no visible effect — user needed two clicks). */
 .industry__inner.is-flipped {
   transform: rotateY(180deg);
 }
@@ -1914,15 +1909,11 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   opacity: 1;
 }
 
-/* Hover-driven opacity swap — same gates as the hover rotation rule. */
-@media (hover: hover) and (pointer: fine) {
-  body:not(.is-touch-device) .industry:hover .industry__face--front {
-    opacity: 0;
-  }
-  body:not(.is-touch-device) .industry:hover .industry__face--back {
-    opacity: 1;
-  }
-}
+/* Inactive face is non-clickable so clicks always go to the visible
+   face (prevents the back face from absorbing clicks while invisible). */
+.industry__face--back { pointer-events: none; }
+.industry__inner.is-flipped .industry__face--back { pointer-events: auto; }
+.industry__inner.is-flipped .industry__face--front { pointer-events: none; }
 
 /* Restore back face's original layout properties (lost in earlier swap) */
 .industry__face--back {

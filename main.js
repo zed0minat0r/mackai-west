@@ -495,13 +495,13 @@
       }
     });
 
-    // On touch devices: tapping the card body (not just the button) also toggles
-    if (isTouch) {
-      card.addEventListener('click', function (e) {
-        if (e.target.closest('.industry__toggle')) return;
-        toggleCard(card);
-      });
-    }
+    // Tap / click anywhere on the card body (not the toggle) also toggles —
+    // applies on all devices now that hover-flip is gone, so users can tap
+    // the back face to flip back to front without finding the (hidden) toggle.
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('.industry__toggle')) return;
+      toggleCard(card);
+    });
   });
 
   // Un-flip all when clicking outside any card
