@@ -1967,8 +1967,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   border-radius: 4px 4px 0 0;
 }
-.industry:hover .industry__face--front::before {
-  transform: scaleX(1);
+@media (hover: hover) and (pointer: fine) {
+  .industry:hover .industry__face--front::before {
+    transform: scaleX(1);
+  }
 }
 
 /* Toggle button — bottom right of front face */
@@ -1998,7 +2000,16 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   z-index: 3;
   box-shadow: 0 4px 12px rgba(204, 51, 98, 0.12);
 }
-.industry__toggle:hover,
+/* Hover styling gated to real-mouse devices ONLY. iOS Safari interprets a
+   first tap as a hover-then-click sequence, so a hover-styled pill required
+   a second tap to actually fire the click. Now :hover never applies on
+   touch — first tap fires click immediately. */
+@media (hover: hover) and (pointer: fine) {
+  .industry__toggle:hover {
+    background: var(--gold);
+    color: var(--cream);
+  }
+}
 .industry__toggle:focus-visible {
   background: var(--gold);
   color: var(--cream);
