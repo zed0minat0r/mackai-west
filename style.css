@@ -1855,7 +1855,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   min-height: 440px;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Snappier than 0.7s; matches the user's expectation of an immediate flip.
+     The opacity face-swap below is timed to the new midpoint (0.25s). */
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   /* will-change hints the browser to keep this on its own GPU
      compositing layer — the real fix for iOS backface-visibility. */
   will-change: transform;
@@ -1882,9 +1884,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   padding: clamp(32px, 3.5vw, 48px) clamp(28px, 3vw, 40px);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  /* Step opacity at 0.35s (the rotation midpoint of 0.7s) so both faces
-     are perpendicular-to-camera at the swap moment — change is invisible. */
-  transition: opacity 0s linear 0.35s;
+  /* Step opacity at the rotation midpoint (0.25s of the 0.5s transition) so
+     both faces are perpendicular to camera at the swap moment — the change
+     is invisible. */
+  transition: opacity 0s linear 0.25s;
+  /* Push each face slightly forward in 3D space — fixes iOS Safari z-fighting
+     between the two faces at edge-on rotation angles. */
+  -webkit-transform: translateZ(0.01px);
+  transform: translateZ(0.01px);
 }
 
 /* Front face: cream-2 bg, navy text — carries the original card visual */
@@ -1904,11 +1911,11 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   opacity: 0;
 }
 
-/* Back face: navy bg, cream text — pre-rotated 180deg. */
+/* Back face: navy bg, cream text — pre-rotated 180deg + translateZ for iOS. */
 .industry__face--back {
   background: var(--navy);
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(0.01px);
+  -webkit-transform: rotateY(180deg) translateZ(0.01px);
   opacity: 0;
 }
 .industry__inner.is-flipped .industry__face--back {
@@ -1927,6 +1934,21 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* "Tap to flip back" hint at the bottom of the back face — gives users an
+   affordance that the card is clickable to return. */
+.industry__back-hint {
+  position: absolute;
+  bottom: clamp(20px, 2.5vw, 28px);
+  right: clamp(20px, 2.5vw, 28px);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  opacity: 0.78;
+  pointer-events: none; /* hint only — card-level click handles the flip */
 }
 
 /* Gold top rule on front face — matches the card's original partial gold rule */
