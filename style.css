@@ -909,7 +909,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(20px, 2.4vw, 32px);
+  gap: clamp(4px, 0.6vw, 10px);
   transform-style: preserve-3d;
   animation: about-hero-logo-float 6s ease-in-out infinite;
 }
@@ -934,7 +934,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .about__hero-logo-name {
   font-family: 'Raleway', system-ui, sans-serif;
   font-weight: 700;
-  font-size: clamp(2.4rem, 4.8vw, 3.8rem);
+  font-size: clamp(2.7rem, 5.4vw, 4.4rem);
   color: var(--navy);
   letter-spacing: 0.005em;
   line-height: 1.05;
@@ -943,10 +943,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-family: 'Raleway', system-ui, sans-serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
   color: var(--gold);
   letter-spacing: 0.04em;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 @keyframes about-hero-logo-float {
   0%, 100% { transform: translateY(0); }
