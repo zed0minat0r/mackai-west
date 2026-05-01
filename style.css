@@ -1934,6 +1934,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Reserve room at the bottom for the "TAP TO FLIP BACK" hint so the
+     last role item doesn't get overlapped. */
+  padding-bottom: clamp(48px, 6vw, 64px);
 }
 
 /* "Tap to flip back" hint at the bottom of the back face — gives users an
