@@ -253,14 +253,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   padding-top: env(safe-area-inset-top, 0px);
   z-index: 100;
   transition: background 0.35s, box-shadow 0.35s, border-color 0.35s;
-  background: var(--navy);
-  border-bottom: 1px solid transparent;
+  background: var(--paper);
+  border-bottom: 1px solid rgba(15, 27, 45, 0.08);
 }
 .nav.scrolled {
-  background: rgba(15, 27, 45, 0.96);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(8px);
-  border-bottom-color: rgba(204, 51, 98, 0.18);
-  box-shadow: 0 6px 24px rgba(6, 9, 15, 0.18);
+  border-bottom-color: rgba(15, 27, 45, 0.12);
+  box-shadow: 0 4px 18px rgba(15, 27, 45, 0.08);
 }
 
 .nav__inner {
@@ -277,7 +277,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  color: var(--cream);
+  color: var(--navy);
   font-family: var(--font-display);
   font-size: 1.18rem;
   font-weight: 500;
@@ -323,7 +323,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(245, 240, 230, 0.80);
+  color: rgba(15, 27, 45, 0.78);
   position: relative;
   padding: 6px 2px;
   transition: color 0.2s;
@@ -339,7 +339,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   transform-origin: left;
   transition: transform 0.3s ease;
 }
-.nav__links a:hover { color: var(--cream); }
+.nav__links a:hover { color: var(--navy); }
 .nav__links a:hover::after { transform: scaleX(1) translateX(var(--mag-x, 0px)); }
 
 .nav__cta { display: flex; align-items: center; }
@@ -357,7 +357,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: block;
   width: 24px;
   height: 1.5px;
-  background: var(--cream);
+  background: var(--navy);
   transition: transform 0.3s, opacity 0.3s;
 }
 .nav__hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
@@ -3156,12 +3156,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     position: fixed;
     top: var(--nav-h);
     left: 0; right: 0;
-    background: var(--navy);
+    background: var(--paper);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     padding: 16px 24px 32px;
-    border-bottom: 1px solid rgba(204, 51, 98, 0.18);
+    border-bottom: 1px solid rgba(15, 27, 45, 0.12);
+    box-shadow: 0 12px 24px rgba(15, 27, 45, 0.08);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-12px);
@@ -3177,7 +3178,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   }
   .nav__links a {
     padding: 14px 0;
-    border-bottom: 1px solid rgba(245, 240, 230, 0.08);
+    border-bottom: 1px solid rgba(15, 27, 45, 0.08);
   }
   .nav__links a::after { display: none; }
 
