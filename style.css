@@ -1193,6 +1193,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 .team__portrait {
   position: relative;
+  width: 100%;
   margin: 0 0 22px;
   aspect-ratio: 3 / 4;
   background: var(--paper);
@@ -1302,7 +1303,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     max-width: 320px;
     margin: 0 auto;
   }
-  .team__portrait { max-width: 280px; margin-left: auto; margin-right: auto; margin-bottom: 18px; }
+  .team__portrait { max-width: 320px; margin: 0 auto 18px; }
   .team__meta { text-align: center; }
   .team__role { justify-content: center; }
   .team__numeral { text-align: center; }
