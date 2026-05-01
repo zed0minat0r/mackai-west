@@ -303,7 +303,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 .nav__wordmark { line-height: 1.2; display: inline-block; }
 .nav__wordmark-tag {
-  font-family: var(--font-display);
+  font-family: 'Raleway', system-ui, sans-serif;
   font-style: italic;
   font-weight: 400;
   font-size: 0.85rem;
@@ -3131,12 +3131,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   margin-bottom: 2px;
 }
 .footer__sublabel {
-  font-family: var(--font-display);
+  font-family: 'Raleway', system-ui, sans-serif;
   font-style: italic;
   font-weight: 400;
   font-size: 1.05rem;
   color: var(--gold);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   margin-bottom: 12px;
 }
 .footer__tagline {
