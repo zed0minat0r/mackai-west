@@ -303,12 +303,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 .nav__wordmark { line-height: 1.2; display: inline-block; }
 .nav__wordmark-tag {
-  font-family: 'Raleway', system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 0.7rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.85rem;
   color: var(--gold);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   opacity: 0.95;
 }
 
