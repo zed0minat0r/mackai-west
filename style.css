@@ -276,10 +276,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .nav__brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 7px;
   color: var(--navy);
   font-family: 'Raleway', system-ui, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.28rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.6;
@@ -306,7 +306,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-family: 'Raleway', system-ui, sans-serif;
   font-style: italic;
   font-weight: 400;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--gold);
   letter-spacing: 0.01em;
   opacity: 0.95;
