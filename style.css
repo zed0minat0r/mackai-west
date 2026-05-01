@@ -278,9 +278,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   align-items: center;
   gap: 12px;
   color: var(--navy);
-  font-family: var(--font-display);
+  font-family: 'Raleway', system-ui, sans-serif;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.6;
   padding: 8px 0;
@@ -303,13 +303,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 .nav__wordmark { line-height: 1.2; display: inline-block; }
 .nav__wordmark-tag {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.72rem;
+  font-family: 'Raleway', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.7rem;
   color: var(--gold);
-  letter-spacing: 0.06em;
-  opacity: 0.9;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.95;
 }
 
 .nav__links {
@@ -3029,10 +3029,11 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   border-bottom: 1px solid rgba(245, 240, 230, 0.08);
 }
 .footer__wordmark {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 500;
+  font-family: 'Raleway', system-ui, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
   color: var(--cream);
+  letter-spacing: 0.01em;
   margin-bottom: 2px;
 }
 .footer__sublabel {
