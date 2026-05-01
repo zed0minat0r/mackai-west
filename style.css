@@ -1231,6 +1231,21 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   transform: scale(1.04);
 }
 
+/* Matted variant — for headshots whose source already crops tight to the
+   face. Background fills the frame with a wall-cream tone; image scales
+   down inside so it reads as a print sitting on a matte. */
+.team__card--matted .team__portrait {
+  background: #ECE6D5;
+}
+.team__card--matted .team__portrait img {
+  transform: scale(0.78);
+  transform-origin: center 22%;
+}
+.team__card--matted:hover .team__portrait img {
+  transform: scale(0.81);
+  transform-origin: center 22%;
+}
+
 /* Magenta diagonal corner accent — pulls from the logo's parallel slashes. */
 .team__corner {
   position: absolute;
