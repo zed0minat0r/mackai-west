@@ -1082,21 +1082,61 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 
 /* ============================================
-   TEAM — 4-card grid of named partners + roles
+   TEAM — editorial roster gallery
+   Portrait photos with roman-numeral pagination, magenta corner
+   accents, and a subtle diagonal-stripe section backdrop that
+   echoes the logo motif.
    ============================================ */
 .team {
   padding: var(--section-pad) 0;
   background: var(--cream-2);
   position: relative;
+  overflow: hidden;
+}
+.team::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    -28deg,
+    transparent 0,
+    transparent 38px,
+    rgba(15, 27, 45, 0.025) 38px,
+    rgba(15, 27, 45, 0.025) 39px,
+    transparent 39px,
+    transparent 96px
+  );
+  z-index: 0;
+}
+.team::after {
+  content: '';
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: clamp(140px, 16vh, 200px);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(204, 51, 98, 0.18) 24%,
+    rgba(204, 51, 98, 0.32) 50%,
+    rgba(204, 51, 98, 0.18) 76%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 .team__inner {
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 0 clamp(24px, 5vw, 60px);
+  position: relative;
+  z-index: 1;
 }
 .team__header {
   text-align: center;
-  margin-bottom: clamp(48px, 6vw, 72px);
+  margin-bottom: clamp(56px, 7vw, 88px);
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
@@ -1110,110 +1150,174 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   margin: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(20px, 2.6vw, 36px);
+  gap: clamp(28px, 3.4vw, 56px);
+  align-items: end;
 }
 .team__card {
-  background: var(--paper);
-  border: 1px solid rgba(15, 27, 45, 0.08);
-  border-radius: 4px;
-  padding: clamp(28px, 3vw, 40px) clamp(20px, 2.4vw, 28px) clamp(28px, 3vw, 36px);
-  text-align: center;
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.4s ease,
-              border-color 0.3s ease;
-  position: relative;
+  padding: 0;
+  background: transparent;
+  border: none;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.team__card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--gold);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+/* Alternating editorial offset — every other card sits 28px lower so the row
+   reads like a newspaper masthead rather than a flat grid. */
+.team__card:nth-child(2n) {
+  transform: translateY(28px);
 }
 .team__card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 32px -16px rgba(15, 27, 45, 0.18);
-  border-color: rgba(204, 51, 98, 0.22);
+  transform: translateY(-6px);
 }
-.team__card:hover::before {
-  transform: scaleX(1);
+.team__card:nth-child(2n):hover {
+  transform: translateY(22px);
 }
-.team__avatar {
-  width: clamp(72px, 8vw, 96px);
-  height: clamp(72px, 8vw, 96px);
-  border-radius: 50%;
-  background: var(--cream);
-  border: 1.5px solid rgba(204, 51, 98, 0.28);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 22px;
-  position: relative;
-  transition: border-color 0.3s ease, background 0.3s ease;
-}
-.team__avatar span {
+
+.team__numeral {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(1.3rem, 1.8vw, 1.6rem);
-  font-weight: 500;
-  color: var(--navy);
-  letter-spacing: 0.02em;
-  line-height: 1;
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-deep);
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  display: block;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, letter-spacing 0.4s ease;
 }
-/* Photo variant — img fills the circle, faces stay in view via object-position */
-.team__avatar--photo {
-  overflow: hidden;
+.team__card:hover .team__numeral {
+  opacity: 1;
+  letter-spacing: 0.18em;
+}
+
+.team__portrait {
+  position: relative;
+  margin: 0 0 22px;
+  aspect-ratio: 3 / 4;
   background: var(--paper);
-  padding: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 18px 40px -22px rgba(15, 27, 45, 0.28);
+  transition: box-shadow 0.45s ease;
 }
-.team__avatar--photo img {
+.team__portrait img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 22%;
+  object-position: 50% 18%;
   display: block;
-  border-radius: 50%;
-  filter: grayscale(0.04) contrast(1.02);
-  transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: grayscale(0.06) contrast(1.02);
+  transition: filter 0.55s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.team__card:hover .team__avatar--photo img {
+.team__card:hover .team__portrait {
+  box-shadow: 0 24px 56px -22px rgba(15, 27, 45, 0.42);
+}
+.team__card:hover .team__portrait img {
   filter: grayscale(0) contrast(1.04);
   transform: scale(1.04);
 }
-.team__card:hover .team__avatar {
-  border-color: var(--gold);
-  background: var(--paper);
+
+/* Magenta diagonal corner accent — pulls from the logo's parallel slashes. */
+.team__corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 56px;
+  height: 56px;
+  pointer-events: none;
+  background: linear-gradient(
+    225deg,
+    var(--gold) 0%,
+    var(--gold) 44%,
+    transparent 44.5%
+  );
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.4s ease;
+  opacity: 0.92;
+}
+.team__card:hover .team__corner {
+  width: 76px;
+  height: 76px;
+  opacity: 1;
+}
+
+.team__meta {
+  padding: 0 2px;
 }
 .team__name {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(1.18rem, 1.45vw, 1.32rem);
+  font-size: clamp(1.32rem, 1.6vw, 1.55rem);
   font-weight: 500;
   color: var(--navy);
-  letter-spacing: -0.005em;
-  margin: 0 0 6px;
-  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+.team__name em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--navy);
 }
 .team__role {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--gold-deep);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   margin: 0;
   line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.team__role-rule {
+  flex-shrink: 0;
+  width: 24px;
+  height: 1.5px;
+  background: var(--gold);
+  display: inline-block;
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.team__card:hover .team__role-rule {
+  width: 36px;
 }
 
 @media (max-width: 900px) {
-  .team__grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .team__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(20px, 4vw, 32px);
+    align-items: start;
+  }
+  .team__card:nth-child(2n) { transform: translateY(0); }
+  .team__card:hover,
+  .team__card:nth-child(2n):hover { transform: translateY(-4px); }
+  .team__corner { width: 44px; height: 44px; }
 }
 @media (max-width: 540px) {
-  .team__grid { grid-template-columns: 1fr; gap: 16px; max-width: 360px; margin: 0 auto; }
-  .team__card { padding: 28px 24px; }
+  .team__grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .team__portrait { max-width: 280px; margin-left: auto; margin-right: auto; margin-bottom: 18px; }
+  .team__meta { text-align: center; }
+  .team__role { justify-content: center; }
+  .team__numeral { text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team__card,
+  .team__card:nth-child(2n),
+  .team__portrait,
+  .team__portrait img,
+  .team__corner,
+  .team__role-rule,
+  .team__numeral {
+    transition: none !important;
+  }
 }
 
 /* ============================================
