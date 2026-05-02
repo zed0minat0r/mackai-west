@@ -1167,30 +1167,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   overflow: hidden;
 }
 
-/* Large logo mark — the customer's actual logo at editorial scale,
-   sitting prominently in the about-section's right-column placeholder. */
-.about__placeholder-logo {
-  width: clamp(160px, 18vw, 240px);
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 6px 28px rgba(204, 51, 98, 0.28));
-  user-select: none;
-  position: relative;
-}
-.about__placeholder-logo + .about__placeholder-caption {
-  margin-top: 28px;
-  position: relative;
-}
-.about__placeholder-logo + .about__placeholder-caption::before {
-  content: '';
-  display: block;
-  width: clamp(48px, 6vw, 72px);
-  height: 1px;
-  background: var(--gold);
-  opacity: 0.5;
-  margin: 0 auto 20px;
-}
-
+/* Caption + location wordmark in the about-section right-column placeholder.
+   The logo image was removed (now lives at hero scale at the top of the
+   section); a small magenta hairline above the caption stands in for the
+   decorative break the logo used to provide. */
 .about__placeholder-caption {
   font-family: var(--font-display);
   font-style: italic;
@@ -1198,6 +1178,16 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   font-size: 0.88rem;
   letter-spacing: 0.04em;
   text-align: center;
+  position: relative;
+}
+.about__placeholder-caption::before {
+  content: '';
+  display: block;
+  width: clamp(48px, 6vw, 72px);
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+  margin: 0 auto 20px;
 }
 
 .about__placeholder-location {
