@@ -2773,9 +2773,13 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   align-items: start;
 }
 .contact__intro {
-  max-width: 460px;
-  text-align: center;
+  max-width: 560px;
   margin: 0 auto;
+}
+.contact__intro .section-title {
+  /* Slightly smaller than the global 4rem cap so "Tell us about the search."
+     wraps to a clean 2 lines max instead of 3–4 in the constrained column. */
+  font-size: clamp(2.2rem, 3.6vw, 3.1rem);
 }
 .contact__lede {
   font-size: 1.04rem;
