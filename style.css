@@ -3368,7 +3368,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
     border-bottom: 1px solid rgba(245, 240, 230, 0.10);
     padding-bottom: 18px;
   }
-  .contact__inner { grid-template-columns: 1fr; }
+  .contact__inner { grid-template-columns: minmax(0, 1fr); }
   /* Footer mobile: stack but tighter, center everything, lay nav links
      horizontally so they don't take 6 rows of vertical space. */
   .footer__inner {
