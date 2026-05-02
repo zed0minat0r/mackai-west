@@ -347,7 +347,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .nav__links a:hover { color: var(--navy); }
 .nav__links a:hover::after { transform: scaleX(1) translateX(var(--mag-x, 0px)); }
 
-.nav__cta { display: flex; align-items: center; }
+.nav__cta { display: flex; align-items: center; flex-shrink: 0; }
+.nav__cta .btn { white-space: nowrap; }
 
 .nav__hamburger {
   display: none;
