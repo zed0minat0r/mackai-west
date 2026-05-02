@@ -2098,7 +2098,8 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
+  padding: 12px 16px;
+  min-height: 44px; /* Apple HIG / WCAG tap target */
   border: 1.5px solid var(--gold);
   border-radius: 999px;
   background: var(--cream);
@@ -2765,11 +2766,14 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .contact__intro {
   max-width: 560px;
   margin: 0 auto;
+  width: 100%;
 }
 .contact__intro .section-title {
-  /* Slightly smaller than the global 4rem cap so "Tell us about the search."
-     wraps to a clean 2 lines max instead of 3–4 in the constrained column. */
-  font-size: clamp(2.2rem, 3.6vw, 3.1rem);
+  /* Tighter min size so "Tell us about the search." fits at iPhone SE
+     widths without spilling past the inner padding. Same upper bound. */
+  font-size: clamp(1.85rem, 6.4vw, 3.1rem);
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 .contact__lede {
   font-size: 1.04rem;
