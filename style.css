@@ -301,7 +301,11 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   line-height: 1;
   gap: 2px;
 }
-.nav__wordmark { line-height: 1.2; display: inline-block; }
+.nav__wordmark {
+  line-height: 1.2;
+  display: inline-block;
+  white-space: nowrap; /* keep "MacKai West" on one line so the 3-line stack fits in 72px nav */
+}
 .nav__wordmark-tag {
   font-family: 'Raleway', system-ui, sans-serif;
   font-style: italic;
