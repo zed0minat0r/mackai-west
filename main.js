@@ -182,11 +182,11 @@
   }
 
   /* Stepped scroll-lock: each panel dwells for DWELL_FRAC of its segment
-     of the scroll budget, then transitions to the next. Reads as
-     "lock on panel for ~2s, slide to next panel, lock again, slide..."
-     instead of a continuous linear pan. Matches the craft-site Process
-     pattern the user referenced. */
-  var DWELL_FRAC = 0.6; // 60% of each segment dwells; 40% transitions
+     of the scroll budget, then transitions snappily to the next. The
+     CSS transition on .services-track smooths the actual transform so
+     the partial-panel mid-state isn't visible long enough to look
+     broken — panels effectively "snap" with a brief eased glide. */
+  var DWELL_FRAC = 0.92; // 92% dwell, 8% transition (very snappy)
 
   var rafPending = false;
 

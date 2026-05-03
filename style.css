@@ -1596,13 +1596,19 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .services-sticky { height: 100vh; }
 }
 
-/* Track: horizontal flex row, animated via JS translate3d */
+/* Track: horizontal flex row, animated via JS translate3d.
+   CSS transition smooths the JS-snapped transform so users see a brief
+   eased glide between panels instead of a long visible mid-transition. */
 .services-track {
   display: flex;
   flex-direction: row;
   height: 100%;
   width: max-content;
   will-change: transform;
+  transition: transform 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .services-track { transition: none; }
 }
 
 /* Full-viewport panels */
