@@ -1809,12 +1809,19 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: absolute;
   top: clamp(110px, 18vh, 168px);
   left: 50%;
-  transform: translateX(-50%);
+  /* Anchor the dot row's left edge near the panel content's left edge so
+     the active dot sits visually above the panel number/title rather than
+     drifting toward the role list on the right. translateX shifts it by
+     half the inner content max-width minus a margin. */
+  transform: translateX(-540px);
   display: flex;
   align-items: center;
   gap: clamp(28px, 5vw, 56px);
   z-index: 10;
   padding: 0 clamp(14px, 3vw, 20px);
+}
+@media (max-width: 1100px) {
+  .services-dots { transform: translateX(-50%); }
 }
 
 /* Hairline connector behind the dots — full width of the dots row */
