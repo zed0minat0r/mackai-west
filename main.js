@@ -669,7 +669,7 @@
         'Message:',
         (message ? message.value : '')
       ].join('\n');
-      var mailto = 'mailto:hello@mackaiwest.com?subject=' + subject + '&body=' + encodeURIComponent(body);
+      var mailto = 'mailto:twpark@udel.edu?subject=' + subject + '&body=' + encodeURIComponent(body);
 
       runButtonChoreography(function () {
         success.hidden = false;
