@@ -1630,9 +1630,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 /* Practice title — tighter leading for display size */
 .service-fp__title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-size: clamp(2.6rem, 5.6vw, 4.4rem);
   font-weight: 500;
-  line-height: 1.06;
+  line-height: 1.04;
   color: var(--navy);
   letter-spacing: -0.018em;
   margin-bottom: 4px;
@@ -1661,7 +1661,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 /* Lede: comfortable measure, slightly tighter leading */
 .service-fp__lede {
-  font-size: clamp(0.98rem, 1.35vw, 1.06rem);
+  font-size: clamp(1.05rem, 1.5vw, 1.18rem);
   line-height: 1.65;
   color: var(--navy);
   margin-bottom: 16px;
@@ -1681,9 +1681,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 .service-fp__list li {
   position: relative;
-  padding: 8px 0 8px 26px;
-  font-size: 0.93rem;
-  line-height: 1.4;
+  padding: 12px 0 12px 28px;
+  font-size: 1.02rem;
+  line-height: 1.45;
   color: var(--slate);
   border-top: 1px solid var(--hairline);
 }
@@ -1758,19 +1758,12 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: absolute;
   top: clamp(110px, 18vh, 168px);
   left: 50%;
-  /* Anchor the dot row's left edge near the panel content's left edge so
-     the active dot sits visually above the panel number/title rather than
-     drifting toward the role list on the right. translateX shifts it by
-     half the inner content max-width minus a margin. */
-  transform: translateX(-540px);
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: clamp(28px, 5vw, 56px);
   z-index: 10;
   padding: 0 clamp(14px, 3vw, 20px);
-}
-@media (max-width: 1100px) {
-  .services-dots { transform: translateX(-50%); }
 }
 
 /* Hairline connector behind the dots — full width of the dots row */
