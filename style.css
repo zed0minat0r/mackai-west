@@ -475,7 +475,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: relative;
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 80px clamp(24px, 5vw, 60px);
+  padding: 48px clamp(24px, 5vw, 60px);
   width: 100%;
   /* Cursor parallax: preserve 3D + smooth spring transition */
   transform-style: preserve-3d;
@@ -488,7 +488,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 28px;
+  margin-bottom: 22px;
   opacity: 0;
   animation: hero-fade 0.9s ease-out 0.15s forwards;
   /* Ticker: contain absolutely-positioned word spans */
@@ -519,11 +519,11 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
 .hero__title {
   font-family: var(--font-display);
-  font-size: clamp(3.2rem, 9vw, 7.4rem);
+  font-size: clamp(2.8rem, 6.6vw, 5.8rem);
   font-weight: 500;
-  line-height: 1.05;
+  line-height: 1.04;
   letter-spacing: -0.022em;
-  margin-bottom: 28px;
+  margin-bottom: 22px;
   max-width: 960px;
   color: var(--cream);
   opacity: 0;
@@ -536,11 +536,11 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 
 .hero__sub {
-  font-size: clamp(1.04rem, 1.5vw, 1.18rem);
-  line-height: 1.7;
+  font-size: clamp(1.0rem, 1.4vw, 1.12rem);
+  line-height: 1.65;
   max-width: 640px;
   color: rgba(245, 240, 230, 0.82);
-  margin-bottom: 36px;
+  margin-bottom: 28px;
   opacity: 0;
   animation: hero-fade 1s ease-out 0.45s forwards;
 }
@@ -549,7 +549,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 56px;
+  margin-bottom: 36px;
   opacity: 0;
   animation: hero-fade 1s ease-out 0.6s forwards;
 }
