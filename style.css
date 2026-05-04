@@ -1149,57 +1149,6 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   .about__seal { display: none; }
 }
 
-/* ── About placeholder panel (photo forthcoming) ── */
-.about__placeholder {
-  background: var(--navy);
-  border: 1px solid rgba(204, 51, 98, 0.3);
-  border-radius: 4px;
-  padding: clamp(48px, 6vw, 72px) clamp(36px, 4vw, 48px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-grow: 1;
-  min-height: clamp(420px, 56vh, 620px);
-  margin-top: clamp(32px, 4vw, 48px);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Caption + location wordmark in the about-section right-column placeholder.
-   The logo image was removed (now lives at hero scale at the top of the
-   section); a small magenta hairline above the caption stands in for the
-   decorative break the logo used to provide. */
-.about__placeholder-caption {
-  font-family: var(--font-display);
-  font-style: italic;
-  color: rgba(245, 240, 230, 0.5);
-  font-size: 0.88rem;
-  letter-spacing: 0.04em;
-  text-align: center;
-  position: relative;
-}
-.about__placeholder-caption::before {
-  content: '';
-  display: block;
-  width: clamp(48px, 6vw, 72px);
-  height: 1px;
-  background: var(--gold);
-  opacity: 0.5;
-  margin: 0 auto 20px;
-}
-
-.about__placeholder-location {
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(204, 51, 98, 0.4);
-  text-align: center;
-}
-
 /* ============================================
    TEAM — editorial roster gallery
    Portrait photos with roman-numeral pagination, magenta corner
@@ -1894,23 +1843,27 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 16px;
-  height: 16px;
+  /* Use a fixed render size + scale transform so translate(-50%, -50%)
+     stays attached to the ring at every animation frame. The previous
+     width/height animation was being interpreted as a scale by the
+     compositor, which dropped the static translate and left the ring
+     visibly offset from the dot's center. */
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   border: 1.5px solid rgba(204, 51, 98, 0.6);
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.286);
   animation: dot-pulse 2.4s ease-out infinite;
   pointer-events: none;
   box-sizing: border-box;
   opacity: 0;
 }
 @keyframes dot-pulse {
-  /* Loop seam at 0/100% has opacity 0 BOTH ends so the cycle restart is
-     invisible — eliminates the "glitchy snap" the user saw when the
-     fully-expanded faded ring instantly reset to a small high-opacity ring. */
-  0%   { width: 16px; height: 16px; opacity: 0;   }
-  12%  { width: 20px; height: 20px; opacity: 0.7; }
-  100% { width: 56px; height: 56px; opacity: 0;   }
+  /* Translate is explicitly carried through every keyframe so the ring
+     stays centered on the dot — the scale value is what animates. */
+  0%   { transform: translate(-50%, -50%) scale(0.286); opacity: 0;   }
+  12%  { transform: translate(-50%, -50%) scale(0.357); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(1);     opacity: 0;   }
 }
 @media (prefers-reduced-motion: reduce) {
   .services-dot.is-active::before { animation: none; opacity: 0; }
@@ -3386,7 +3339,6 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 
   .about__inner { grid-template-columns: 1fr; }
   .about__pillars { max-width: 640px; flex-grow: 0; }
-  .about__placeholder { display: none; }
 
   .services__grid { grid-template-columns: 1fr; }
   .industries__grid { grid-template-columns: 1fr; }
@@ -3549,17 +3501,18 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
       0 0 0 3px rgba(204, 51, 98, 0.18),
       0 0 8px 1px rgba(204, 51, 98, 0.45);
   }
-  /* Mobile pulse ring: smaller starting + max sizes to match the
-     mobile active dot (11px) and not crowd the timeline. */
+  /* Mobile pulse ring: scale-based to match the desktop fix (translate
+     stays attached to the ring). Render at 36px and scale-down to start. */
   .services-dot.is-active::before {
-    width: 11px;
-    height: 11px;
+    width: 36px;
+    height: 36px;
     animation-name: dot-pulse-mobile;
+    transform: translate(-50%, -50%) scale(0.306);
   }
   @keyframes dot-pulse-mobile {
-    0%   { width: 11px; height: 11px; opacity: 0;   }
-    12%  { width: 14px; height: 14px; opacity: 0.7; }
-    100% { width: 36px; height: 36px; opacity: 0;   }
+    0%   { transform: translate(-50%, -50%) scale(0.306); opacity: 0;   }
+    12%  { transform: translate(-50%, -50%) scale(0.389); opacity: 0.7; }
+    100% { transform: translate(-50%, -50%) scale(1);     opacity: 0;   }
   }
 
   /* ── Services scroll-lock: mobile panel content sizing ── */
