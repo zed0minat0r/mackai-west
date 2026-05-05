@@ -3186,8 +3186,9 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 }
 .footer__nav {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px 28px;
 }
 .footer__nav a {
   font-size: 0.86rem;
