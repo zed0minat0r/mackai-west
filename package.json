@@ -1,0 +1,25 @@
+{
+  "name": "mackai-west",
+  "version": "1.0.0",
+  "description": "Specialist recruitment for Tax and Finance & Accounting. Single-page corporate site.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zed0minat0r/mackai-west.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/zed0minat0r/mackai-west/issues"
+  },
+  "homepage": "https://github.com/zed0minat0r/mackai-west#readme",
+  "dependencies": {
+    "resend": "^6.12.2",
+    "sharp": "^0.34.5"
+  }
+}

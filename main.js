@@ -655,33 +655,54 @@
       return;
     }
 
-    // Mailto fallback until a real endpoint is wired
-    var action = form.getAttribute('action') || '';
-    if (action === '#' || action === '' || action.indexOf('PLACEHOLDER') !== -1) {
-      e.preventDefault();
-      var subject = encodeURIComponent('MacKai West — ' + (type.value === 'employer' ? 'New search inquiry' : type.value === 'candidate' ? 'Candidate introduction' : 'Inquiry'));
-      var body = [
-        'Name: '    + (name    ? name.value    : ''),
-        'Email: '   + (email   ? email.value   : ''),
-        'Phone: '   + (phone   ? phone.value   : ''),
-        'Type: '    + (type    ? type.value    : ''),
-        '',
-        'Message:',
-        (message ? message.value : '')
-      ].join('\n');
-      var mailto = 'mailto:twpark@udel.edu?subject=' + subject + '&body=' + encodeURIComponent(body);
+    e.preventDefault();
 
-      runButtonChoreography(function () {
-        success.hidden = false;
-        form.hidden = true;
-        window.open(mailto, '_blank');
+    var payload = {
+      name:    name    ? name.value    : '',
+      email:   email   ? email.value   : '',
+      phone:   phone   ? phone.value   : '',
+      type:    type    ? type.value    : '',
+      message: message ? message.value : ''
+    };
+
+    var resumeFile = form.querySelector('#f-resume');
+    var fileReady = Promise.resolve();
+
+    if (resumeFile && resumeFile.files && resumeFile.files[0]) {
+      fileReady = new Promise(function (resolve) {
+        var reader = new FileReader();
+        reader.onload = function () {
+          payload.file = reader.result.split(',')[1];
+          payload.fileName = resumeFile.files[0].name;
+          resolve();
+        };
+        reader.readAsDataURL(resumeFile.files[0]);
       });
-      return;
     }
 
-    runButtonChoreography(function () {
-      btn.classList.add('is-loading');
-      btn.disabled = true;
+    fileReady.then(function () {
+      runButtonChoreography(function () {
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(function (res) {
+          if (res.ok) {
+            success.hidden = false;
+            form.hidden = true;
+          } else {
+            alert('Something went wrong. Please email twpark@udel.edu directly.');
+            btn.classList.remove('is-submitting', 'is-success');
+            btn.disabled = false;
+          }
+        })
+        .catch(function () {
+          alert('Something went wrong. Please email twpark@udel.edu directly.');
+          btn.classList.remove('is-submitting', 'is-success');
+          btn.disabled = false;
+        });
+      });
     });
   });
 })();
