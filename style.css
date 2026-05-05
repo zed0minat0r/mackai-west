@@ -2970,7 +2970,10 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   width: 100%;
   font-family: var(--font-body);
   font-size: 1rem;
-  padding: 22px 14px 8px;
+  /* 28px top padding clears the floated label (which sits at top:6px and is
+     ~20px tall once uppercased + tracked). Anything less and typed text
+     visually overlaps the bottom of the label. */
+  padding: 28px 14px 10px;
   border: 1px solid var(--hairline-2);
   border-radius: 4px;
   background: var(--paper);
@@ -2995,7 +2998,7 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
 .form-group--float label {
   position: absolute;
   left: 14px;
-  top: 15px;
+  top: 18px;
   font-size: 0.88rem;
   font-weight: 500;
   letter-spacing: 0.04em;
