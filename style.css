@@ -2987,6 +2987,20 @@ button { cursor: pointer; font-family: var(--font-body); border: none; backgroun
   resize: vertical;
   min-height: 130px;
 }
+/* Textarea floated label: keep on one line, slightly tighter so the long
+   "Tell us about the search or your background" tracking doesn't spill
+   to a second line and overlap typed content. */
+.form-group--textarea label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 28px);
+}
+.form-group--textarea textarea:focus ~ label,
+.form-group--textarea textarea:not(:placeholder-shown) ~ label {
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+}
 .form-group--float input:focus,
 .form-group--float textarea:focus {
   outline: none;
