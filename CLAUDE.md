@@ -53,7 +53,7 @@ The page references `style.min.css` in production. Editing `style.css` without r
 - Two parallel CTAs throughout: **"Submit a search"** (employer) and **"Submit a resume"** (candidate)
 - Hero shows both. Nav shows the primary employer CTA only on desktop. Candidates and Employers sections each have a dedicated CTA.
 - Contact form accepts both audiences via the `type` dropdown
-- All form submissions currently mailto-fallback to `hello@mackaiwest.com` until a real endpoint is wired
+- All form submissions currently mailto-fallback to `tyler@mackaiwest.com` until a real endpoint is wired
 
 ## Agent loop behavior
 
